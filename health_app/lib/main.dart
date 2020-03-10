@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:health_app/app.dart';
+import 'package:health_app/enhancedLogin.dart';
 
-void main() => runApp(App());
+void main() => runApp(MaterialApp(
+  debugShowCheckedModeBanner: false,
+  home: EnhancedLogin(),
+));
