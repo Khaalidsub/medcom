@@ -27,9 +27,9 @@ class BottomNavigation extends StatelessWidget {
           title: Text('Profile'),
         ),
       ],
-      backgroundColor: Colors.teal[300],
+      backgroundColor: Color(0xffFFFEDE),
       currentIndex: 0,
-      selectedItemColor: Theme.of(context).selectedRowColor,
+      selectedItemColor: Color(0xffE6E5BF),
       onTap: null,
     );
   }
