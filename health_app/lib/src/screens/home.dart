@@ -1,58 +1,84 @@
 import 'package:flutter/material.dart';
+import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/bottom_navigation.dart';
+import 'package:health_app/src/screens/widgets/chart.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  final Widget child;
+
+  Home({Key key, this.child}) : super(key: key);
+
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  void initState() {
+    super.initState();
+    // TODO: implement initState
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Container(
-              child: Column(
+      appBar: AppNav(
+        appBar: AppBar(),
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Notification',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
-                    decoration: BoxDecoration(
-                      color: Colors.tealAccent,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      'LATEST HOSPITALS',
-                      style: TextStyle(
-                        color: Colors.white,
+                    height: 120,
+                    width: 120,
+                    child: Card(
+                      color: Color(0xffFFC4C4),
+                      child: Icon(
+                        FontAwesomeIcons.algolia,
+                        size: 50,
                       ),
                     ),
                   ),
                   Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.amber, width: 3),
-                      borderRadius: BorderRadius.circular(25),
+                    height: 120,
+                    width: 120,
+                    child: Card(
+                      color: Color(0xffF5DD9C),
+                      child: Icon(
+                        FontAwesomeIcons.alipay,
+                        size: 50,
+                      ),
                     ),
-                    height: 250,
-                    margin: EdgeInsets.only(left: 50, right: 50, bottom: 70),
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: ListView.builder(
-                      itemCount: 5,
-                      padding: EdgeInsets.symmetric(horizontal: 2),
-                      itemBuilder: (BuildContext context, int index) {
-                        return RaisedButton(
-                          onPressed: () => null,
-                          child: Text('Hospital $index'),
-                          color: Colors.teal,
-                          textColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        );
-                      },
+                  ),
+                  Container(
+                    height: 120,
+                    width: 120,
+                    child: Card(
+                      color: Color(0xff8DDEDE),
+                      child: Icon(
+                        FontAwesomeIcons.adversal,
+                        size: 50,
+                      ),
                     ),
-                  )
+                  ),
                 ],
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigation(),
