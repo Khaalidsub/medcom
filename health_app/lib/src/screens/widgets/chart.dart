@@ -44,7 +44,7 @@ class _ChartsState extends State<Charts> {
         data: data1,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
         fillColorFn: (Pollution pollution, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xffFFC4C4)),
+            charts.ColorUtil.fromDartColor(Color(0xff990099)),
       ),
     );
 
@@ -56,7 +56,7 @@ class _ChartsState extends State<Charts> {
         data: data2,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
         fillColorFn: (Pollution pollution, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xffF5DD9C)),
+            charts.ColorUtil.fromDartColor(Color(0xff109618)),
       ),
     );
 
@@ -68,7 +68,7 @@ class _ChartsState extends State<Charts> {
         data: data3,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
         fillColorFn: (Pollution pollution, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xff8DDEDE)),
+            charts.ColorUtil.fromDartColor(Color(0xffff9900)),
       ),
     );
 
@@ -96,47 +96,40 @@ class _ChartsState extends State<Charts> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
-      margin: EdgeInsets.all(0),
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: PageView(
-          children: <Widget>[
-            charts.BarChart(
-              _seriesData,
-              animate: true,
-              barGroupingType: charts.BarGroupingType.grouped,
-              behaviors: [charts.SeriesLegend()],
-              animationDuration: Duration(seconds: 5),
-            ),
-            charts.PieChart(
-              _seriesPieData,
-              animate: true,
-              animationDuration: Duration(seconds: 5),
-              behaviors: [
-                new charts.DatumLegend(
-                  outsideJustification: charts.OutsideJustification.endDrawArea,
-                  horizontalFirst: false,
-                  desiredMaxRows: 2,
-                  cellPadding: new EdgeInsets.only(right: 4.0, bottom: 4.0),
-                  entryTextStyle: charts.TextStyleSpec(
-                      color: charts.MaterialPalette.purple.shadeDefault,
-                      fontFamily: 'Georgia',
-                      fontSize: 11),
-                )
-              ],
-              defaultRenderer: new charts.ArcRendererConfig(
-                arcWidth: 100,
-                arcRendererDecorators: [
-                  new charts.ArcLabelDecorator(
-                      labelPosition: charts.ArcLabelPosition.inside)
-                ],
-              ),
-            ),
-          ],
+    return PageView(
+      children: <Widget>[
+        charts.BarChart(
+          _seriesData,
+          animate: true,
+          barGroupingType: charts.BarGroupingType.grouped,
+          behaviors: [charts.SeriesLegend()],
+          animationDuration: Duration(seconds: 5),
         ),
-      ),
+        charts.PieChart(
+          _seriesPieData,
+          animate: true,
+          animationDuration: Duration(seconds: 5),
+          behaviors: [
+            new charts.DatumLegend(
+              outsideJustification: charts.OutsideJustification.endDrawArea,
+              horizontalFirst: false,
+              desiredMaxRows: 2,
+              cellPadding: new EdgeInsets.only(right: 4.0, bottom: 4.0),
+              entryTextStyle: charts.TextStyleSpec(
+                  color: charts.MaterialPalette.purple.shadeDefault,
+                  fontFamily: 'Georgia',
+                  fontSize: 11),
+            )
+          ],
+          defaultRenderer: new charts.ArcRendererConfig(
+            arcWidth: 100,
+            arcRendererDecorators: [
+              new charts.ArcLabelDecorator(
+                  labelPosition: charts.ArcLabelPosition.inside)
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
