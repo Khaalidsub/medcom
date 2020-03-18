@@ -5,16 +5,16 @@ import 'package:health_app/src/screens/widgets/chart.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vector_math/vector_math.dart' as math;
 
-class Home extends StatefulWidget {
+class HospitalHome extends StatefulWidget {
   final Widget child;
 
-  Home({Key key, this.child}) : super(key: key);
+  HospitalHome({Key key, this.child}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<HospitalHome> {
   @override
   void initState() {
     super.initState();
@@ -82,7 +82,7 @@ class _HomeState extends State<Home> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Icon(
-                              FontAwesomeIcons.hospital,
+                              FontAwesomeIcons.pills,
                               color: Colors.grey,
                               size: 50,
                             ),
@@ -90,7 +90,7 @@ class _HomeState extends State<Home> {
                               height: 5,
                             ),
                             Text(
-                              'Hospitals',
+                              'Patients',
                               style: TextStyle(color: Colors.white),
                             )
                           ],
@@ -177,9 +177,9 @@ class _HomeState extends State<Home> {
                       child: Column(
                         children: <Widget>[
                           ListTile(
-                            leading: Image.asset('assets/images/clin.png'),
+                            leading: Image.asset('assets/images/img.png'),
                             title: Center(
-                              child: Text('Hospital ${index}'),
+                              child: Text('Patient ${index}'),
                             ),
                             trailing: Icon(FontAwesomeIcons.arrowDown),
                           ),
