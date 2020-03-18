@@ -17,11 +17,12 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    // TODO: implement initState
   }
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData = MediaQuery.of(context);
+    double width = queryData.size.width;
     return Scaffold(
       appBar: AppNav(
         appBar: AppBar(),
@@ -44,7 +45,7 @@ class _HomeState extends State<Home> {
                 children: <Widget>[
                   Container(
                     height: 120,
-                    width: 120,
+                    width: width * 0.29,
                     child: Card(
                       color: Color(0xffFFC4C4),
                       child: Icon(
@@ -55,7 +56,7 @@ class _HomeState extends State<Home> {
                   ),
                   Container(
                     height: 120,
-                    width: 120,
+                    width: width * 0.29,
                     child: Card(
                       color: Color(0xffF5DD9C),
                       child: Icon(
@@ -66,7 +67,7 @@ class _HomeState extends State<Home> {
                   ),
                   Container(
                     height: 120,
-                    width: 120,
+                    width: width * 0.29,
                     child: Card(
                       color: Color(0xff8DDEDE),
                       child: Icon(
@@ -76,7 +77,8 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ],
-              )
+              ),
+              Container(height: 400, child: Charts()),
             ],
           ),
         ),
