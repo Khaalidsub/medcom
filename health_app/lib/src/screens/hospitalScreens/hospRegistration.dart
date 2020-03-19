@@ -9,13 +9,13 @@ class HospRegistration extends StatelessWidget {
       child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            backgroundColor: Colors.orange,
+            backgroundColor: Color(0xffFFFEDE),
             elevation: 0,
             title: Text(""),
             //later put on press goto back page
             leading: Icon(
               Icons.arrow_back,
-              color: Colors.white,
+              color: Colors.black,
             ),
           ),
           //registration card
@@ -58,12 +58,19 @@ class HospRegistration extends StatelessWidget {
                             Icons.local_hospital,
                             color: Colors.grey,
                           ),
+                          fillColor: Color(0xffFFFEDE),
+                          filled: true,
                           labelStyle: TextStyle(color: Colors.black),
                           labelText: "Hospital Name",
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(30),
+                            ),
+                          ),
                           focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(30)),
                             borderSide:
-                                BorderSide(color: Colors.orange, width: 2),
+                                BorderSide(color: Color(0xffE6E5BF), width: 2),
                           ),
                         ),
                       ),
@@ -73,12 +80,19 @@ class HospRegistration extends StatelessWidget {
                             Icons.mail,
                             color: Colors.grey,
                           ),
+                          fillColor: Color(0xffFFFEDE),
+                          filled: true,
                           labelText: "Enter Email",
                           labelStyle: TextStyle(color: Colors.black),
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(30),
+                            ),
+                          ),
                           focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(30)),
                             borderSide:
-                                BorderSide(color: Colors.orange, width: 2),
+                                BorderSide(color: Color(0xffE6E5BF), width: 2),
                           ),
                         ),
                       ),
@@ -88,26 +102,41 @@ class HospRegistration extends StatelessWidget {
                                 Icons.book,
                                 color: Colors.grey,
                               ),
+                              fillColor: Color(0xffFFFEDE),
+                              filled: true,
                               labelText: "Enter Address",
                               labelStyle: TextStyle(color: Colors.black),
-                              border: OutlineInputBorder(),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(30),
+                                ),
+                              ),
                               focusedBorder: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30)),
                                   borderSide: BorderSide(
-                                color: Colors.orange,
-                                width: 2,
-                              )))),
+                                    color: Color(0xffE6E5BF),
+                                    width: 2,
+                                  )))),
                       TextField(
                         decoration: InputDecoration(
                           suffixIcon: Icon(
                             Icons.phone,
                             color: Colors.grey,
                           ),
+                          fillColor: Color(0xffFFFEDE),
+                          filled: true,
                           labelStyle: TextStyle(color: Colors.black),
                           labelText: "Enter Phone",
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(30),
+                            ),
+                          ),
                           focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(30)),
                             borderSide: BorderSide(
-                              color: Colors.orange,
+                              color: Color(0xffE6E5BF),
                               width: 2,
                             ),
                           ),
@@ -119,12 +148,19 @@ class HospRegistration extends StatelessWidget {
                             Icons.person,
                             color: Colors.grey,
                           ),
+                          fillColor: Color(0xffFFFEDE),
+                          filled: true,
                           labelStyle: TextStyle(color: Colors.black),
                           labelText: "Director Name",
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(30),
+                            ),
+                          ),
                           focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(30)),
                             borderSide: BorderSide(
-                              color: Colors.orange,
+                              color: Color(0xffE6E5BF),
                               width: 2,
                             ),
                           ),
@@ -134,10 +170,17 @@ class HospRegistration extends StatelessWidget {
                         decoration: InputDecoration(
                           labelText: "Director Email",
                           labelStyle: TextStyle(color: Colors.black),
-                          border: OutlineInputBorder(),
+                          fillColor: Color(0xffFFFEDE),
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(30),
+                            ),
+                          ),
                           focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(30)),
                             borderSide: BorderSide(
-                              color: Colors.orange,
+                              color: Color(0xffE6E5BF),
                               width: 2,
                             ),
                           ),
@@ -147,10 +190,17 @@ class HospRegistration extends StatelessWidget {
                         decoration: InputDecoration(
                           labelText: "Enter Email",
                           labelStyle: TextStyle(color: Colors.black),
-                          border: OutlineInputBorder(),
+                          fillColor: Color(0xffFFFEDE),
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(30),
+                            ),
+                          ),
                           focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(30)),
                             borderSide: BorderSide(
-                              color: Colors.orange,
+                              color: Color(0xffE6E5BF),
                               width: 2,
                             ),
                           ),
@@ -164,7 +214,7 @@ class HospRegistration extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30)),
                   padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
-                  disabledColor: Colors.orange,
+                  disabledColor: Colors.amber,
                   child: Text(
                     "Submit",
                     style: TextStyle(
