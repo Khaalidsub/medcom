@@ -31,7 +31,10 @@ class PatientProfile extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     CircleAvatar(
-                      backgroundColor: Colors.black,
+                      backgroundColor: Colors.lime[400],
+                      backgroundImage:
+                          AssetImage("assets/images/unknownPerson.jpg"),
+
                       radius: 60,
                       //adding a background Image later.
                     ),
@@ -75,12 +78,12 @@ class PatientProfile extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.lime[300],
                 borderRadius: BorderRadius.all(Radius.circular(30.0)),
               ),
               margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
-              width: 300,
-              height: 300,
+              width: 400,
+              height: 350,
               padding: EdgeInsets.all(30),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
