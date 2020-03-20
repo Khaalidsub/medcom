@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_app/src/screens/hospitalScreens/history.dart';
 import 'package:health_app/src/screens/hospitalScreens/home.dart';
 import 'package:health_app/src/screens/hospitalScreens/hospRegistration.dart';
 import 'package:health_app/src/screens/patientScreens/history.dart';
@@ -9,7 +10,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.light(),
-      home: PatientHistory(),
+      home: HospitalHistory(),
     );
   }
 }
