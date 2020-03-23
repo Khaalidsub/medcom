@@ -5,21 +5,10 @@ import 'package:health_app/src/screens/widgets/chart.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vector_math/vector_math.dart' as math;
 
-class PatientHome extends StatefulWidget {
-  final Widget child;
-
-  PatientHome({Key key, this.child}) : super(key: key);
-
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<PatientHome> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class PatientHome extends StatelessWidget {
+  Function changeIndex;
+  int index;
+  PatientHome({this.changeIndex, this.index});
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
@@ -159,7 +148,8 @@ class _HomeState extends State<PatientHome> {
       ),
       resizeToAvoidBottomInset: true,
       resizeToAvoidBottomPadding: true,
-      bottomNavigationBar: BottomNavigation(),
+      bottomNavigationBar:
+          BottomNavigation(changeIndex: changeIndex, index: index),
     );
   }
 

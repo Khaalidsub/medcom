@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'package:health_app/src/screens/patientScreens/history.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/bottom_navigation.dart';
 import 'package:health_app/src/screens/widgets/chart.dart';
+import 'package:health_app/src/screens/widgets/patient_history_view.dart';
 
 class HospitalHistory extends StatelessWidget {
   @override
@@ -81,101 +83,14 @@ class HospitalHistory extends StatelessWidget {
                 height: 10,
               ),
               Container(
-                width: width,
                 height: 250,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                child: PageView(
                   children: <Widget>[
-                    Container(
-                      height: 250,
-                      width: width * 0.45,
-                      child: Card(
-                        elevation: 10,
-                        color: Color(0xff3D73DD),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Container(
-                          padding: EdgeInsets.only(left: 10, top: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Image.asset('assets/images/img.png'),
-                                  Text(
-                                    'Patient',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              Text(
-                                'Diagnosis',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: width * 0.44,
-                      height: 250,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Container(
-                            width: width * 0.44,
-                            height: 250 * 0.45,
-                            child: Card(
-                              elevation: 10,
-                              color: Color(0xff3D73DD),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Icon(FontAwesomeIcons.userMd,
-                                      size: 35, color: Colors.white),
-                                  Text(
-                                    'Name',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: width * 0.44,
-                            height: 250 * 0.48,
-                            child: Card(
-                              elevation: 10,
-                              color: Color(0xff3D73DD),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Center(
-                                child: Image.asset(
-                                  'assets/images/qr-code.png',
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+                    PatientHistoryView(),
+                    PatientHistoryView(),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

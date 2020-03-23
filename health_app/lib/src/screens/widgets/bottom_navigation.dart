@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class BottomNavigation extends StatelessWidget {
+  Function changeIndex;
+  int index;
+  BottomNavigation({this.changeIndex, this.index});
+
   @override
   Widget build(BuildContext context) {
     // return BottomNavigationBar(
@@ -38,6 +42,7 @@ class BottomNavigation extends StatelessWidget {
       color: Colors.transparent,
       margin: EdgeInsets.symmetric(vertical: 10),
       child: CurvedNavigationBar(
+        // key: PageKe,
         height: 50,
         items: <Widget>[
           Icon(
@@ -66,6 +71,8 @@ class BottomNavigation extends StatelessWidget {
         backgroundColor: Color(0xff3D73DD),
         animationCurve: Curves.easeInOut,
         animationDuration: Duration(milliseconds: 600),
+        onTap: changeIndex,
+        index: index,
       ),
     );
   }
