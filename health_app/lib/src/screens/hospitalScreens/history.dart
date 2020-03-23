@@ -38,11 +38,15 @@ class HospitalHistory extends StatelessWidget {
                           height: 100,
                           width: 100,
                           child: Card(
-                            elevation: 0,
+                            elevation: 3,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
-                            color: Color(0xffF5DD9C),
-                            child: Center(child: Text('$index')),
+                            color: Color(0xff3D73DD),
+                            child: Center(
+                                child: Text(
+                              '$index',
+                              style: TextStyle(color: Colors.white),
+                            )),
                           ),
                         );
                       })),
@@ -60,8 +64,9 @@ class HospitalHistory extends StatelessWidget {
                 height: 150,
                 child: Card(
                   elevation: 0,
+                  color: Colors.transparent,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
+                      borderRadius: BorderRadius.circular(10)),
                   child: Charts(),
                 ),
               ),
@@ -85,8 +90,8 @@ class HospitalHistory extends StatelessWidget {
                       height: 250,
                       width: width * 0.45,
                       child: Card(
-                        elevation: 0,
-                        color: Color(0xffF5DD9C),
+                        elevation: 10,
+                        color: Color(0xff3D73DD),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         child: Container(
@@ -103,7 +108,8 @@ class HospitalHistory extends StatelessWidget {
                                     'Patient',
                                     style: TextStyle(
                                         fontSize: 18,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
                                   )
                                 ],
                               ),
@@ -113,7 +119,9 @@ class HospitalHistory extends StatelessWidget {
                               Text(
                                 'Diagnosis',
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
                               ),
                             ],
                           ),
@@ -130,18 +138,19 @@ class HospitalHistory extends StatelessWidget {
                             width: width * 0.44,
                             height: 250 * 0.45,
                             child: Card(
-                              elevation: 0,
-                              color: Color(0xffF5DD9C),
+                              elevation: 10,
+                              color: Color(0xff3D73DD),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20)),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  Icon(
-                                    FontAwesomeIcons.userMd,
-                                    size: 35,
+                                  Icon(FontAwesomeIcons.userMd,
+                                      size: 35, color: Colors.white),
+                                  Text(
+                                    'Name',
+                                    style: TextStyle(color: Colors.white),
                                   ),
-                                  Text('Name'),
                                 ],
                               ),
                             ),
@@ -150,8 +159,8 @@ class HospitalHistory extends StatelessWidget {
                             width: width * 0.44,
                             height: 250 * 0.48,
                             child: Card(
-                              elevation: 0,
-                              color: Color(0xffF5DD9C),
+                              elevation: 10,
+                              color: Color(0xff3D73DD),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20)),
                               child: Center(
