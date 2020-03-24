@@ -44,7 +44,7 @@ class _ChartsState extends State<Charts> {
         data: data1,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
         fillColorFn: (Pollution pollution, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xff990099)),
+            charts.ColorUtil.fromDartColor(Color(0xffA4E6DC)),
       ),
     );
 
@@ -56,7 +56,7 @@ class _ChartsState extends State<Charts> {
         data: data2,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
         fillColorFn: (Pollution pollution, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xff109618)),
+            charts.ColorUtil.fromDartColor(Color(0xff9EDAFE)),
       ),
     );
 
@@ -68,7 +68,7 @@ class _ChartsState extends State<Charts> {
         data: data3,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
         fillColorFn: (Pollution pollution, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xffff9900)),
+            charts.ColorUtil.fromDartColor(Color(0xfffCDCCFD)),
       ),
     );
 
