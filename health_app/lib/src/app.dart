@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_app/src/screens/hospitalScreens/hospRegistration.dart';
 import 'package:health_app/src/screens/patientScreens/profile.dart';
 import 'package:health_app/src/screens/patientScreens/history.dart';
 import 'package:health_app/src/screens/patientScreens/home.dart';
