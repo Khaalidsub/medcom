@@ -9,7 +9,6 @@ class BottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.transparent,
       margin: EdgeInsets.symmetric(vertical: 10),
       child: CurvedNavigationBar(
         // key: PageKe,
@@ -38,7 +37,7 @@ class BottomNavigation extends StatelessWidget {
         ],
         color: Colors.blueAccent,
         buttonBackgroundColor: Colors.lightBlue,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey[100],
         animationCurve: Curves.easeInOut,
         animationDuration: Duration(milliseconds: 600),
         onTap: changeIndex,

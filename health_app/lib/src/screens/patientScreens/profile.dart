@@ -12,20 +12,21 @@ class PatientProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
     double width = queryData.size.width;
+
     return Scaffold(
       appBar: AppNav(
         appBar: AppBar(),
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(left: 50, right: 20, top: 6),
+          padding: EdgeInsets.only(left: 50, right: 50, top: 6),
           child: Column(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 0, left: 260),
+              Container(
+                alignment: Alignment.topRight,
                 child: IconButton(
                   icon: Icon(
-                    Icons.exit_to_app,
+                    Icons.settings,
                     color: Colors.black,
                   ),
                   onPressed: () {},
@@ -100,19 +101,18 @@ class PatientProfile extends StatelessWidget {
                   ),
                 ],
               ),
+              Divider(
+                color: Colors.black,
+              ),
               Container(
-                margin: EdgeInsets.only(top: 30),
-                padding: EdgeInsets.only(left: 20, right: 20, top: 8),
-                width: 320,
-                height: 330,
+                margin: EdgeInsets.only(top: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Column(
                       children: <Widget>[
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Text(
                               'Blood Type',
@@ -121,29 +121,109 @@ class PatientProfile extends StatelessWidget {
                                 fontSize: 22,
                               ),
                             ),
-                            SizedBox(
-                              height: 30,
-                            ),
                             Text(
-                              'Allergese',
+                              'Lorem Ipsum',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              'Blood Type',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 22,
                               ),
                             ),
-                            SizedBox(
-                              height: 30,
-                            ),
                             Text(
-                              'Family member',
+                              'Lorem Ipsum',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              'Alergese',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 22,
                               ),
                             ),
-                            SizedBox(
-                              height: 30,
+                            Text(
+                              'Lorem Ipsum',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                              ),
                             ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              'Family Member',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 22,
+                              ),
+                            ),
+                            Text(
+                              'Lorem Ipsum',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              'Phone Number',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 22,
+                              ),
+                            ),
+                            Text(
+                              'Lorem Ipsum',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
                             Text(
                               'Location',
                               style: TextStyle(
@@ -151,124 +231,38 @@ class PatientProfile extends StatelessWidget {
                                 fontSize: 22,
                               ),
                             ),
-                            SizedBox(
-                              height: 30,
-                            ),
                             Text(
-                              'Phone',
+                              'Lorem Ipsum',
                               style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 22,
+                                fontSize: 18,
                               ),
-                            ),
-                            SizedBox(
-                              height: 20,
                             ),
                           ],
                         ),
-                        Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: <Widget>[
-                              Container(
-                                  width: 100,
-                                  height: 35,
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              const Radius.circular(30.0))),
-                                      labelText: '',
-                                      hintText: 'f',
-                                    ),
-                                    autofocus: false,
-                                  )),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Container(
-                                  width: 100,
-                                  height: 35,
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              const Radius.circular(30.0))),
-                                      labelText: '',
-                                      hintText: '',
-                                    ),
-                                    autofocus: false,
-                                  )),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              Container(
-                                  width: 100,
-                                  height: 35,
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              const Radius.circular(30.0))),
-                                      labelText: '',
-                                      hintText: '',
-                                    ),
-                                    autofocus: false,
-                                  )),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Container(
-                                  width: 100,
-                                  height: 35,
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              const Radius.circular(30.0))),
-                                      labelText: '',
-                                      hintText: '',
-                                    ),
-                                    autofocus: false,
-                                  )),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Container(
-                                  width: 100,
-                                  height: 35,
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              const Radius.circular(30.0))),
-                                      labelText: '',
-                                      hintText: '',
-                                    ),
-                                    autofocus: false,
-                                  )),
-                              SizedBox(
-                                height: 20,
-                              ),
-                            ]),
+                        SizedBox(
+                          height: 20,
+                        ),
                       ],
                     ),
                     SizedBox(
                       height: 10,
                     ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: RaisedButton(
+                        color: Colors.blueAccent,
+                        child: Text('Update'),
+                        textColor: Colors.white,
+                        onPressed: () {},
+                        shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              Column(
-                children: <Widget>[
-                  RaisedButton(
-                      color: Colors.blueAccent,
-                      child: Text('Update'),
-                      textColor: Colors.white,
-                      onPressed: () {},
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0))),
-                ],
-              )
             ],
           ),
         ),
@@ -279,6 +273,4 @@ class PatientProfile extends StatelessWidget {
       ),
     );
   }
-
-  padding({int left, int top}) {}
 }
