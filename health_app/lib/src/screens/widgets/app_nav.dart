@@ -11,7 +11,7 @@ class AppNav extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 5,
-      backgroundColor: Color(0xff3D73DD),
+      backgroundColor: Colors.blueAccent,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(30),

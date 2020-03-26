@@ -1,177 +1,284 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:health_app/src/app.dart';
+import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/bottom_navigation.dart';
+import 'package:health_app/src/screens/widgets/chart.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PatientProfile extends StatelessWidget {
+  Function changeIndex;
+  int index;
+  PatientProfile({this.changeIndex, this.index});
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
     double width = queryData.size.width;
-    double height = queryData.size.height;
-    print('the value is ${queryData.size.aspectRatio}');
-    print(width / height);
-
-    return Material(
-      child: Scaffold(
-        backgroundColor: Colors.grey[100],
-        appBar: AppBar(
-          leading: Image.asset('assets/images/logo.png'),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  FontAwesomeIcons.signOutAlt,
-                  color: Colors.white,
-                ),
-                onPressed: null)
-          ],
-          backgroundColor: Colors.blue[700],
-        ),
-        body: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 30),
-              child: Container(
-                margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
-                child: Row(
-                  children: <Widget>[
-                    CircleAvatar(
-                      backgroundColor: Colors.lime[400],
-                      backgroundImage:
-                          AssetImage("assets/images/unknownPerson.jpg"),
-
-                      radius: 60,
-                      //adding a background Image later.
-                    ),
-                    SizedBox(
-                      width: 30,
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Text(
-                          "Name : ",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                        Text("ID : ",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            )),
-                        Text("Email : ",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            )),
-                        Text("Gender : ",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            )),
-                      ],
-                    )
-                  ],
+    return Scaffold(
+      appBar: AppNav(
+        appBar: AppBar(),
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(left: 50, right: 20, top: 6),
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 0, left: 260),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.exit_to_app,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {},
                 ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
-              width: width * 0.9,
-              height: queryData.size.height * .4,
-              padding: EdgeInsets.all(15),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //*** Adjust overflow thing in the container**/
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 130,
+                width: 130,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/images/ill.png'),
+                        fit: BoxFit.fill),
+                    borderRadius: BorderRadius.circular(100),
+                    border: Border.all(
+                        color: Colors.blueAccent.withOpacity(.2), width: 1)),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Mike Edward',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "Blood Type: ",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 2.5 * height / 100),
-                      ),
-                      Text(
-                        'A+',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 2.5 * height / 100),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Text("Allergies:",
-                          overflow: TextOverflow.fade,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 2.5 * height / 100)),
-                      Expanded(
-                        child: Container(
-                          child: Text(
-                            "Muhammad Adeen  Faizan",
-                            overflow: TextOverflow.clip,
-                            style: TextStyle(
-                                fontSize: 2.5 *
-                                    height /
-                                    100), //depending on block size
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Text("Location: Lorem ipsum",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 2.5 * height / 100))
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Text("Contact: Lorem Ipsum",
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 2.5 * height / 100)),
-                    ],
+                  Text(
+                    'ID: 58496',
+                    style: TextStyle(fontSize: 15),
                   ),
                   SizedBox(
-                    height: 0,
+                    width: 10,
                   ),
-                  RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(
-                          (30),
-                        ),
-                      ),
+                  Container(
+                    height: 12,
+                    child: VerticalDivider(
+                      width: 2,
+                      color: Colors.black,
                     ),
-                    onPressed: null,
-                    disabledColor: Colors.blue[700],
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 6 * width / 100,
-                        vertical: 2 * height / 100),
-                    child: Text(
-                      "Update Details",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 2.5 * height / 100),
+                  ),
+                  SizedBox(
+                    width: 12,
+                  ),
+                  Text(
+                    'Gender: Male',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Container(
+                    height: 12,
+                    child: VerticalDivider(
+                      width: 5,
+                      color: Colors.black,
                     ),
+                  ),
+                  SizedBox(
+                    width: 12,
+                  ),
+                  Text(
+                    'Age: 18',
+                    style: TextStyle(fontSize: 15),
                   ),
                 ],
               ),
-            ),
-          ],
+              Container(
+                margin: EdgeInsets.only(top: 30),
+                padding: EdgeInsets.only(left: 20, right: 20, top: 8),
+                width: 320,
+                height: 330,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'Blood Type',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 22,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Text(
+                              'Allergese',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 22,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Text(
+                              'Family member',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 22,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Text(
+                              'Location',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 22,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Text(
+                              'Phone',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 22,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                          ],
+                        ),
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+                              Container(
+                                  width: 100,
+                                  height: 35,
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              const Radius.circular(30.0))),
+                                      labelText: '',
+                                      hintText: 'f',
+                                    ),
+                                    autofocus: false,
+                                  )),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                  width: 100,
+                                  height: 35,
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              const Radius.circular(30.0))),
+                                      labelText: '',
+                                      hintText: '',
+                                    ),
+                                    autofocus: false,
+                                  )),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Container(
+                                  width: 100,
+                                  height: 35,
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              const Radius.circular(30.0))),
+                                      labelText: '',
+                                      hintText: '',
+                                    ),
+                                    autofocus: false,
+                                  )),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                  width: 100,
+                                  height: 35,
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              const Radius.circular(30.0))),
+                                      labelText: '',
+                                      hintText: '',
+                                    ),
+                                    autofocus: false,
+                                  )),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                  width: 100,
+                                  height: 35,
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              const Radius.circular(30.0))),
+                                      labelText: '',
+                                      hintText: '',
+                                    ),
+                                    autofocus: false,
+                                  )),
+                              SizedBox(
+                                height: 20,
+                              ),
+                            ]),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
+              ),
+              Column(
+                children: <Widget>[
+                  RaisedButton(
+                      color: Colors.blueAccent,
+                      child: Text('Update'),
+                      textColor: Colors.white,
+                      onPressed: () {},
+                      shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0))),
+                ],
+              )
+            ],
+          ),
         ),
-        bottomNavigationBar: BottomNavigation(),
+      ),
+      bottomNavigationBar: BottomNavigation(
+        changeIndex: changeIndex,
+        index: index,
       ),
     );
   }
+
+  padding({int left, int top}) {}
 }

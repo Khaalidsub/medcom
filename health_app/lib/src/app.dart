@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:health_app/src/screens/patientScreens/profile.dart';
-import 'package:health_app/src/screens/patientScreens/scan.dart';
-import 'package:health_app/src/screens/hospitalScreens/patientDetails.dart';
-import 'package:health_app/src/screens/hospitalScreens/history.dart';
-import 'package:health_app/src/screens/hospitalScreens/home.dart';
-import 'package:health_app/src/screens/hospitalScreens/hospRegistration.dart';
 import 'package:health_app/src/screens/patientScreens/history.dart';
 import 'package:health_app/src/screens/patientScreens/home.dart';
 
@@ -28,6 +22,8 @@ class _AppState extends State<App> {
       return PatientHome(changeIndex: changeIndex, index: index);
     } else if (index == 2) {
       return PatientHistory(changeIndex: changeIndex, index: index);
+    } else if (index == 4) {
+      return PatientProfile(index: index, changeIndex: changeIndex);
     } else {
       return PatientHome(changeIndex: changeIndex, index: index);
     }

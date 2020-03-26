@@ -87,7 +87,6 @@ class _ChartsState extends State<Charts> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _seriesData = List<charts.Series<Pollution, String>>();
     _seriesPieData = List<charts.Series<Task, String>>();
     _generateData();
