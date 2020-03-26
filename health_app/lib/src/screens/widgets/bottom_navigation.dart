@@ -40,7 +40,7 @@ class BottomNavigation extends StatelessWidget {
         backgroundColor: Colors.grey[100],
         animationCurve: Curves.easeInOut,
         animationDuration: Duration(milliseconds: 600),
-        onTap: changeIndex,
+        onTap: (value) => changeIndex(value),
         index: index,
       ),
     );
