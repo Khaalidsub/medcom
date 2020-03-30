@@ -12,9 +12,9 @@ class HospitalHistory extends StatelessWidget {
     MediaQueryData queryData = MediaQuery.of(context);
     double width = queryData.size.width;
     return Scaffold(
-      appBar: AppNav(
-        appBar: AppBar(),
-      ),
+      //appBar: AppNav(
+      //  appBar: AppBar(),
+      //),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(10),
@@ -95,7 +95,7 @@ class HospitalHistory extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigation(),
+      // bottomNavigationBar: BottomNavigation(),
     );
   }
 }

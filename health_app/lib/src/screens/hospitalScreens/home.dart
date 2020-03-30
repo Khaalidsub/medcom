@@ -25,9 +25,9 @@ class _HomeState extends State<HospitalHome> {
     MediaQueryData queryData = MediaQuery.of(context);
     double width = queryData.size.width;
     return Scaffold(
-      appBar: AppNav(
-        appBar: AppBar(),
-      ),
+      //appBar: AppNav(
+      //  appBar: AppBar(),
+      //),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -143,7 +143,7 @@ class _HomeState extends State<HospitalHome> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigation(),
+     // bottomNavigationBar: BottomNavigation(),
     );
   }
 

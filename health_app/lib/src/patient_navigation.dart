@@ -43,8 +43,7 @@ class _MainScreenState extends State<PatientNavigation> {
         key: navigatorKey,
         initialRoute: '/',
         onGenerateRoute: (RouteSettings settings) {
-          PatientRoute router = PatientRoute();
-
+        PatientRoute router = PatientRoute();
           return router.routing(settings, context);
         },
       ),

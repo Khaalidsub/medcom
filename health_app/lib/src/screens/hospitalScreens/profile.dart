@@ -8,164 +8,238 @@ class HospitalProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Scaffold(
-        backgroundColor: Colors.grey[50],
-        appBar: AppBar(
-          leading: Image.asset('assets/images/logo.png'),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  FontAwesomeIcons.signOutAlt,
-                  color: Colors.black,
+      child: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(left: 50, right: 50, top: 6),
+          child: Column(
+            children: <Widget>[
+              Container(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.settings,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {},
                 ),
-                onPressed: null)
-          ],
-          backgroundColor: Color(0xffFFFEDE),
-        ),
-        body: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 30),
-              child: Container(
-                margin: EdgeInsets.fromLTRB(0, 30, 0, 60),
-                child: Row(
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              CircleAvatar(
+                maxRadius: 50,
+                backgroundColor: Colors.black,
+                backgroundImage: AssetImage('assets/images/buildingIcon.png'),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Hameed Lateef Hospital sdn.',
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text(
+                    'ID: 58496',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Container(
+                    height: 12,
+                    child: VerticalDivider(
+                      width: 2,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 12,
+                  ),
+                  Text(
+                    'Member: Lorem Ipsum',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ],
+              ),
+              Divider(
+                color: Colors.black,
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    CircleAvatar(
-                      backgroundColor: Colors.lime[400],
-                      backgroundImage:
-                          AssetImage("assets/images/buildingIcon.png"),
-
-                      radius: 60,
-                      //adding a background Image later.
-                    ),
-                    SizedBox(
-                      width: 50,
-                    ),
                     Column(
                       children: <Widget>[
-                        Text(
-                          "Name : ",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              'Address',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 22,
+                              ),
+                            ),
+                            Text(
+                              'Lorem Ipsum',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
                         ),
-                        Text("ID : ",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            )),
-                        Text("Email : ",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            )),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              'Bed Count',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 22,
+                              ),
+                            ),
+                            Text(
+                              'Lorem Ipsum',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              'Doctors Count',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 22,
+                              ),
+                            ),
+                            Text(
+                              'Lorem Ipsum',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              'Category',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 22,
+                              ),
+                            ),
+                            Text(
+                              'Lorem Ipsum',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              'Phone Number',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 22,
+                              ),
+                            ),
+                            Text(
+                              'Lorem Ipsum',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              'Credentials',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 22,
+                              ),
+                            ),
+                            Text(
+                              'Lorem Ipsum',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
                       ],
-                    )
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: RaisedButton(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+                        color: Colors.blueAccent,
+                        child: Text(
+                          'Update',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        textColor: Colors.white,
+                        onPressed: () {},
+                        shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ),
-            Text(
-              "Hospital Details",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.lime[200],
-                borderRadius: BorderRadius.all(Radius.circular(30.0)),
-              ),
-              margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
-              width: 400,
-              height: 350,
-              padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //*** Adjust overflow thing in the container**/
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Container(
-                        child: Icon(
-                          FontAwesomeIcons.bed,
-                          color: Colors.black54,
-                        ),
-                        margin: EdgeInsets.only(right: 20),
-                      ),
-                      Text("Bed Count: Lorem ipsum",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20))
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Container(
-                        child: Icon(
-                          Icons.people,
-                          color: Colors.black54,
-                        ),
-                        margin: EdgeInsets.only(right: 20),
-                      ),
-                      Text("Doctors:",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20))
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Container(
-                        child: Icon(
-                          FontAwesomeIcons.phone,
-                          color: Colors.black54,
-                        ),
-                        margin: EdgeInsets.only(right: 20),
-                      ),
-                      Text("Phone: ",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20))
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Container(
-                        child: Icon(
-                          FontAwesomeIcons.locationArrow,
-                          color: Colors.black54,
-                        ),
-                        margin: EdgeInsets.only(right: 20),
-                      ),
-                      Text("location: ",
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20)),
-                    ],
-                  )
-                ],
-              ),
-            ),
-            RaisedButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(
-                    (30),
-                  ),
-                ),
-              ),
-              onPressed: null,
-              disabledColor: Colors.amber,
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-              child: Text(
-                "Update Details",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
-              ),
-            )
-          ],
+            ],
+          ),
         ),
-        bottomNavigationBar: BottomNavigation(),
       ),
     );
   }
