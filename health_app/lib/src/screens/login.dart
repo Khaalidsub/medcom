@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:health_app/src/screens/hospitalScreens/hospRegistration.dart';
 
 class LoginForm extends StatelessWidget {
   @override
@@ -11,114 +10,107 @@ class LoginForm extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(left: 31.2, right: 31.2, top: height * 0.1),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    // color: Colors.green,
-                    child: Image.asset("assets/images/logo.png",
-                        width: width * 0.2, height: height * 0.2),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    "Sign In",
-                    style: TextStyle(
-                      fontFamily: "Lato",
-                      fontSize: 40,
-                      fontWeight: FontWeight.w100,
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                    labelText: 'Email',
-                    focusColor: Colors.white,
-                    focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Colors.blueGrey[700], width: 2.0),
-                        borderRadius: BorderRadius.circular(10)
-                        // borderRadius: BorderRadius.circular(25.0),
-                        ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.blueGrey[700], width: 2.0),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    hintText: 'Enter Email'),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                    labelText: 'Password',
-                    focusColor: Colors.blue,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.blueGrey, width: 2.0),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Colors.blueGrey, width: 2.0),
-                        borderRadius: BorderRadius.circular(10)),
-                    hintText: 'Enter Password'),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  FloatingActionButton(
-                    isExtended: true,
-                    child: Text('Sign In'),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Text(
-                    'New User? ',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                  ),
-                  GestureDetector(
-                    onTap: () => HospRegistration,
-                    child: Text(
-                      'Patient Sign up',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF5d74e3)),
+          height: height,
+          width: width,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+            image: AssetImage("assets/images/land.jpg"),
+            fit: BoxFit.cover,
+          )),
+          child: Container(
+            color: Colors.white.withOpacity(0.8),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(top: 35, left: 10),
+                  child: GestureDetector(
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.arrow_left),
+                        Text('Back'),
+                      ],
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Text(
-                      'Hospital Sign up',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF5d74e3)),
-                    ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 40.0, right: 40.0),
+                  child: Column(
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          Container(
+                            // color: Colors.green,
+
+                            height: 200,
+                            child: Image.asset(
+                              "assets/images/logo-01.png",
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                            labelText: 'Email',
+                            focusColor: Colors.white,
+                            suffixIcon: Icon(Icons.mail),
+                            hintText: 'Enter Email'),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      TextField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                            labelText: 'Password',
+                            suffixIcon: Icon(Icons.edit),
+                            focusColor: Colors.blue,
+                            hintText: 'Enter Password'),
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          RaisedButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18),
+                            ),
+                            splashColor: Colors.blueAccent,
+                            elevation: 10,
+                            padding: EdgeInsets.symmetric(vertical: 15),
+                            color: Colors.blue,
+                            child: Text(
+                              'Sign In',
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white),
+                            ),
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Text(
+                            'Forgot Password? ',
+                            style:
+                                TextStyle(fontSize: 18, color: Colors.blueGrey),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
-                ],
-              )
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
