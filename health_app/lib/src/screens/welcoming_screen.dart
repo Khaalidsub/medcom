@@ -20,18 +20,92 @@ class WelcomingScreen extends StatelessWidget {
           padding: EdgeInsets.only(left: 40.0, right: 40.0),
           child: Column(
             children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Container(
-                    // color: Colors.green,
-
-                    height: 200,
-                    child: Image.asset(
+              Container(
+                // color: Colors.green,
+                height: 320,
+                child: Column(
+                  children: <Widget>[
+                    Image.asset(
                       "assets/images/logo-01.png",
+                      color: Colors.white,
+                      fit: BoxFit.cover,
                     ),
-                  ),
-                ],
-              )
+                    Text(
+                      'MEDCOM',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'We Care For You',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontStyle: FontStyle.italic),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 100,
+              ),
+              Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      splashColor: Colors.blueAccent,
+                      elevation: 10,
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      color: Colors.white,
+                      child: Text(
+                        'Sign In',
+                        style:
+                            TextStyle(fontSize: 20, color: Colors.blueAccent),
+                      ),
+                      onPressed: () {},
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      splashColor: Colors.blueAccent,
+                      elevation: 10,
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      color: Colors.blue,
+                      child: Text(
+                        'Sign Up As A Patient',
+                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                      onPressed: () {},
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      splashColor: Colors.blueAccent,
+                      elevation: 10,
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      color: Colors.blue,
+                      child: Text(
+                        'Sign Up As A Hospital',
+                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
