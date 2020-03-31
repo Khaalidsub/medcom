@@ -40,8 +40,8 @@ class HospRegistration extends StatelessWidget {
                   width: 150,
                   child: Image.asset('assets/images/bigLogo.png'),
                 ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(25, 15, 25, 15),
+                Padding(
+                  padding: EdgeInsets.all(20),
                   child: Wrap(
                     runSpacing: 20,
                     children: <Widget>[
@@ -83,11 +83,13 @@ class HospRegistration extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(bottom: 15),
                   child: RaisedButton(
-                    onPressed: null,
+                    onPressed: () {},
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30)),
-                    padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
-                    disabledColor: Colors.blueAccent,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 150, vertical: 15),
+                    color: Colors.blueAccent,
+                    //disabledColor: Colors.blueAccent,
                     child: Text(
                       "Register",
                       style: TextStyle(
