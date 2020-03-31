@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:health_app/src/screens/hospitalScreens/hospRegistration.dart';
 
 import 'package:health_app/src/screens/login.dart';
+import 'package:health_app/src/screens/welcoming_screen.dart';
 
 class App extends StatefulWidget {
   @override
@@ -13,7 +13,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.light(),
-      home: LoginForm(),
+      home: WelcomingScreen(),
     );
   }
 }

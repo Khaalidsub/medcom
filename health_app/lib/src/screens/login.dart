@@ -37,17 +37,13 @@ class LoginForm extends StatelessWidget {
                   padding: EdgeInsets.only(left: 40.0, right: 40.0),
                   child: Column(
                     children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          Container(
-                            // color: Colors.green,
+                      Container(
+                        // color: Colors.green,
 
-                            height: 200,
-                            child: Image.asset(
-                              "assets/images/logo-01.png",
-                            ),
-                          ),
-                        ],
+                        height: 200,
+                        child: Image.asset(
+                          "assets/images/logo-01.png",
+                        ),
                       ),
                       SizedBox(
                         height: 30,
