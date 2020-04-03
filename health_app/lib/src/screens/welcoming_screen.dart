@@ -28,10 +28,13 @@ class WelcomingScreen extends StatelessWidget {
                 height: 320,
                 child: Column(
                   children: <Widget>[
-                    Image.asset(
-                      "assets/images/logo-01.png",
-                      color: Colors.white,
-                      fit: BoxFit.cover,
+                    Hero(
+                      tag: 'logo',
+                      child: Image.asset(
+                        "assets/images/logo-01.png",
+                        color: Colors.white,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     Text(
                       'MEDCOM',
@@ -71,7 +74,7 @@ class WelcomingScreen extends StatelessWidget {
                             TextStyle(fontSize: 20, color: Colors.blueAccent),
                       ),
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => LoginForm()));

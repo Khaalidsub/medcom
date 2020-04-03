@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/bottom_navigation.dart';
+import 'package:health_app/src/screens/widgets/patient_bottom_navigation.dart';
 import 'package:health_app/src/utils/patient_routing.dart';
 
 class PatientNavigation extends StatefulWidget {
@@ -43,12 +44,12 @@ class _MainScreenState extends State<PatientNavigation> {
         key: navigatorKey,
         initialRoute: '/',
         onGenerateRoute: (RouteSettings settings) {
-        PatientRoute router = PatientRoute();
+          PatientRoute router = PatientRoute();
           return router.routing(settings, context);
         },
       ),
       bottomNavigationBar:
-          BottomNavigation(changeIndex: changeIndex, index: index),
+          PatientBottomNavigation(changeIndex: changeIndex, index: index),
     );
   }
 }

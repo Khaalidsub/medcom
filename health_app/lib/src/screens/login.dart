@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_app/src/hospital_navigation.dart';
 import 'package:health_app/src/models/user.dart';
 import 'package:health_app/src/patient_navigation.dart';
+import 'package:health_app/src/screens/welcoming_screen.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -55,6 +56,10 @@ class _LoginFormState extends State<LoginForm> {
                   alignment: Alignment.centerLeft,
                   padding: EdgeInsets.only(top: 35, left: 10),
                   child: GestureDetector(
+                    onTap: () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => WelcomingScreen())),
                     child: Row(
                       children: <Widget>[
                         Icon(Icons.arrow_left),
@@ -73,8 +78,11 @@ class _LoginFormState extends State<LoginForm> {
                           // color: Colors.green,
 
                           height: 200,
-                          child: Image.asset(
-                            "assets/images/logo-01.png",
+                          child: Hero(
+                            tag: 'logo',
+                            child: Image.asset(
+                              "assets/images/logo-01.png",
+                            ),
                           ),
                         ),
                         SizedBox(

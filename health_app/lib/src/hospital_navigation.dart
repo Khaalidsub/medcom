@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
-import 'package:health_app/src/screens/widgets/bottom_navigation.dart';
+
+import 'package:health_app/src/screens/widgets/hospital_bottom_navigation.dart';
 import 'package:health_app/src/utils/hospital_routing.dart';
 
 class HospitalNavigation extends StatefulWidget {
@@ -30,7 +31,7 @@ class _HospitalMainState extends State<HospitalNavigation> {
         navigatorKey.currentState.pushReplacementNamed('/history');
         break;
       case 4:
-        navigatorKey.currentState.pushReplacementNamed('/home');
+        navigatorKey.currentState.pushReplacementNamed('/profile');
         break;
       default:
     }
