@@ -71,7 +71,7 @@ class WelcomingScreen extends StatelessWidget {
                             TextStyle(fontSize: 20, color: Colors.blueAccent),
                       ),
                       onPressed: () {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => LoginForm()));
@@ -93,7 +93,7 @@ class WelcomingScreen extends StatelessWidget {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                       onPressed: () {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => PatientList()));
@@ -115,7 +115,7 @@ class WelcomingScreen extends StatelessWidget {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                       onPressed: () {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => HospRegistration()));
