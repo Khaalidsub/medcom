@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:health_app/src/screens/hospitalScreens/hospRegistration.dart';
+import 'package:health_app/src/screens/hospitalScreens/patientDetails.dart';
+import 'package:health_app/src/screens/login.dart';
 
 class WelcomingScreen extends StatelessWidget {
   @override
@@ -67,7 +70,12 @@ class WelcomingScreen extends StatelessWidget {
                         style:
                             TextStyle(fontSize: 20, color: Colors.blueAccent),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginForm()));
+                      },
                     ),
                     SizedBox(
                       height: 20,
@@ -84,7 +92,12 @@ class WelcomingScreen extends StatelessWidget {
                         'Sign Up As A Patient',
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PatientDetails()));
+                      },
                     ),
                     SizedBox(
                       height: 20,
@@ -101,7 +114,12 @@ class WelcomingScreen extends StatelessWidget {
                         'Sign Up As A Hospital',
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HospRegistration()));
+                      },
                     ),
                   ],
                 ),

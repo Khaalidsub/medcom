@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:health_app/src/screens/widgets/app_nav.dart';
-import 'package:health_app/src/screens/widgets/bottom_navigation.dart';
+
 import 'package:health_app/src/screens/widgets/chart.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:vector_math/vector_math.dart' as math;
 
 class HospitalHome extends StatefulWidget {
   final Widget child;
@@ -143,14 +141,14 @@ class _HomeState extends State<HospitalHome> {
           ),
         ),
       ),
-     // bottomNavigationBar: BottomNavigation(),
+      // bottomNavigationBar: BottomNavigation(),
     );
   }
 
   Future showDialogue(BuildContext context) {
     return showGeneralDialog(
       context: context,
-      pageBuilder: (context, anim1, anim2) {},
+      pageBuilder: (context, anim1, anim2) => null,
       barrierDismissible: true,
       barrierColor: Colors.black.withOpacity(0.4),
       barrierLabel: '',
@@ -179,7 +177,7 @@ class _HomeState extends State<HospitalHome> {
                           ListTile(
                             leading: Image.asset('assets/images/img.png'),
                             title: Center(
-                              child: Text('Patient ${index}'),
+                              child: Text('Patient $index'),
                             ),
                             trailing: Icon(FontAwesomeIcons.arrowDown),
                           ),

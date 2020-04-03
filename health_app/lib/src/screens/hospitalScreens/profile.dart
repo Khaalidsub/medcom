@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:health_app/src/app.dart';
-import 'package:health_app/src/screens/widgets/bottom_navigation.dart';
 
 class HospitalProfile extends StatelessWidget {
   @override

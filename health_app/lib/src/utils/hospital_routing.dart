@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:health_app/src/screens/hospitalScreens/history.dart';
 import 'package:health_app/src/screens/hospitalScreens/home.dart';
 import 'package:health_app/src/screens/hospitalScreens/patientDetails.dart';
 import 'package:health_app/src/screens/hospitalScreens/profile.dart';
@@ -23,7 +22,7 @@ class HospitalRouting {
         builder = (BuildContext context) => PatientDetails();
         break;
       case '/profile':
-        builder = (BuildContext context) => HospitalHome();
+        builder = (BuildContext context) => HospitalProfile();
         break;
 
       default:

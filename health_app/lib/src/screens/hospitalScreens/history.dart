@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'package:health_app/src/screens/patientScreens/history.dart';
-import 'package:health_app/src/screens/widgets/app_nav.dart';
-import 'package:health_app/src/screens/widgets/bottom_navigation.dart';
 import 'package:health_app/src/screens/widgets/chart.dart';
 import 'package:health_app/src/screens/widgets/patient_history_view.dart';
 

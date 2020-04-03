@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:health_app/src/screens/login.dart';
 import 'package:health_app/src/screens/splash_screen.dart';
-import 'package:health_app/src/screens/welcoming_screen.dart';
 
 class App extends StatefulWidget {
   @override
