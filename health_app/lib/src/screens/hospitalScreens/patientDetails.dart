@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class PatientDetails extends StatelessWidget {
+class PatientList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(

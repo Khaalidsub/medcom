@@ -96,7 +96,7 @@ class WelcomingScreen extends StatelessWidget {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PatientDetails()));
+                                builder: (context) => PatientList()));
                       },
                     ),
                     SizedBox(

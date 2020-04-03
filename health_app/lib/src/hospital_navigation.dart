@@ -27,7 +27,7 @@ class _HospitalMainState extends State<HospitalNavigation> {
         navigatorKey.currentState.pushReplacementNamed('/home');
         break;
       case 2:
-        navigatorKey.currentState.pushReplacementNamed('/patientList');
+        navigatorKey.currentState.pushReplacementNamed('/history');
         break;
       case 4:
         navigatorKey.currentState.pushReplacementNamed('/home');
