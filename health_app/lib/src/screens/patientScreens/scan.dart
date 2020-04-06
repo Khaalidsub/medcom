@@ -9,40 +9,39 @@ class Scan extends StatelessWidget {
     double width = queryData.size.width;
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      appBar: AppNav(
-        appBar: AppBar(),
-      ),
       body: Center(
-        child: Column(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(top: 50, bottom: 30),
-              alignment: Alignment.center,
-              width: width * 0.6,
-              height: 250,
-              color: Colors.white,
-              child: Image(
-                image: AssetImage('assets/images/cameraIcon.png'),
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(top: 10, bottom: 30),
+                alignment: Alignment.center,
+                width: width * 0.6,
+                height: 250,
+                color: Colors.white,
+                child: Image(
+                  image: AssetImage('assets/images/cameraIcon.png'),
+                ),
               ),
-            ),
-            Text(
-              "QR Code",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 40,
+              Text(
+                "QR Code",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40,
+                ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10, bottom: 10),
-              alignment: Alignment.center,
-              width: width * 0.8,
-              height: 300,
-              color: Colors.white,
-              child: Image(
-                image: AssetImage('assets/images/qr.png'),
+              Container(
+                margin: EdgeInsets.only(top: 10, bottom: 10),
+                alignment: Alignment.center,
+                width: width * 0.8,
+                height: 300,
+                color: Colors.white,
+                child: Image(
+                  image: AssetImage('assets/images/qr.png'),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       // bottomNavigationBar:BottomNavigation() ,

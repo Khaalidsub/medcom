@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_app/src/screens/patientScreens/history.dart';
 import 'package:health_app/src/screens/patientScreens/home.dart';
 import 'package:health_app/src/screens/patientScreens/profile.dart';
+import 'package:health_app/src/screens/patientScreens/scan.dart';
 
 class PatientRoute {
   MaterialPageRoute<dynamic> routing(
@@ -21,7 +22,9 @@ class PatientRoute {
       case '/profile':
         builder = (BuildContext context) => PatientProfile();
         break;
-
+      case '/scan':
+        builder = (BuildContext context) => Scan();
+        break;
       default:
         throw Exception('Invalid route: ${settings.name}');
     }

@@ -19,10 +19,12 @@ class _MainScreenState extends State<PatientNavigation> {
 
     if (index == 0) {
       navigatorKey.currentState.pushReplacementNamed('/home');
-    } else if (index == 2) {
+    } else if (index == 1) {
       navigatorKey.currentState.pushReplacementNamed('/history');
-    } else if (index == 4) {
+    } else if (index == 3) {
       navigatorKey.currentState.pushReplacementNamed('/profile');
+    } else if (index == 2) {
+      navigatorKey.currentState.pushReplacementNamed('/scan');
     } else {
       navigatorKey.currentState.pushReplacementNamed('/home');
     }
