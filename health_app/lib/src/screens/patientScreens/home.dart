@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:health_app/src/screens/widgets/app_nav.dart';
-import 'package:health_app/src/screens/widgets/bottom_navigation.dart';
+
 import 'package:health_app/src/screens/widgets/chart.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:vector_math/vector_math.dart' as math;
 
 class PatientHome extends StatelessWidget {
   // Function changeIndex;
@@ -147,7 +145,7 @@ class PatientHome extends StatelessWidget {
   Future showDialogue(BuildContext context) {
     return showGeneralDialog(
       context: context,
-      pageBuilder: (context, anim1, anim2) {},
+      pageBuilder: (context, anim1, anim2) => null,
       barrierDismissible: true,
       barrierColor: Colors.black.withOpacity(0.4),
       barrierLabel: '',
@@ -176,7 +174,7 @@ class PatientHome extends StatelessWidget {
                           ListTile(
                             leading: Image.asset('assets/images/clin.png'),
                             title: Center(
-                              child: Text('Hospital ${index}'),
+                              child: Text('Hospital $index'),
                             ),
                             trailing: Icon(FontAwesomeIcons.arrowDown),
                           ),

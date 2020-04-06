@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:health_app/src/screens/widgets/app_nav.dart';
-import 'package:health_app/src/screens/widgets/bottom_navigation.dart';
-import 'package:health_app/src/screens/widgets/chart.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PatientProfile extends StatelessWidget {
   // Function changeIndex;
@@ -10,8 +6,8 @@ class PatientProfile extends StatelessWidget {
   // PatientProfile({this.changeIndex, this.index});
   @override
   Widget build(BuildContext context) {
-    MediaQueryData queryData = MediaQuery.of(context);
-    double width = queryData.size.width;
+    // MediaQueryData queryData = MediaQuery.of(context);
+    // double width = queryData.size.width;
 
     return SingleChildScrollView(
       child: Container(

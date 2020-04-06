@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:health_app/src/patient_navigation.dart';
-import 'package:health_app/src/screens/hospitalScreens/hospRegistration.dart';
+import 'package:health_app/src/screens/splash_screen.dart';
 
 class App extends StatefulWidget {
   @override
@@ -10,9 +9,6 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.light(),
-      home: HospRegistration(),
-    );
+    return MaterialApp(theme: ThemeData.light(), home: SplashScreen());
   }
 }

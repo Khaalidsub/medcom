@@ -19,11 +19,15 @@ class HospitalRouting {
         builder = (BuildContext context) => HospitalHome();
 
         break;
+      case '/history':
+        builder = (BuildContext context) => HospitalHistory();
+
+        break;
       case '/patientList':
-        builder = (BuildContext context) => PatientDetails();
+        builder = (BuildContext context) => PatientList();
         break;
       case '/profile':
-        builder = (BuildContext context) => HospitalHome();
+        builder = (BuildContext context) => HospitalProfile();
         break;
 
       default:
