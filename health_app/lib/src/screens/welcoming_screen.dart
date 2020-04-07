@@ -53,9 +53,7 @@ class WelcomingScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 100,
-              ),
+              SizedBox(height: height * 0.1),
               Container(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
