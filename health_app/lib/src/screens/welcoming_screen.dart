@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/src/screens/hospitalScreens/hospRegistration.dart';
-import 'package:health_app/src/screens/hospitalScreens/patientDetails.dart';
+import 'package:health_app/src/screens/hospitalScreens/patientList.dart';
 import 'package:health_app/src/screens/login.dart';
 
 class WelcomingScreen extends StatelessWidget {
