@@ -37,20 +37,23 @@ class _MainScreenState extends State<PatientNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppNav(
-        appBar: AppBar(),
+    return WillPopScope(
+      onWillPop: () {return Future.value(false);},
+      child: Scaffold(
+        appBar: AppNav(
+          appBar: AppBar(),
+        ),
+        body: Navigator(
+          key: navigatorKey,
+          initialRoute: '/',
+          onGenerateRoute: (RouteSettings settings) {
+            PatientRoute router = PatientRoute();
+            return router.routing(settings, context);
+          },
+        ),
+        bottomNavigationBar:
+            PatientBottomNavigation(changeIndex: changeIndex, index: index),
       ),
-      body: Navigator(
-        key: navigatorKey,
-        initialRoute: '/',
-        onGenerateRoute: (RouteSettings settings) {
-          PatientRoute router = PatientRoute();
-          return router.routing(settings, context);
-        },
-      ),
-      bottomNavigationBar:
-          PatientBottomNavigation(changeIndex: changeIndex, index: index),
     );
   }
 }

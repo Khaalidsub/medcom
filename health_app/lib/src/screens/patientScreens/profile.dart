@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../patient_navigation.dart';
+import 'settings.dart';
+
 class PatientProfile extends StatelessWidget {
   // Function changeIndex;
   // int index;
@@ -8,7 +11,6 @@ class PatientProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     // MediaQueryData queryData = MediaQuery.of(context);
     // double width = queryData.size.width;
-
     return SingleChildScrollView(
       child: Container(
         padding: EdgeInsets.only(left: 50, right: 50, top: 6),
@@ -21,7 +23,10 @@ class PatientProfile extends StatelessWidget {
                   Icons.settings,
                   color: Colors.black,
                 ),
-                onPressed: () {},
+                onPressed: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PatientSettings())),
               ),
             ),
             SizedBox(

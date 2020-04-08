@@ -1,19 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:health_app/src/screens/widgets/app_nav.dart';
 
 class PatientSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppNav(
-        appBar: AppBar(),
-      ),
+      // appBar: AppNav(
+      //   appBar: AppBar(),
+      // ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Container(
+              margin: EdgeInsets.only(top: 30.0),
               child: ListView.builder(
                   shrinkWrap: true,
                   addAutomaticKeepAlives: false,
@@ -61,10 +61,6 @@ class PatientSettings extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(
-                      Icons.copyright,
-                      size: 20.0,
-                    ),
                     Text(
                       'Medcom',
                       style: TextStyle(
@@ -79,6 +75,8 @@ class PatientSettings extends StatelessWidget {
           ],
         ),
       ),
+    // bottomNavigationBar:
+    //       PatientBottomNavigation(changeIndex: ()=>{}, index: 1),
     );
   }
 }

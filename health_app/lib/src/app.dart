@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:health_app/src/screens/patientScreens/settings.dart';
 import 'package:health_app/src/screens/splash_screen.dart';
 
 class App extends StatefulWidget {
@@ -13,6 +12,6 @@ class _AppState extends State<App> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData.light(),
-        home: PatientSettings());
+        home: SplashScreen());
   }
 }
