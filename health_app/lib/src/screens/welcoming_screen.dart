@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/src/screens/hospitalScreens/hospRegistration.dart';
-import 'package:health_app/src/screens/hospitalScreens/patientList.dart';
+import 'package:health_app/src/screens/patientScreens/patientReg.dart';
 import 'package:health_app/src/screens/login.dart';
 
 class WelcomingScreen extends StatelessWidget {
@@ -53,9 +53,7 @@ class WelcomingScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 100,
-              ),
+              SizedBox(height: height * 0.1),
               Container(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -99,7 +97,7 @@ class WelcomingScreen extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PatientList()));
+                                builder: (context) => PatientReg()));
                       },
                     ),
                     SizedBox(

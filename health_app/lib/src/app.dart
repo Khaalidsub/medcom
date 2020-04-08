@@ -9,6 +9,9 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(theme: ThemeData.light(), home: SplashScreen());
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.light(),
+        home: SplashScreen());
   }
 }

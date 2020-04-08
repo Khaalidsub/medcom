@@ -33,7 +33,7 @@ class PatientBottomNavigation extends StatelessWidget {
         ],
         color: Colors.blueAccent,
         buttonBackgroundColor: Colors.lightBlue,
-        backgroundColor: Colors.grey[100],
+        backgroundColor: Colors.transparent,
         animationCurve: Curves.easeInOut,
         animationDuration: Duration(milliseconds: 600),
         onTap: (value) => changeIndex(value),
