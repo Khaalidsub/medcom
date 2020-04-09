@@ -3,7 +3,12 @@ import 'package:health_app/src/screens/hospitalScreens/hospRegistration.dart';
 import 'package:health_app/src/screens/patientScreens/patientReg.dart';
 import 'package:health_app/src/screens/login.dart';
 
-class WelcomingScreen extends StatelessWidget {
+class WelcomingScreen extends StatefulWidget {
+  @override
+  _WelcomingScreenState createState() => _WelcomingScreenState();
+}
+
+class _WelcomingScreenState extends State<WelcomingScreen> {
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
