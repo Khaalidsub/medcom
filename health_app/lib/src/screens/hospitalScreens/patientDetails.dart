@@ -26,82 +26,79 @@ class _PatientDetailsState extends State<PatientDetails>
     // double width = queryData.size.width;
     double height = queryData.size.height;
     return Scaffold(
-      appBar: AppNav(
-        appBar: AppBar(),
-      ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(
-                top: 15, bottom: 10), //test later with diff screen size
-            child: CircleAvatar(
-              backgroundImage: AssetImage('assets/images/unknownPerson.jpg'),
-              radius: 60,
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(bottom: 15),
-            child: Text(
-              'Justin Bieber',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 3 * height / 100,
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(
+                  top: 15, bottom: 10), //test later with diff screen size
+              child: CircleAvatar(
+                backgroundImage: AssetImage('assets/images/unknownPerson.jpg'),
+                radius: 60,
               ),
             ),
-          ),
-          RaisedButton(
-            onPressed: null, //add appointment Functionality goes here!
-            disabledColor: Colors.blue[600],
-            child: FittedBox(
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  ),
-                  Text(
-                    'Add Appointment',
-                    style: TextStyle(
+            Container(
+              margin: EdgeInsets.only(bottom: 15),
+              child: Text(
+                'Justin Bieber',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 3 * height / 100,
+                ),
+              ),
+            ),
+            RaisedButton(
+              onPressed: null, //add appointment Functionality goes here!
+              disabledColor: Colors.blue[600],
+              child: FittedBox(
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.add,
                       color: Colors.white,
-                      fontSize: 15,
                     ),
-                  )
+                    Text(
+                      'Add Appointment',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(30),
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(color: Colors.white),
+              child: TabBar(
+                indicatorColor: Colors.blueAccent,
+                labelColor: Colors.black,
+                controller: _controller,
+                tabs: [
+                  Tab(
+                    icon: const Icon(
+                      FontAwesomeIcons.calendarCheck,
+                      color: Colors.blueAccent,
+                    ),
+                    text: "Latest Appointments",
+                  ),
+                  Tab(
+                    icon: const Icon(
+                      FontAwesomeIcons.history,
+                      color: Colors.blueAccent,
+                    ),
+                    text: 'History',
+                  ),
                 ],
               ),
             ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(30),
-              ),
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(color: Colors.white),
-            child: TabBar(
-              indicatorColor: Colors.blueAccent,
-              labelColor: Colors.black,
-              controller: _controller,
-              tabs: [
-                Tab(
-                  icon: const Icon(
-                    FontAwesomeIcons.calendarCheck,
-                    color: Colors.blueAccent,
-                  ),
-                  text: "Latest Appointments",
-                ),
-                Tab(
-                  icon: const Icon(
-                    FontAwesomeIcons.history,
-                    color: Colors.blueAccent,
-                  ),
-                  text: 'History',
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Container(
-              // height: 80.0,
+            Container(
+              height: height * 0.5,
               child: TabBarView(
                 controller: _controller, //to control the sync of tabs and views
                 children: <Widget>[
@@ -111,8 +108,8 @@ class _PatientDetailsState extends State<PatientDetails>
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

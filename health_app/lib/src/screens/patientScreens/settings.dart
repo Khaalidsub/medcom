@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:health_app/src/screens/welcoming_screen.dart';
 
 class PatientSettings extends StatelessWidget {
   @override
@@ -48,9 +49,17 @@ class PatientSettings extends StatelessWidget {
                       icon: Icon(FontAwesomeIcons.info),
                       label: "About",
                     ),
-                    Tile(
-                      icon: Icon(FontAwesomeIcons.signOutAlt),
-                      label: "Logout",
+                    GestureDetector(
+                      onTap: () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PatientSettings(),
+                        ),
+                      ),
+                      child: Tile(
+                        icon: Icon(FontAwesomeIcons.signOutAlt),
+                        label: "Logout",
+                      ),
                     )
                   ],
                 )),
@@ -75,8 +84,8 @@ class PatientSettings extends StatelessWidget {
           ],
         ),
       ),
-    // bottomNavigationBar:
-    //       PatientBottomNavigation(changeIndex: ()=>{}, index: 1),
+      // bottomNavigationBar:
+      //       PatientBottomNavigation(changeIndex: ()=>{}, index: 1),
     );
   }
 }
