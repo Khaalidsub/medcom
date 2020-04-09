@@ -29,11 +29,9 @@ class AppointmenContent extends StatelessWidget {
               ),
             ),
             onDismissed: (direction) {
-              setState() {
-                items.removeAt(index);
-                //remove the items
-                //also from the back end
-              }
+              items.removeAt(index);
+              //remove the items
+              //also from the back end
 
               Scaffold.of(context).showSnackBar(
                 SnackBar(

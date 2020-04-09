@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../patient_navigation.dart';
 import 'settings.dart';
 
 class PatientProfile extends StatelessWidget {
@@ -23,10 +22,8 @@ class PatientProfile extends StatelessWidget {
                   Icons.settings,
                   color: Colors.black,
                 ),
-                onPressed: () => Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PatientSettings())),
+                onPressed: () => Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => PatientSettings())),
               ),
             ),
             SizedBox(

@@ -23,7 +23,7 @@ class _PatientDetailsState extends State<PatientDetails>
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
-    double width = queryData.size.width;
+    // double width = queryData.size.width;
     double height = queryData.size.height;
     return Scaffold(
       appBar: AppNav(

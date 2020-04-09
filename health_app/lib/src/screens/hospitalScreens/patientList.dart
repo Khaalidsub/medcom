@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:health_app/src/screens/hospitalScreens/patientDetails.dart';
-import 'package:health_app/src/screens/widgets/app_nav.dart';
 
 class PatientList extends StatelessWidget {
   @override

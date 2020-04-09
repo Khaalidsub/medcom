@@ -3,8 +3,6 @@ import 'package:health_app/src/screens/patientScreens/history.dart';
 import 'package:health_app/src/screens/patientScreens/home.dart';
 import 'package:health_app/src/screens/patientScreens/profile.dart';
 import 'package:health_app/src/screens/patientScreens/scan.dart';
-import 'package:health_app/src/screens/patientScreens/settings.dart';
-
 
 class PatientRoute {
   MaterialPageRoute<dynamic> routing(
