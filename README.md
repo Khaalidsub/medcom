@@ -10,22 +10,22 @@ In case of accidents, first aid is the most important and crucial. The most impo
 
 ## Project Structure
 The main part of our Project runs under the lib foulder
-- lib
-    - src
-        - bloc
-        - models
-        - resources (backend folder such as firebase services)
-        - screens
-            - hospitalScreens (all screens meant for the user hospital)
-            - patientScreens (all screens meant for the user patient)
-            - widgets (all widgets that are being reused will be here)
-            - login.dart (common file for all users)
-            - welcoming_screen.dart (common file for all users)
-        - utils (all files that is not meant to be widget such as routing configs)
-        - app.dart
-        - hospital_navigation.dart
-        - patient_navigation.dart
-    - main.dart
+1.  - lib
+        - src
+            - bloc
+            - models
+            - resources (backend folder such as firebase services)
+            - screens
+                - hospitalScreens (all screens meant for the user hospital)
+                - patientScreens (all screens meant for the user patient)
+                - widgets (all widgets that are being reused will be here)
+                - login.dart (common file for all users)
+                - welcoming_screen.dart (common file for all users)
+            - utils (all files that is not meant to be widget such as routing configs)
+            - app.dart
+            - hospital_navigation.dart
+            - patient_navigation.dart
+        - main.dart
 
 This Project we will be using Bloc(business logic component) as our State management/Design Architecture
 
