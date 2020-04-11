@@ -18,13 +18,17 @@ class _AppState extends State<App> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
-      home: SplashScreen.navigate(
-        name: 'assets/images/logo.flr',
-        next: (context) => WelcomingScreen(),
-        until: () => Future.delayed(Duration(seconds: 5)),
-        startAnimation: 'go',
-        backgroundColor: Colors.blueAccent,
-      ),
+      home: buildSplashScreen(),
+    );
+  }
+
+  SplashScreen buildSplashScreen() {
+    return SplashScreen.navigate(
+      name: 'assets/images/logo.flr',
+      next: (context) => WelcomingScreen(),
+      until: () => Future.delayed(Duration(seconds: 5)),
+      startAnimation: 'go',
+      backgroundColor: Colors.blueAccent,
     );
   }
 }
