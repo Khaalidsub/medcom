@@ -6,7 +6,6 @@ class HospRegistration extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: Scaffold(
-          backgroundColor: Colors.grey[50],
           appBar: AppBar(
             elevation: 5,
             backgroundColor: Colors.blueAccent,
@@ -17,26 +16,19 @@ class HospRegistration extends StatelessWidget {
               ),
             ),
             titleSpacing: 0,
-            title: Container(
-                padding: EdgeInsets.all(10),
-                child: Row(
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      onPressed: () {}, //pop this screen from navigator stack.
-                    ),
-                    Text('Back')
-                  ],
-                )),
           ),
           //registration card
           body: SingleChildScrollView(
             child: Column(
               children: <Widget>[
                 Container(
-                  height: 150,
-                  width: 150,
-                  child: Image.asset('assets/images/bigLogo.png'),
+                  height: 200,
+                  child: Hero(
+                    tag: 'logo',
+                    child: Image.asset(
+                      "assets/images/logo-01.png",
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(20),

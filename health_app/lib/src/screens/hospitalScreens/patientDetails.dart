@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/screens/hospitalScreens/appointmentHistoryContent.dart';
 import 'package:health_app/src/screens/hospitalScreens/latestAppointementContent.dart';
-import 'package:health_app/src/screens/widgets/app_nav.dart';
 
 class PatientDetails extends StatefulWidget {
   @override

@@ -20,15 +20,23 @@ class PatientReg extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => WelcomingScreen())),
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.arrow_left),
+                    Icon(
+                      Icons.arrow_left,
+                      size: 30,
+                    ),
                     Text('Back'),
                   ],
                 ),
               ),
             ),
-            Image.asset(
-              'assets/images/logo-01.png',
-              height: 150,
+            Container(
+              height: 200,
+              child: Hero(
+                tag: 'logo',
+                child: Image.asset(
+                  "assets/images/logo-01.png",
+                ),
+              ),
             ),
             Container(
               margin: EdgeInsets.fromLTRB(25, 5, 25, 15),

@@ -1,37 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:health_app/src/screens/welcoming_screen.dart';
 
 class PatientSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppNav(
-      //   appBar: AppBar(),
-      // ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(top: 30.0),
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  addAutomaticKeepAlives: false,
-                  itemCount: 1,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      child: ListTile(
-                        onTap: () => {}, //goes to patient full data page
-                        leading: CircleAvatar(
-                          backgroundColor: Colors.black,
-                          backgroundImage: AssetImage('assets/images/ill.png'),
-                        ),
-                        title: Text("Muhammad adeen Rabbani"),
-                        subtitle: Text("ID939204"),
-                      ),
-                    );
-                  }),
+              child: Card(
+                child: ListTile(
+                  onTap: () => {}, //goes to patient full data page
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.black,
+                    backgroundImage: AssetImage('assets/images/ill.png'),
+                  ),
+                  title: Text("Muhammad adeen Rabbani"),
+                  subtitle: Text("ID939204"),
+                ),
+              ),
             ),
             Container(
                 margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
