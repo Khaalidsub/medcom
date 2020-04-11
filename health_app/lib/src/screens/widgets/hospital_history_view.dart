@@ -93,7 +93,7 @@ class HospitalHistoryView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20)),
                   child: Center(
                     child: Text(
-                      'IDK',
+                      'info',
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

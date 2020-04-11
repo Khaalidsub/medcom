@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:health_app/src/screens/widgets/app_nav.dart';
-import 'package:health_app/src/screens/widgets/bottom_navigation.dart';
+import 'package:health_app/src/screens/widgets/patient_bottom_navigation.dart';
 import 'package:health_app/src/utils/patient_routing.dart';
 
 class PatientNavigation extends StatefulWidget {
@@ -19,10 +19,12 @@ class _MainScreenState extends State<PatientNavigation> {
 
     if (index == 0) {
       navigatorKey.currentState.pushReplacementNamed('/home');
-    } else if (index == 2) {
+    } else if (index == 1) {
       navigatorKey.currentState.pushReplacementNamed('/history');
-    } else if (index == 4) {
+    } else if (index == 3) {
       navigatorKey.currentState.pushReplacementNamed('/profile');
+    } else if (index == 2) {
+      navigatorKey.currentState.pushReplacementNamed('/scan');
     } else {
       navigatorKey.currentState.pushReplacementNamed('/home');
     }
@@ -35,21 +37,25 @@ class _MainScreenState extends State<PatientNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppNav(
-        appBar: AppBar(),
+    return WillPopScope(
+      onWillPop: () {
+        return Future.value(false);
+      },
+      child: Scaffold(
+        appBar: AppNav(
+          appBar: AppBar(),
+        ),
+        body: Navigator(
+          key: navigatorKey,
+          initialRoute: '/',
+          onGenerateRoute: (RouteSettings settings) {
+            PatientRoute router = PatientRoute();
+            return router.routing(settings, context);
+          },
+        ),
+        bottomNavigationBar:
+            PatientBottomNavigation(changeIndex: changeIndex, index: index),
       ),
-      body: Navigator(
-        key: navigatorKey,
-        initialRoute: '/',
-        onGenerateRoute: (RouteSettings settings) {
-          PatientRoute router = PatientRoute();
-
-          return router.routing(settings, context);
-        },
-      ),
-      bottomNavigationBar:
-          BottomNavigation(changeIndex: changeIndex, index: index),
     );
   }
 }

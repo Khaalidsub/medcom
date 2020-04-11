@@ -1,231 +1,140 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:health_app/src/screens/widgets/bottom_navigation.dart';
 
 class HospRegistration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
       child: Scaffold(
-          backgroundColor: Colors.white,
           appBar: AppBar(
-            backgroundColor: Color(0xffFFFEDE),
-            elevation: 0,
-            title: Text(""),
-            //later put on press goto back page
-            leading: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
+            elevation: 5,
+            backgroundColor: Colors.blueAccent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30),
+              ),
             ),
+            titleSpacing: 0,
           ),
           //registration card
           body: SingleChildScrollView(
             child: Column(
               children: <Widget>[
                 Container(
-                  height: 150,
-                  width: 150,
-                  child: Image.asset('assets/images/bigLogo.png'),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 20),
-                  child: Text(
-                    "Hospital Registration",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 30),
+                  height: 200,
+                  child: Hero(
+                    tag: 'logo',
+                    child: Image.asset(
+                      "assets/images/logo-01.png",
+                    ),
                   ),
                 ),
-                Container(
-                  //height: 500,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white,
-                        spreadRadius: 10,
-                        blurRadius: 1,
-                      ),
-                    ],
-                  ),
-                  margin: EdgeInsets.fromLTRB(50, 80, 50, 20),
+                Padding(
+                  padding: EdgeInsets.all(20),
                   child: Wrap(
                     runSpacing: 20,
                     children: <Widget>[
-                      TextField(
-                        decoration: InputDecoration(
-                          suffixIcon: Icon(
-                            Icons.local_hospital,
-                            color: Colors.grey,
-                          ),
-                          fillColor: Color(0xffFFFEDE),
-                          filled: true,
-                          labelStyle: TextStyle(color: Colors.black),
-                          labelText: "Hospital Name",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(30),
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
-                            borderSide:
-                                BorderSide(color: Color(0xffE6E5BF), width: 2),
-                          ),
-                        ),
+                      Reusablefield(
+                        label: "Enter Name",
+                        color: Colors.white,
+                        icon: Icon(Icons.local_hospital),
                       ),
-                      TextField(
-                        decoration: InputDecoration(
-                          suffixIcon: Icon(
-                            Icons.mail,
-                            color: Colors.grey,
-                          ),
-                          fillColor: Color(0xffFFFEDE),
-                          filled: true,
-                          labelText: "Enter Email",
-                          labelStyle: TextStyle(color: Colors.black),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(30),
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
-                            borderSide:
-                                BorderSide(color: Color(0xffE6E5BF), width: 2),
-                          ),
-                        ),
+                      Reusablefield(
+                        label: "Enter Email",
+                        color: Colors.white,
+                        icon: Icon(Icons.mail),
                       ),
-                      TextField(
-                          decoration: InputDecoration(
-                              suffixIcon: Icon(
-                                Icons.book,
-                                color: Colors.grey,
-                              ),
-                              fillColor: Color(0xffFFFEDE),
-                              filled: true,
-                              labelText: "Enter Address",
-                              labelStyle: TextStyle(color: Colors.black),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(30),
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(30)),
-                                  borderSide: BorderSide(
-                                    color: Color(0xffE6E5BF),
-                                    width: 2,
-                                  )))),
-                      TextField(
-                        decoration: InputDecoration(
-                          suffixIcon: Icon(
-                            Icons.phone,
-                            color: Colors.grey,
-                          ),
-                          fillColor: Color(0xffFFFEDE),
-                          filled: true,
-                          labelStyle: TextStyle(color: Colors.black),
-                          labelText: "Enter Phone",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(30),
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
-                            borderSide: BorderSide(
-                              color: Color(0xffE6E5BF),
-                              width: 2,
-                            ),
-                          ),
-                        ),
+                      Reusablefield(
+                        label: "Enter Phone",
+                        color: Colors.white,
+                        icon: Icon(Icons.phone),
                       ),
-                      TextField(
-                        decoration: InputDecoration(
-                          suffixIcon: Icon(
-                            Icons.person,
-                            color: Colors.grey,
-                          ),
-                          fillColor: Color(0xffFFFEDE),
-                          filled: true,
-                          labelStyle: TextStyle(color: Colors.black),
-                          labelText: "Director Name",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(30),
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
-                            borderSide: BorderSide(
-                              color: Color(0xffE6E5BF),
-                              width: 2,
-                            ),
-                          ),
-                        ),
+                      Reusablefield(
+                        label: "Enter Drirector Name",
+                        color: Colors.white,
+                        icon: Icon(Icons.person),
                       ),
-                      TextField(
-                        decoration: InputDecoration(
-                          labelText: "Director Email",
-                          labelStyle: TextStyle(color: Colors.black),
-                          fillColor: Color(0xffFFFEDE),
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(30),
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
-                            borderSide: BorderSide(
-                              color: Color(0xffE6E5BF),
-                              width: 2,
-                            ),
-                          ),
-                        ),
+                      Reusablefield(
+                        label: "Enter Password",
+                        color: Colors.white,
+                        icon: Icon(Icons.vpn_key),
+                        isPass: true,
                       ),
-                      TextField(
-                        decoration: InputDecoration(
-                          labelText: "Enter Email",
-                          labelStyle: TextStyle(color: Colors.black),
-                          fillColor: Color(0xffFFFEDE),
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(30),
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
-                            borderSide: BorderSide(
-                              color: Color(0xffE6E5BF),
-                              width: 2,
-                            ),
-                          ),
-                        ),
+                      Reusablefield(
+                        label: "Confirm Password",
+                        color: Colors.white,
+                        icon: Icon(Icons.vpn_key),
+                        isPass: true,
                       ),
                     ],
                   ),
                 ),
-                RaisedButton(
-                  onPressed: null,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
-                  padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
-                  disabledColor: Colors.amber,
-                  child: Text(
-                    "Submit",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
+                Container(
+                  margin: EdgeInsets.only(bottom: 15),
+                  child: RaisedButton(
+                    onPressed: () {},
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 150, vertical: 15),
+                    color: Colors.blueAccent,
+                    //disabledColor: Colors.blueAccent,
+                    child: Text(
+                      "Register",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
                   ),
                 )
               ],
             ),
           )),
     );
+  }
+}
+
+class Reusablefield extends StatelessWidget {
+  final String label;
+  final Color color;
+  final bool isPass;
+  final Icon icon;
+  Reusablefield(
+      {@required this.label,
+      @required this.color,
+      @required this.icon,
+      this.isPass});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+        //validator: (String value) {
+        //  if (value.trim().isEmpty) {
+        //    return 'This is required';
+        //  }
+        //},
+        obscureText: isPass == null ? false : isPass,
+        decoration: InputDecoration(
+          suffixIcon: icon,
+          fillColor: color,
+          filled: true,
+          labelText: label,
+          labelStyle: TextStyle(color: Colors.black),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(width: 0, style: BorderStyle.none)),
+          //border: OutlineInputBorder(
+          //  borderRadius: BorderRadius.all(
+          //    Radius.circular(30),
+          //  ),
+          //),
+          //  focusedBorder: OutlineInputBorder(
+          //    borderRadius: BorderRadius.all(Radius.circular(30)),
+          //    borderSide: BorderSide(color: Color(0xffE6E5BF), width: 2),
+          //  ),
+          //),
+        ));
   }
 }

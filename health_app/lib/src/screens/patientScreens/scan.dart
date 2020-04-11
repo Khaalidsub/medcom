@@ -1,24 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:health_app/src/screens/widgets/app_nav.dart';
-import 'package:health_app/src/screens/widgets/bottom_navigation.dart';
 
 class Scan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
     double width = queryData.size.width;
-    return Material(
-      child: Scaffold(
-        backgroundColor: Colors.grey[100],
-        appBar: AppNav(
-          appBar: AppBar(),
-        ),
-        body: Center(
+    return Scaffold(
+      backgroundColor: Colors.grey[100],
+      body: Center(
+        child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(top: 50, bottom: 30),
+                margin: EdgeInsets.only(top: 10, bottom: 30),
                 alignment: Alignment.center,
                 width: width * 0.6,
                 height: 250,
@@ -47,8 +42,8 @@ class Scan extends StatelessWidget {
             ],
           ),
         ),
-        bottomNavigationBar:BottomNavigation() ,
       ),
+      // bottomNavigationBar:BottomNavigation() ,
     );
   }
 }
