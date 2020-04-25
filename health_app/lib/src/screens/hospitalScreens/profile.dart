@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:health_app/src/screens/hospitalScreens/settings.dart';
+
 
 class HospitalProfile extends StatelessWidget {
   @override
@@ -16,7 +18,8 @@ class HospitalProfile extends StatelessWidget {
                   Icons.settings,
                   color: Colors.black,
                 ),
-                onPressed: () {},
+                onPressed: () => Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => HospitalSettings())),
               ),
             ),
             SizedBox(

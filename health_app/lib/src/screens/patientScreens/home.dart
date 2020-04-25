@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:health_app/src/screens/patientScreens/patientReg.dart';
+import 'package:health_app/src/screens/patientScreens/patientList.dart';
 
 import 'package:health_app/src/screens/widgets/chart.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -29,7 +31,8 @@ class PatientHome extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 GestureDetector(
-                  onTap: () => showDialogue(context),
+                  onTap: () => Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => PatientList())),
                   child: Container(
                     height: height * 0.2,
                     width: width * 0.29,
@@ -57,7 +60,8 @@ class PatientHome extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => showDialogue(context),
+                  onTap: () => Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => PatientList())),
                   child: Container(
                     height: height * 0.2,
                     width: width * 0.29,

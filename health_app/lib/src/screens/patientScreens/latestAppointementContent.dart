@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LatestAppointmenContent extends StatelessWidget {
   final items = List<String>.generate(
-      2, (i) => "Brain Cancer. Must be taken care of sensitive mdication$i");
+      1, (i) => "Brain Cancer. Must be taken care of sensitive mdication$i");
   @override
   Widget build(BuildContext context) {
     return ListView.builder(

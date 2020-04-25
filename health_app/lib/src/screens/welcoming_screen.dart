@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/src/screens/hospitalScreens/hospRegistration.dart';
-import 'package:health_app/src/screens/patientScreens/patientReg.dart';
+import 'package:health_app/src/screens/patientScreens/PatientRegistration.dart';
 import 'package:health_app/src/screens/login.dart';
 
 class WelcomingScreen extends StatefulWidget {
@@ -102,7 +102,7 @@ class _WelcomingScreenState extends State<WelcomingScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PatientReg()));
+                                builder: (context) => PatientRegistration()));
                       },
                     ),
                     SizedBox(

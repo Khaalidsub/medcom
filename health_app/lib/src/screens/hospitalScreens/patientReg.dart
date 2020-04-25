@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:health_app/src/screens/patientScreens/patientDetails.dart';
 
 
 class PatientReg extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -18,8 +16,7 @@ class PatientReg extends StatelessWidget {
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.only(top: 35, left: 10),
               child: GestureDetector(
-                onTap: () => Navigator.pop(context),
-
+                onTap:  () => Navigator.pop(context),
                 child: Row(
                   children: <Widget>[
                     Icon(
@@ -36,50 +33,43 @@ class PatientReg extends StatelessWidget {
               child: Hero(
                 tag: 'logo',
                 child: Image.asset(
-                  "assets/images/buildingIcon.png",
+                  "assets/images/img.png",
                 ),
-                
               ),
             ),
-       
-
             Container(
               margin: EdgeInsets.fromLTRB(25, 5, 25, 15),
-              child: 
-              Wrap(
+              child: Wrap(
                 runSpacing: 20,
                 children: <Widget>[
                   Reusablefield(
-                    label: "Enter Name",
-                    color: Colors.white,
-                    icon: Icon(Icons.local_hospital),
-                    type: 'name',
-                    hint: 'e.g Will Smith',
-                  ),
-                  Reusablefield(
-                    
                     label: "Enter Date",
                     color: Colors.white,
                     icon: Icon(Icons.date_range),
-                    type: 'date',
-                    hint: 'e.g 03/25/2020',
+                    type: 'Date',
+                    hint: 'e.g 02/03/2020',
                   ),
-                   Reusablefield(
-                    label: "Enter time",
+                  Reusablefield(
+                    label: "Enter Time",
                     color: Colors.white,
-                    icon: Icon(Icons.timelapse),
+                    icon: Icon(Icons.timer),
                     type: 'Time',
                     hint: 'e.g 15:00',
+                  ),
+                  Reusablefield(
+                    label: "Enter Comment",
+                    color: Colors.white,
+                    icon: Icon(Icons.person),
+                    type: 'Comment',
+                    hint: 'e.g any',
                   ),
                   
                 ],
               ),
             ),
             Container(
-              
               margin: EdgeInsets.only(bottom: 15),
-              child:
-               RaisedButton(
+              child: RaisedButton(
                 onPressed: null,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30)),

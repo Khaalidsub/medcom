@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/screens/welcoming_screen.dart';
 
 
-class PatientSettings extends StatelessWidget {
+class HospitalSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,10 +18,10 @@ class PatientSettings extends StatelessWidget {
                   onTap: () => {}, //goes to patient full data page
                   leading: CircleAvatar(
                     backgroundColor: Colors.black,
-                    backgroundImage: AssetImage('assets/images/ill.png'),
+                    backgroundImage: AssetImage('assets/images/clin.png'),
                   ),
-                  title: Text("Muhammad adeen Rabbani"),
-                  subtitle: Text("ID939204"),
+                  title: Text("Hospital"),
+                  subtitle: Text("FISR"),
                 ),
               ),
             ),
@@ -31,7 +31,7 @@ class PatientSettings extends StatelessWidget {
                   children: <Widget>[
                     Tile(
                       icon: Icon(FontAwesomeIcons.user),
-                      label: "My Profile",
+                      label: "Our info",
                     ),
                     Tile(
                       icon: Icon(Icons.help),

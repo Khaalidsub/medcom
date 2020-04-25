@@ -1,12 +1,9 @@
-//import 'dart:html';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/screens/hospitalScreens/appointmentHistoryContent.dart';
-import 'package:health_app/src/screens/hospitalScreens/latestAppointementContent.dart';
-import 'package:health_app/src/screens/hospitalscreens/patientReg.dart';
-
+import 'package:health_app/src/screens/patientScreens/latestAppointementContent.dart';
+import 'package:health_app/src/screens/patientScreens/patientReg.dart';
 
 class PatientDetails extends StatefulWidget {
   @override
@@ -36,14 +33,14 @@ class _PatientDetailsState extends State<PatientDetails>
               margin: EdgeInsets.only(
                   top: 15, bottom: 10), //test later with diff screen size
               child: CircleAvatar(
-                backgroundImage: AssetImage('assets/images/ill.png'),
+                backgroundImage: AssetImage('assets/images/clin.png'),
                 radius: 60,
               ),
             ),
             Container(
               margin: EdgeInsets.only(bottom: 15),
               child: Text(
-                'Justin',
+                'Hospital',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 3 * height / 100,
@@ -51,6 +48,7 @@ class _PatientDetailsState extends State<PatientDetails>
               ),
             ),
             RaisedButton(
+              focusColor: Colors.black,
               onPressed: () {
                Navigator.push(
                         context,
@@ -58,19 +56,16 @@ class _PatientDetailsState extends State<PatientDetails>
                           builder: (context) => PatientReg(),
                         ),
                       );
-              },
-            
+              },//add appointment Functionality goes here!
               color: Colors.blue,
               child: FittedBox(
                 
                 child: Row(
                   
                   children: <Widget>[
-                    
                     Icon(
                       Icons.add,
                       color: Colors.white,
-                      
                     ),
                     Text(
                       'Add Appointment',
@@ -83,6 +78,7 @@ class _PatientDetailsState extends State<PatientDetails>
                 ),
               ),
               shape: RoundedRectangleBorder(
+                
                 borderRadius: BorderRadius.all(
                   Radius.circular(30),
                 ),
