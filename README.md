@@ -2,7 +2,7 @@
 ##### Team Members : 
 - Khaalid Subaan A17CS4037
 - Muhammed Adeen Rabbani A17CS4006
-- Shere Abolmaghd  A17CS4009
+- Sherif Abouelmagd  A17CS4009
 - Aivaras Misiunas X19EC3012
 
 ## Project Description :
