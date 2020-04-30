@@ -11,12 +11,13 @@ class PatientNavigation extends StatefulWidget {
 
 class _MainScreenState extends State<PatientNavigation> {
   int index = 0;
+  String name = 'home';
 
   void changeIndex(int ind) {
     setState(() {
       index = ind;
     });
-
+    // print(name);
     if (index == 0) {
       navigatorKey.currentState.pushReplacementNamed('/home');
     } else if (index == 1) {
@@ -39,16 +40,23 @@ class _MainScreenState extends State<PatientNavigation> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        return Future.value(false);
+        return Future.value(Navigator.canPop(context));
       },
       child: Scaffold(
         appBar: AppNav(
           appBar: AppBar(),
+          name: name.toUpperCase(),
         ),
         body: Navigator(
           key: navigatorKey,
           initialRoute: '/',
           onGenerateRoute: (RouteSettings settings) {
+            if (settings.name != '/') {
+              setState(() {
+                name = settings.name.replaceAll('/', '');
+              });
+            }
+
             PatientRoute router = PatientRoute();
             return router.routing(settings, context);
           },

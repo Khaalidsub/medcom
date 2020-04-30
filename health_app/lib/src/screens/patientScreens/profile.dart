@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'settings.dart';
-
 class PatientProfile extends StatelessWidget {
   // Function changeIndex;
   // int index;
@@ -22,8 +20,7 @@ class PatientProfile extends StatelessWidget {
                   Icons.settings,
                   color: Colors.black,
                 ),
-                onPressed: () => Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => PatientSettings())),
+                onPressed: () => Navigator.pushNamed(context, '/settings'),
               ),
             ),
             SizedBox(

@@ -12,6 +12,7 @@ class HospitalNavigation extends StatefulWidget {
 
 class _HospitalMainState extends State<HospitalNavigation> {
   int index = 0;
+  String name = 'home';
   //to manipulate the navigator. without it I can use Navigator.of(Context)
   //basically we need the context (a thing) to push on, which normally is the
   //current top element in the Navigator widget
@@ -39,21 +40,32 @@ class _HospitalMainState extends State<HospitalNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppNav(
-        appBar: AppBar(),
+    return WillPopScope(
+      onWillPop: () {
+        return Future.value(Navigator.canPop(context));
+      },
+      child: Scaffold(
+        appBar: AppNav(
+          appBar: AppBar(),
+          name: name.toUpperCase(),
+        ),
+        body: Navigator(
+          key: navigatorKey,
+          initialRoute: '/',
+          onGenerateRoute: (RouteSettings settings) {
+            if (settings.name != '/') {
+              setState(() {
+                name = settings.name.replaceAll('/', '');
+              });
+            }
+            //creating instance of hospital routing to return the materialPage route.
+            HospitalRouting hpRouter = HospitalRouting();
+            return hpRouter.routing(settings, context);
+          },
+        ),
+        bottomNavigationBar:
+            BottomNavigation(changeIndex: changeIndex, index: index),
       ),
-      body: Navigator(
-        key: navigatorKey,
-        initialRoute: '/',
-        onGenerateRoute: (RouteSettings settings) {
-          //creating instance of hospital routing to return the materialPage route.
-          HospitalRouting hpRouter = HospitalRouting();
-          return hpRouter.routing(settings, context);
-        },
-      ),
-      bottomNavigationBar:
-          BottomNavigation(changeIndex: changeIndex, index: index),
     );
   }
 }

@@ -29,7 +29,7 @@ class PatientHome extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 GestureDetector(
-                  onTap: () => showDialogue(context),
+                  onTap: () => {},
                   child: Container(
                     height: height * 0.2,
                     width: width * 0.29,
@@ -57,7 +57,7 @@ class PatientHome extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => showDialogue(context),
+                  onTap: () {},
                   child: Container(
                     height: height * 0.2,
                     width: width * 0.29,
@@ -139,56 +139,6 @@ class PatientHome extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Future showDialogue(BuildContext context) {
-    return showGeneralDialog(
-      context: context,
-      pageBuilder: (context, anim1, anim2) => null,
-      barrierDismissible: true,
-      barrierColor: Colors.black.withOpacity(0.4),
-      barrierLabel: '',
-      transitionBuilder: (context, anim1, anim2, child) {
-        return Transform.scale(
-          scale: anim1.value,
-          child: SimpleDialog(
-            contentPadding: EdgeInsets.all(0),
-            titlePadding: EdgeInsets.all(0),
-            shape: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.0),
-            ),
-            backgroundColor: Color(0xffFFFEDE),
-            children: <Widget>[
-              Container(
-                height: 300,
-                width: 500,
-                child: ListView.builder(
-                  itemCount: 3,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      padding: EdgeInsets.only(bottom: 10, left: 10, right: 10),
-                      color: Colors.yellow[200 * index],
-                      child: Column(
-                        children: <Widget>[
-                          ListTile(
-                            leading: Image.asset('assets/images/clin.png'),
-                            title: Center(
-                              child: Text('Hospital $index'),
-                            ),
-                            trailing: Icon(FontAwesomeIcons.arrowDown),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              )
-            ],
-          ),
-        );
-      },
-      transitionDuration: Duration(milliseconds: 300),
     );
   }
 }
