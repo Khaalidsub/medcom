@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_app/src/models/mockdata.dart';
 
 import 'package:health_app/src/screens/widgets/chart.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -42,7 +43,8 @@ class _HomeState extends State<HospitalHome> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, '/patientList'),
+                  onTap: () => Navigator.pushNamed(context, '/patientList',
+                      arguments: patientMockData),
                   child: Container(
                     height: 120,
                     width: width * 0.29,
@@ -69,7 +71,8 @@ class _HomeState extends State<HospitalHome> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, '/patientList'),
+                  onTap: () => Navigator.pushNamed(context, '/patientList',
+                      arguments: patientMockData),
                   child: Container(
                     height: 120,
                     width: width * 0.29,

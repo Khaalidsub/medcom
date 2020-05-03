@@ -1,3 +1,4 @@
+import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/user.dart';
 
 class Patient extends User {
@@ -7,6 +8,8 @@ class Patient extends User {
   String address;
   String gender;
   int age;
+  //apointment List
+  List<Appointment> appointments;
 
   Patient(
       {String id,
@@ -18,6 +21,7 @@ class Patient extends User {
       this.phoneNumber,
       this.address,
       this.gender,
-      this.age})
+      this.age,
+      this.appointments})
       : super(id, email, name, 'patient', password);
 }

@@ -1,14 +1,25 @@
+import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:health_app/src/models/Appointement.dart';
 
-class LatestAppointmenContent extends StatelessWidget {
-  final items = List<String>.generate(
-      5, (i) => "Brain Cancer. Must be taken care of sensitive mdication$i");
+class LatestAppointmenContent extends StatefulWidget {
+  List<Appointment> data;
+  LatestAppointmenContent(this.data);
+  @override
+  _LatestAppointmenContentState createState() =>
+      _LatestAppointmenContentState();
+}
+
+class _LatestAppointmenContentState extends State<LatestAppointmenContent> {
+  //final items = List<String>.generate(
+  //    5, (i) => "Brain Cancer. Must be taken care of sensitive mdication$i");
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: items.length,
+        itemCount: widget.data.length,
         itemBuilder: (BuildContext context, int index) {
           return Dismissible(
             direction: DismissDirection.endToStart,
@@ -29,7 +40,7 @@ class LatestAppointmenContent extends StatelessWidget {
               ),
             ),
             onDismissed: (direction) {
-              items.removeAt(index);
+              //items.removeAt(index);
               //remove the items
               //also from the back end
 
@@ -53,11 +64,20 @@ class LatestAppointmenContent extends StatelessWidget {
                     icon: Icon(Icons.menu),
                     onPressed:
                         null), //on press shows a small action dialog, whatsapp for reference
-                title: Text(
-                  "Sunday 2/10/2020",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                title: Row(
+                  children: <Widget>[
+                    Text(
+                      widget.data[index].day + "  ",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      formatDate(
+                          widget.data[index].date, [dd, '-', mm, '-', yyyy]),
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
-                subtitle: Text(items[index]),
+                subtitle: Text(widget.data[index].description),
               ),
             ),
           );

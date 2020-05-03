@@ -20,11 +20,13 @@ class HospitalRouting {
 
         break;
       case '/history':
+        print("the value is " + settings.arguments);
         builder = (BuildContext context) => HospitalHistory();
 
         break;
       case '/patientList':
-        builder = (BuildContext context) => PatientList();
+        builder = (BuildContext context) =>
+            PatientList(settings.arguments); //Expecting list of object Patient
         break;
       case '/profile':
         builder = (BuildContext context) => HospitalProfile();

@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:health_app/src/models/patient.dart';
+import 'package:health_app/src/screens/hospitalScreens/addAppointment.dart';
 import 'package:health_app/src/screens/hospitalScreens/appointmentHistoryContent.dart';
 import 'package:health_app/src/screens/hospitalScreens/latestAppointementContent.dart';
 
 class PatientDetails extends StatefulWidget {
+  Patient patient;
+
+  PatientDetails(this.patient);
   @override
   _PatientDetailsState createState() => _PatientDetailsState();
 }
@@ -39,7 +44,7 @@ class _PatientDetailsState extends State<PatientDetails>
             Container(
               margin: EdgeInsets.only(bottom: 15),
               child: Text(
-                'Justin Bieber',
+                widget.patient.name,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 3 * height / 100,
@@ -47,8 +52,15 @@ class _PatientDetailsState extends State<PatientDetails>
               ),
             ),
             RaisedButton(
-              onPressed: null, //add appointment Functionality goes here!
-              disabledColor: Colors.blue[600],
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddAppointment(),
+                  ),
+                );
+              }, //add appointment Functionality goes here!
+              color: Colors.blue[600],
               child: FittedBox(
                 child: Row(
                   children: <Widget>[
@@ -102,8 +114,12 @@ class _PatientDetailsState extends State<PatientDetails>
                 controller: _controller, //to control the sync of tabs and views
                 children: <Widget>[
                   //separate widgets that holds contents respectively for both tabs
-                  LatestAppointmenContent(),
-                  AppointmenContent(),
+                  LatestAppointmenContent(widget.patient.appointments
+                      .where((test) => test.status == "latest")
+                      .toList()),
+                  AppointmenContent((widget.patient.appointments
+                      .where((test) => test.status == "history")
+                      .toList())),
                 ],
               ),
             ),
