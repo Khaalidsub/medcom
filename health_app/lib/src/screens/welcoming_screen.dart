@@ -77,10 +77,9 @@ class _WelcomingScreenState extends State<WelcomingScreen> {
                             TextStyle(fontSize: 20, color: Colors.blueAccent),
                       ),
                       onPressed: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginForm()));
+                        Navigator.pushReplacementNamed(
+                            context,'/login');
+                           
                       },
                     ),
                     SizedBox(
@@ -99,10 +98,8 @@ class _WelcomingScreenState extends State<WelcomingScreen> {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PatientReg()));
+                         Navigator.pushReplacementNamed(
+                            context,'/patient_register');
                       },
                     ),
                     SizedBox(
@@ -121,10 +118,8 @@ class _WelcomingScreenState extends State<WelcomingScreen> {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HospRegistration()));
+                       Navigator.pushNamed(
+                            context,'/hospital_register');
                       },
                     ),
                   ],
