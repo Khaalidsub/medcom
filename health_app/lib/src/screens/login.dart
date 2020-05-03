@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/src/hospital_navigation.dart';
-import 'package:health_app/src/models/user.dart';
+import 'package:health_app/src/models/mockdata.dart';
 import 'package:health_app/src/patient_navigation.dart';
 import 'package:health_app/src/screens/welcoming_screen.dart';
 
@@ -10,11 +10,6 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  List<User> users = [
-    User(name: 'khaalid@gmail.com', password: '123', type: 'patient'),
-    User(name: 'hospital1@gmail.com', password: 'wer123', type: 'hospital')
-  ];
-
   final _formkey = GlobalKey<FormState>();
   bool loading = false;
 
@@ -24,9 +19,9 @@ class _LoginFormState extends State<LoginForm> {
 
   dynamic singIn(String email, String password) {
     var result;
-    for (var i = 0; i < users.length; i++) {
-      if (users[i].name == email && users[i].password == password) {
-        result = users[i].type;
+    for (var i = 0; i < mockData.length; i++) {
+      if (mockData[i].email == email && mockData[i].password == password) {
+        result = mockData[i].type;
       }
     }
     return result;
