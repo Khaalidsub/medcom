@@ -63,12 +63,13 @@ class _AppointmenContentState extends State<AppointmenContent> {
                         null), //on press shows a small action dialog, whatsapp for reference
                 title: Row(
                   children: <Widget>[
-                     Text(
-                      widget.data[index].day+"  ",
+                    Text(
+                      widget.data[index].day + "  ",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      formatDate(widget.data[index].date, [dd, '-', mm, '-', yyyy]),
+                      formatDate(
+                          widget.data[index].date, [dd, '-', mm, '-', yyyy]),
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
