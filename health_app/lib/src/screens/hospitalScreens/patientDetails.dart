@@ -17,6 +17,11 @@ class PatientDetails extends StatefulWidget {
 class _PatientDetailsState extends State<PatientDetails>
     with SingleTickerProviderStateMixin {
   TabController _controller;
+  void updateData(Patient p) {
+    setState(() {
+      widget.patient = p;
+    });
+  }
 
   @override
   void initState() {
@@ -56,7 +61,8 @@ class _PatientDetailsState extends State<PatientDetails>
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddAppointment(),
+                    builder: (context) =>
+                        AddAppointment(Patient.copy(widget.patient)),
                   ),
                 );
               }, //add appointment Functionality goes here!
