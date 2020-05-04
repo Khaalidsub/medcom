@@ -18,4 +18,4 @@ class Appointment {
   get id => this._ownerId;
 }
 
-//mock data to test the appointment fucntionality
+
