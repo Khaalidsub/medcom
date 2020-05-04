@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:health_app/src/screens/hospitalScreens/hospRegistration.dart';
-import 'package:health_app/src/screens/patientScreens/patientReg.dart';
-import 'package:health_app/src/screens/login.dart';
 
 class WelcomingScreen extends StatefulWidget {
   @override
@@ -77,9 +74,7 @@ class _WelcomingScreenState extends State<WelcomingScreen> {
                             TextStyle(fontSize: 20, color: Colors.blueAccent),
                       ),
                       onPressed: () {
-                        Navigator.pushReplacementNamed(
-                            context,'/login');
-                           
+                        Navigator.pushReplacementNamed(context, '/login');
                       },
                     ),
                     SizedBox(
@@ -98,8 +93,8 @@ class _WelcomingScreenState extends State<WelcomingScreen> {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                       onPressed: () {
-                         Navigator.pushReplacementNamed(
-                            context,'/patient_register');
+                        Navigator.pushReplacementNamed(
+                            context, '/patient_register');
                       },
                     ),
                     SizedBox(
@@ -118,8 +113,7 @@ class _WelcomingScreenState extends State<WelcomingScreen> {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                       onPressed: () {
-                       Navigator.pushNamed(
-                            context,'/hospital_register');
+                        Navigator.pushNamed(context, '/hospital_register');
                       },
                     ),
                   ],
