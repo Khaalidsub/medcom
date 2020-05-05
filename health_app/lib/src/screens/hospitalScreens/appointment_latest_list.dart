@@ -55,29 +55,32 @@ class _LatestAppointmenContentState extends State<LatestAppointmenContent> {
                 ),
               );
             },
-            child: Card(
-              elevation: 10,
-              color: Colors.white,
-              child: ListTile(
-                leading: Icon(FontAwesomeIcons.calendarAlt),
-                trailing: IconButton(
-                    icon: Icon(Icons.menu),
-                    onPressed:
-                        null), //on press shows a small action dialog, whatsapp for reference
-                title: Row(
-                  children: <Widget>[
-                    Text(
-                      widget.data[index].day + "  ",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      formatDate(
-                          widget.data[index].date, [dd, '-', mm, '-', yyyy]),
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ],
+            child: GestureDetector(
+              onLongPress: () => print('pressed'),
+              child: Card(
+                elevation: 10,
+                color: Colors.white,
+                child: ListTile(
+                  leading: Icon(FontAwesomeIcons.calendarAlt),
+                  trailing: IconButton(
+                      icon: Icon(Icons.menu),
+                      onPressed:
+                          null), //on press shows a small action dialog, whatsapp for reference
+                  title: Row(
+                    children: <Widget>[
+                      Text(
+                        widget.data[index].day + "  ",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        formatDate(
+                            widget.data[index].date, [dd, '-', mm, '-', yyyy]),
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  subtitle: Text(widget.data[index].description),
                 ),
-                subtitle: Text(widget.data[index].description),
               ),
             ),
           );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_app/src/screens/hospitalScreens/addScreen.dart';
 import 'package:health_app/src/screens/hospitalScreens/history.dart';
 import 'package:health_app/src/screens/hospitalScreens/home.dart';
-import 'package:health_app/src/screens/hospitalScreens/patientList.dart';
+import 'package:health_app/src/screens/hospitalScreens/patient_list.dart';
 import 'package:health_app/src/screens/hospitalScreens/profile.dart';
 
 class HospitalRouting {
@@ -25,7 +25,7 @@ class HospitalRouting {
 
         break;
       case '/history':
-        print("the value is " + settings.arguments);
+        // print("the value is " + settings.arguments);
         builder = (BuildContext context) => HospitalHistory();
 
         break;

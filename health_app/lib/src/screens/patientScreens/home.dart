@@ -18,21 +18,32 @@ class PatientHome extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Notification',
-              style: TextStyle(fontSize: 25),
-            ),
+            // Text(
+            //   'Notification',
+            //   style: TextStyle(fontSize: 25),
+            // ),
             SizedBox(
               height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                GestureDetector(
-                  onTap: () => {},
-                  child: Container(
-                    height: height * 0.2,
-                    width: width * 0.29,
+                Container(
+                  child: Column(
+                    children: <Widget>[
+                      Text('Todays date'),
+                      Text('Next Appointment'),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: height * 0.2,
+                  width: width * 0.29,
+                  // alignment: Alignment.centerRight,
+
+                  child: GestureDetector(
+                    onTap: () => {},
                     child: Card(
                       elevation: 10,
                       color: Color(0xff3D73DD),
@@ -56,70 +67,9 @@ class PatientHome extends StatelessWidget {
                     ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    height: height * 0.2,
-                    width: width * 0.29,
-                    child: Card(
-                      elevation: 10,
-                      color: Color(0xff3D73DD),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            FontAwesomeIcons.hospital,
-                            color: Colors.white,
-                            size: 50,
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            'Hospitals',
-                            style: TextStyle(color: Colors.white),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  child: Container(
-                    height: height * 0.2,
-                    width: width * 0.29,
-                    child: Card(
-                      elevation: 10,
-                      color: Color(0xff3D73DD),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            FontAwesomeIcons.inbox,
-                            color: Colors.white,
-                            size: 50,
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            'updates',
-                            style: TextStyle(color: Colors.white),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
               ],
             ),
-            // Container(
-            //   height: height * 0.10,
-            //   width: width,
-            //   child: Card(
-            //     child: Text('alert'),
-            //   ),
-            // ),
+
             SizedBox(
               height: 20,
             ),

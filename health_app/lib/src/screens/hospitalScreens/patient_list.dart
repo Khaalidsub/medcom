@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:health_app/src/models/patient.dart';
-import 'package:health_app/src/screens/hospitalScreens/patientDetails.dart';
+import 'package:health_app/src/screens/hospitalScreens/patient_appointment_list.dart';
 
 //stateful because of deleting a patient functinality
 class PatientList extends StatefulWidget {

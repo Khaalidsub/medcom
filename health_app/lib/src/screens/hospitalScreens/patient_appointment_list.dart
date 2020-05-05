@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/models/patient.dart';
-import 'package:health_app/src/screens/hospitalScreens/addAppointment.dart';
-import 'package:health_app/src/screens/hospitalScreens/appointmentHistoryContent.dart';
-import 'package:health_app/src/screens/hospitalScreens/latestAppointementContent.dart';
+import 'package:health_app/src/screens/hospitalScreens/add_appointment.dart';
+import 'package:health_app/src/screens/hospitalScreens/appointment_history_list.dart';
+import 'package:health_app/src/screens/hospitalScreens/appointment_latest_list.dart';
 
 class PatientDetails extends StatefulWidget {
   Patient patient;
@@ -56,37 +56,40 @@ class _PatientDetailsState extends State<PatientDetails>
                 ),
               ),
             ),
-            RaisedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        AddAppointment(Patient.copy(widget.patient)),
-                  ),
-                );
-              }, //add appointment Functionality goes here!
-              color: Colors.blue[600],
-              child: FittedBox(
-                child: Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.add,
-                      color: Colors.white,
+            Hero(
+              tag: 'appointment',
+              child: RaisedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          AddAppointment(Patient.copy(widget.patient)),
                     ),
-                    Text(
-                      'Add Appointment',
-                      style: TextStyle(
+                  );
+                }, //add appointment Functionality goes here!
+                color: Colors.blue[600],
+                child: FittedBox(
+                  child: Row(
+                    children: <Widget>[
+                      Icon(
+                        Icons.add,
                         color: Colors.white,
-                        fontSize: 15,
                       ),
-                    )
-                  ],
+                      Text(
+                        'Add Appointment',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(30),
+                  ),
                 ),
               ),
             ),
