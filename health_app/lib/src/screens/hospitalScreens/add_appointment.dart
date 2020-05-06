@@ -106,11 +106,12 @@ class _AddAppointmentState extends State<AddAppointment> {
         onPressed: () {
           //     //TODO: For now add this to users appointment list
           Appointment newApp = new Appointment(
-              newDate,
-              widget.day ?? DateFormat('EEEE').format(newDate),
-              widget.description,
-              widget.patient.id,
-              "latest");
+            date: newDate,
+            day: widget.day ?? DateFormat('EEEE').format(newDate),
+            description: widget.description,
+            ownerId: widget.patient.id,
+            status: "latest",
+          );
           widget.patient.appointments.add(newApp);
           return Navigator.pop(context, widget.patient);
         },

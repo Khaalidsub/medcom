@@ -1,21 +1,45 @@
-class Appointment {
-  DateTime _date;
-  String day;
-  String _description;
-  String _ownerId; //storing the owner of this appointment.
-  String status; // latest or history
+import 'package:health_app/src/models/medicine.dart';
 
+class Appointment {
+  DateTime date;
+  String day;
+  String description;
+  String ownerId; //storing the owner of this appointment.
+  String status; // latest or history
+  String diagnosis;
+  List<Medicine> medicines = new List();
   Appointment(
-      this._date, this.day, this._description, this._ownerId, this.status);
+      {this.date,
+      this.day,
+      this.description,
+      this.ownerId,
+      this.status,
+      this.medicines,
+      this.diagnosis});
 
 //copy constructor
   Appointment.copy(Appointment from)
-      : this(from._date, from.day, from._description, from._ownerId,
-            from.status) ;
-//usual
-  get date => this._date;
-  get description => this._description;
-  get id => this._ownerId;
+      : this(
+            date: from.date,
+            day: from.day,
+            description: from.description,
+            ownerId: from.ownerId,
+            status: from.status,
+            medicines: from.medicines);
+  void addMedicines(List<Medicine> meds) {
+    medicines.addAll(meds);
+  }
+
+  void addMedicine(Medicine med) {
+    if (medicines == null) {
+      medicines = new List();
+    }
+
+    medicines.add(med);
+  }
+
+// //usual
+//   get date => this.date;
+//   get description => this.description;
+//   get id => this.ownerId;
 }
-
-

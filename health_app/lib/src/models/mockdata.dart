@@ -16,10 +16,18 @@ import 'Appointement.dart';
 final patientMockData = [
   Patient(
       appointments: [
-        Appointment(DateTime.now(), "Sunday",
-            "Brain cancer need special treatment", 'p01', "latest"),
-        Appointment(DateTime.now(), "Monday",
-            "Lucg Cancer require extra glucose", 'p01', "history")
+        Appointment(
+            date: DateTime.now(),
+            day: "Sunday",
+            description: "Brain cancer need special treatment",
+            ownerId: 'p01',
+            status: "latest"),
+        Appointment(
+            date: DateTime.now(),
+            day: "Monday",
+            description: "Lucg Cancer require extra glucose",
+            ownerId: 'p01',
+            status: "history")
       ],
       name: 'Elon Musk',
       id: 'p01',
@@ -33,10 +41,19 @@ final patientMockData = [
       gender: 'M'),
   Patient(
       appointments: [
-        Appointment(DateTime.now(), "Wednesday",
-            "eye infection require extra care", 'p02', "latest"),
         Appointment(
-            DateTime.now(), "Friday", "Stool comes greyish", 'p02', "history")
+            date: DateTime.now(),
+            day: "Wednesday",
+            description: "eye infection require extra care",
+            ownerId: 'p02',
+            status: "latest"),
+        Appointment(
+            date: DateTime.now(),
+            day: "Friday",
+            description: "General Inspection",
+            ownerId: 'p02',
+            status: "history",
+            diagnosis: 'Stool comes greyish')
       ],
       name: 'Bilgates Jashua',
       id: 'p02',
