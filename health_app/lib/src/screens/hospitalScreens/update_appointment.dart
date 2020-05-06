@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/models/Appointement.dart';
+
+import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/models/medicine.dart';
+import 'package:health_app/src/models/mockdata.dart';
+
 import 'package:health_app/src/screens/hospitalScreens/add_medicine.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 
@@ -14,7 +18,8 @@ class UpdateAppointment extends StatefulWidget {
 
 class _UpdateAppointmentState extends State<UpdateAppointment> {
   List<Medicine> medicines = new List();
-  String _myActivity;
+  Hospital hosp = mockData[1];
+  String doctor;
   void updateMedicine(Medicine med) {
     setState(() {
       medicines.add(med);
@@ -26,6 +31,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
   bool updateAppointment() {
     setState(() {
       widget.appointment.status = 'history';
+      widget.appointment.doctorName = doctor;
     });
 
     return Navigator.pop(context, widget.appointment);
@@ -79,21 +85,14 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                     titleText: 'Doctor',
                     hintText: 'Please choose one',
                     required: true,
-                    value: _myActivity,
+                    value: doctor,
                     onChanged: (value) {
                       setState(() {
-                        _myActivity = value;
+                        doctor = value;
                       });
                     },
                     dataSource: [
-                      {
-                        "display": "Running",
-                        "value": "Running",
-                      },
-                      {
-                        "display": "Climbing",
-                        "value": "Climbing",
-                      },
+                      {"display": d1.name, "value": d1.name}
                     ],
                     textField: 'display',
                     valueField: 'value',

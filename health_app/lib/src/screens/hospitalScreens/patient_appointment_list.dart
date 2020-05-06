@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/screens/hospitalScreens/add_appointment.dart';
 import 'package:health_app/src/screens/hospitalScreens/appointment_history_list.dart';
 import 'package:health_app/src/screens/hospitalScreens/appointment_latest_list.dart';
+import 'package:health_app/src/screens/hospitalScreens/update_appointment.dart';
 
 class PatientDetails extends StatefulWidget {
   Patient patient;
@@ -27,6 +29,24 @@ class _PatientDetailsState extends State<PatientDetails>
   void initState() {
     super.initState();
     _controller = new TabController(length: 2, vsync: this);
+  }
+
+  void updateAppointment(int index) async {
+    final data = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => UpdateAppointment(
+          Appointment.copy(widget.patient.appointments[index]),
+        ),
+      ),
+    );
+    print(data);
+    if (data != null) {
+      setState(() {
+        widget.patient.appointments[index] = data;
+      });
+      print(widget.patient.appointments[index].doctorName);
+    }
   }
 
   @override
@@ -123,12 +143,15 @@ class _PatientDetailsState extends State<PatientDetails>
                 controller: _controller, //to control the sync of tabs and views
                 children: <Widget>[
                   //separate widgets that holds contents respectively for both tabs
-                  LatestAppointmenContent(widget.patient.appointments
-                      .where((test) => test.status == "latest")
-                      .toList()),
+                  LatestAppointmenContent(
+                      appointments: widget.patient.appointments
+                          .where((test) => test.status == "latest")
+                          .toList(),
+                      updateAppointment: updateAppointment),
+
                   AppointmenContent((widget.patient.appointments
                       .where((test) => test.status == "history")
-                      .toList())),
+                      .toList()))
                 ],
               ),
             ),

@@ -3,34 +3,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/models/Appointement.dart';
-import 'package:health_app/src/screens/hospitalScreens/update_appointment.dart';
 
 class LatestAppointmenContent extends StatefulWidget {
+  final Function updateAppointment;
   final List<Appointment> appointments;
-  LatestAppointmenContent(this.appointments);
+  LatestAppointmenContent({this.appointments, this.updateAppointment});
   @override
   _LatestAppointmenContentState createState() =>
       _LatestAppointmenContentState();
 }
 
 class _LatestAppointmenContentState extends State<LatestAppointmenContent> {
-  void updateAppointment(int index) async {
-    final data = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => UpdateAppointment(
-          Appointment.copy(widget.appointments[index]),
-        ),
-      ),
-    );
-    print(data);
-    if (data != null) {
-      setState(() {
-        widget.appointments[index] = data;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -71,7 +54,7 @@ class _LatestAppointmenContentState extends State<LatestAppointmenContent> {
               );
             },
             child: GestureDetector(
-              onLongPress: () => updateAppointment(index),
+              onLongPress: () => widget.updateAppointment(index),
               child: Card(
                 elevation: 10,
                 color: Colors.white,

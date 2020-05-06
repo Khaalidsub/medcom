@@ -7,7 +7,7 @@ import 'package:health_app/src/screens/hospitalScreens/patient_appointment_list.
 class PatientList extends StatefulWidget {
   //class data
 
-  List<Patient> patientList;
+  List patientList;
 
   PatientList(this.patientList);
 

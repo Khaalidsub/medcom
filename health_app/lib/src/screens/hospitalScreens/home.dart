@@ -44,7 +44,9 @@ class _HomeState extends State<HospitalHome> {
               children: <Widget>[
                 GestureDetector(
                   onTap: () => Navigator.pushNamed(context, '/patientList',
-                      arguments: patientMockData),
+                      arguments: mockData
+                          .where((user) => user.type == 'patient')
+                          .toList()),
                   child: Container(
                     height: 120,
                     width: width * 0.29,
@@ -71,8 +73,13 @@ class _HomeState extends State<HospitalHome> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, '/patientList',
-                      arguments: patientMockData),
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    '/patientList',
+                    arguments: mockData
+                        .where((user) => user.type == 'patient')
+                        .toList(),
+                  ),
                   child: Container(
                     height: 120,
                     width: width * 0.29,

@@ -7,14 +7,16 @@ class Hospital extends User {
   String address;
   List<Doctor> doctors;
   List<Patient> patients;
-  Hospital({
-    String id,
-    String email,
-    String name,
-    String password,
-    this.phoneNumber,
-    this.address,
-  }) : super(id, email, name, 'hospital', password);
+  Hospital(
+      {String id,
+      String email,
+      String name,
+      String password,
+      this.phoneNumber,
+      this.address,
+      this.doctors,
+      this.patients})
+      : super(id, email, name, 'hospital', password);
 
   void addDoctor(Doctor doc) {
     doctors.add(doc);

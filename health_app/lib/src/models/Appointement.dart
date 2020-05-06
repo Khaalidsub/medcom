@@ -7,6 +7,7 @@ class Appointment {
   String ownerId; //storing the owner of this appointment.
   String status; // latest or history
   String diagnosis;
+  String doctorName;
   List<Medicine> medicines = new List();
   Appointment(
       {this.date,
@@ -15,7 +16,8 @@ class Appointment {
       this.ownerId,
       this.status,
       this.medicines,
-      this.diagnosis});
+      this.diagnosis,
+      this.doctorName});
 
 //copy constructor
   Appointment.copy(Appointment from)
