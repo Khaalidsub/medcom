@@ -27,7 +27,7 @@ class PatientRoute {
         builder = (BuildContext context) => PatientSettings();
         break;
       case '/scan':
-        builder = (BuildContext context) => Scan();
+        builder = (BuildContext context) => Scan(settings.arguments); //send the patient data
         break;
       default:
         throw Exception('Invalid route: ${settings.name}');

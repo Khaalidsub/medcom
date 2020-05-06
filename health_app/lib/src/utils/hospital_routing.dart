@@ -25,7 +25,7 @@ class HospitalRouting {
 
         break;
       case '/history':
-        // print("the value is " + settings.arguments);
+        
         builder = (BuildContext context) => HospitalHistory();
 
         break;

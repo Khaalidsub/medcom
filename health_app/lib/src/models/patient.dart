@@ -11,9 +11,21 @@ class Patient extends User {
   int age;
   //apointment List
   List<Appointment> appointments;
-  
-  
-  
+
+
+  String listAllData() {
+    return "Name: ${this.name}\n" +
+        "Age: ${this.age}\n" +
+        "${this.appointments}\n" +
+        "Blooad Type: ${this.bloodType}\n" +
+        "Email: ${this.email}\n" +
+        "Family: ${this.familyNumber}\n" +
+        "Gender: ${this.gender}\n" +
+        "Id: ${this.id}\n" +
+        "Phone: ${this.phoneNumber}\n" +
+        "Adress: ${this.address}\n";
+  }
+
   //copy constructor
   Patient.copy(Patient from)
       : this(

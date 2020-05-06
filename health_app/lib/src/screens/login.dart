@@ -21,7 +21,7 @@ class _LoginFormState extends State<LoginForm> {
     var result;
     for (var i = 0; i < mockData.length; i++) {
       if (mockData[i].email == email && mockData[i].password == password) {
-        result = mockData[i].type;
+        result = mockData[i];
       }
     }
     return result;
@@ -138,7 +138,7 @@ class _LoginFormState extends State<LoginForm> {
                                     dynamic result =
                                         singIn(email.trim(), password.trim());
                                     print(result);
-                                    if (result == null) {
+                                    if (result.type == null) {
                                       setState(() {
                                         error = 'the email does not exist';
                                       });
@@ -154,12 +154,12 @@ class _LoginFormState extends State<LoginForm> {
                                         ),
                                       );
                                     } else {
-                                      if (result == 'patient') {
+                                      if (result.type == 'patient') {
                                         Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    PatientNavigation()));
+                                                    PatientNavigation(result)));
                                       } else {
                                         Navigator.pushReplacement(
                                             context,
