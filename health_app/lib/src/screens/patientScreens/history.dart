@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:health_app/src/screens/widgets/hospital_history_view.dart';
+import 'package:health_app/src/screens/widgets/hospital_widgets/hospital_history_view.dart';
 
 class PatientHistory extends StatelessWidget {
   // Function changeIndex;

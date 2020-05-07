@@ -1,6 +1,5 @@
 import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/user.dart';
-import 'package:health_app/src/patient_navigation.dart';
 
 class Patient extends User {
   String bloodType;
@@ -11,9 +10,7 @@ class Patient extends User {
   int age;
   //apointment List
   List<Appointment> appointments;
-  
-  
-  
+
   //copy constructor
   Patient.copy(Patient from)
       : this(

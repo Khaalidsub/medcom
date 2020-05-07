@@ -4,9 +4,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/screens/hospitalScreens/add_appointment.dart';
-import 'package:health_app/src/screens/hospitalScreens/appointment_history_list.dart';
-import 'package:health_app/src/screens/hospitalScreens/appointment_latest_list.dart';
+
 import 'package:health_app/src/screens/hospitalScreens/update_appointment.dart';
+import 'package:health_app/src/screens/widgets/hospital_widgets/appointment_history_list.dart';
+import 'package:health_app/src/screens/widgets/hospital_widgets/appointment_latest_list.dart';
 
 class PatientDetails extends StatefulWidget {
   Patient patient;

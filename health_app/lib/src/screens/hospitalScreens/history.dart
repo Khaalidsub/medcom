@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/src/screens/widgets/chart.dart';
-import 'package:health_app/src/screens/widgets/patient_history_view.dart';
+import 'package:health_app/src/screens/widgets/patient_widgets/patient_history_view.dart';
 
 class HospitalHistory extends StatelessWidget {
   @override

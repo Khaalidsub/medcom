@@ -5,6 +5,7 @@ import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/patient.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:health_app/src/screens/widgets/input_field.dart';
 import 'package:intl/intl.dart';
 
 class AddAppointment extends StatefulWidget {
@@ -42,25 +43,12 @@ class _AddAppointmentState extends State<AddAppointment> {
         newDate = selectedDate;
         widget.day = DateFormat('EEEE').format(selectedDate);
       });
-      // print('hellloo ${Navigator.canPop(context)}');
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // appBar: AppBar(
-        //   elevation: 5,
-        //   backgroundColor: Colors.blueAccent,
-        //   shape: RoundedRectangleBorder(
-        //     borderRadius: BorderRadius.only(
-        //       bottomLeft: Radius.circular(30),
-        //       bottomRight: Radius.circular(30),
-        //     ),
-        //   ),
-        //   titleSpacing: 0,
-        // ),
-        //registration card
         body: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -160,34 +148,5 @@ class _AddAppointmentState extends State<AddAppointment> {
                 selectDate(context);
               })),
     );
-  }
-}
-
-class Reusablefield extends StatelessWidget {
-  final String label;
-  final Color color;
-  final Icon icon;
-  final callback;
-  Reusablefield(
-      {@required this.label,
-      @required this.color,
-      @required this.icon,
-      this.callback});
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-        validator: (val) => val.isEmpty ? 'Please Enter a value' : null,
-        onChanged: (val) => callback(val),
-        decoration: InputDecoration(
-          suffixIcon: icon,
-          fillColor: color,
-          filled: true,
-          hintText: label,
-          labelStyle: TextStyle(color: Colors.black),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(width: 0, style: BorderStyle.none)),
-        ));
   }
 }

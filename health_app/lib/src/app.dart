@@ -1,8 +1,10 @@
 import 'package:flare_splash_screen/flare_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:health_app/src/screens/hospitalScreens/hospRegistration.dart';
+import 'package:health_app/src/screens/hospitalScreens/hospital_registration.dart';
+
 import 'package:health_app/src/screens/login.dart';
-import 'package:health_app/src/screens/patientScreens/patientReg.dart';
+import 'package:health_app/src/screens/patientScreens/patient_registration.dart';
+
 import 'package:health_app/src/screens/welcoming_screen.dart';
 // import 'package:health_app/src/screens/splash_screen.dart';
 
@@ -29,7 +31,6 @@ class _AppState extends State<App> {
         '/hospital_register': (context) => HospRegistration(),
         '/patient_register': (context) => PatientReg(),
         '/welcoming_screen': (context) => WelcomingScreen(),
-        
       },
     );
   }

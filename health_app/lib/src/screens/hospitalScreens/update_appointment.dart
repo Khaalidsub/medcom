@@ -8,6 +8,7 @@ import 'package:health_app/src/models/mockdata.dart';
 
 import 'package:health_app/src/screens/hospitalScreens/add_medicine.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
+import 'package:health_app/src/screens/widgets/input_field.dart';
 
 class UpdateAppointment extends StatefulWidget {
   Appointment appointment;
@@ -215,34 +216,5 @@ class SubmitButton extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class Reusablefield extends StatelessWidget {
-  final String label;
-  final Color color;
-  final Icon icon;
-  final callback;
-  Reusablefield(
-      {@required this.label,
-      @required this.color,
-      @required this.icon,
-      this.callback});
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-        validator: (val) => val.isEmpty ? 'Please Enter a value' : null,
-        onChanged: (val) => callback(val),
-        decoration: InputDecoration(
-          suffixIcon: icon,
-          fillColor: color,
-          filled: true,
-          hintText: label,
-          labelStyle: TextStyle(color: Colors.black),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(width: 0, style: BorderStyle.none)),
-        ));
   }
 }

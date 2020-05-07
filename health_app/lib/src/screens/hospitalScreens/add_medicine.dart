@@ -2,7 +2,7 @@ import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/models/medicine.dart';
-import 'package:intl/intl.dart';
+import 'package:health_app/src/screens/widgets/input_field.dart';
 
 class AddMedicine extends StatefulWidget {
   String name;
@@ -163,37 +163,5 @@ class _DatePickerState extends State<DatePicker> {
         ),
       ],
     );
-  }
-}
-
-class Reusablefield extends StatelessWidget {
-  final String label;
-  final Color color;
-  final TextInputType type;
-  final Icon icon;
-  final callback;
-  Reusablefield(
-      {@required this.label,
-      @required this.color,
-      @required this.icon,
-      this.callback,
-      this.type});
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-        keyboardType: type,
-        validator: (val) => val.isEmpty ? 'Please Enter a value' : null,
-        onChanged: (val) => callback(val),
-        decoration: InputDecoration(
-          suffixIcon: icon,
-          fillColor: color,
-          filled: true,
-          hintText: label,
-          labelStyle: TextStyle(color: Colors.black),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(width: 0, style: BorderStyle.none)),
-        ));
   }
 }
