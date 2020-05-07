@@ -2,6 +2,7 @@ import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/models/medicine.dart';
+import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/input_field.dart';
 
 class AddMedicine extends StatefulWidget {
@@ -33,6 +34,10 @@ class _AddMedicineState extends State<AddMedicine> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppNav(
+        appBar: AppBar(),
+        name: 'Profile',
+      ),
       body: SingleChildScrollView(
         child: Container(
           child: Column(

@@ -5,6 +5,7 @@ import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/patient.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/input_field.dart';
 import 'package:intl/intl.dart';
 
@@ -49,41 +50,45 @@ class _AddAppointmentState extends State<AddAppointment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppNav(
+          appBar: AppBar(),
+          name: 'Profile',
+        ),
         body: SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            height: 200,
-            child: Hero(
-              tag: 'logo',
-              child: Icon(
-                FontAwesomeIcons.calendarCheck,
-                size: 125,
-                color: Colors.blueAccent,
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(20),
-            child: Wrap(
-              runSpacing: 20,
-              children: <Widget>[
-                buildDay(),
-                buildDatePicker(context),
-                Reusablefield(
-                  label: "Short description",
-                  color: Colors.white,
-                  icon: Icon(Icons.pages),
-                  callback: this.updateDescription,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(
+                height: 200,
+                child: Hero(
+                  tag: 'logo',
+                  child: Icon(
+                    FontAwesomeIcons.calendarCheck,
+                    size: 125,
+                    color: Colors.blueAccent,
+                  ),
                 ),
-              ],
-            ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Wrap(
+                  runSpacing: 20,
+                  children: <Widget>[
+                    buildDay(),
+                    buildDatePicker(context),
+                    Reusablefield(
+                      label: "Short description",
+                      color: Colors.white,
+                      icon: Icon(Icons.pages),
+                      callback: this.updateDescription,
+                    ),
+                  ],
+                ),
+              ),
+              buildSubmitButton(context)
+            ],
           ),
-          buildSubmitButton(context)
-        ],
-      ),
-    ));
+        ));
   }
 
   Widget buildSubmitButton(BuildContext context) {

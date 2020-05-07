@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/screens/hospitalScreens/patient_appointment_list.dart';
+import 'package:health_app/src/screens/widgets/app_nav.dart';
 
 //stateful because of deleting a patient functinality
 class PatientList extends StatefulWidget {
@@ -19,9 +20,10 @@ class _PatientListState extends State<PatientList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: AppNav(
-      //  appBar: AppBar(),
-      //),
+      appBar: AppNav(
+        appBar: AppBar(),
+        name: 'Patients',
+      ),
       body: Container(
         padding: EdgeInsets.all(10),
         child: ListView.builder(
@@ -31,13 +33,10 @@ class _PatientListState extends State<PatientList> {
               return Card(
                 child: ListTile(
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushNamed(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => PatientDetails(
-                            widget.patientList[index],
-                          ), //TODO send the patient data here.
-                        ),
+                        '/patient_appointment_list',
+                        arguments: widget.patientList[index],
                       );
                     }, //goes to patient full data page
                     leading: CircleAvatar(

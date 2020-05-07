@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:health_app/src/screens/widgets/app_nav.dart';
+
 import 'package:health_app/src/screens/widgets/patient_widgets/patient_bottom_navigation.dart';
 import 'package:health_app/src/utils/patient_routing.dart';
 
@@ -42,10 +42,6 @@ class _MainScreenState extends State<PatientNavigation> {
         return Future.value(Navigator.canPop(context));
       },
       child: Scaffold(
-        appBar: AppNav(
-          appBar: AppBar(),
-          name: name.toUpperCase(),
-        ),
         body: Navigator(
           key: navigatorKey,
           initialRoute: '/',

@@ -18,14 +18,11 @@ class AppNav extends StatelessWidget implements PreferredSizeWidget {
           bottomRight: Radius.circular(20),
         ),
       ),
-      titleSpacing: 20,
-      title: Container(
-        padding: EdgeInsets.all(5),
-        child: Center(
-          child: Text(
-            name,
-            style: TextStyle(fontSize: 25),
-          ),
+      titleSpacing: 10,
+      title: Center(
+        child: Text(
+          name,
+          style: TextStyle(fontSize: 25),
         ),
       ),
     );

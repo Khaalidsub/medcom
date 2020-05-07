@@ -6,6 +6,7 @@ import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/screens/hospitalScreens/add_appointment.dart';
 
 import 'package:health_app/src/screens/hospitalScreens/update_appointment.dart';
+import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/hospital_widgets/appointment_history_list.dart';
 import 'package:health_app/src/screens/widgets/hospital_widgets/appointment_latest_list.dart';
 
@@ -33,13 +34,10 @@ class _PatientDetailsState extends State<PatientDetails>
   }
 
   void updateAppointment(int index) async {
-    final data = await Navigator.push(
+    final data = await Navigator.pushNamed(
       context,
-      MaterialPageRoute(
-        builder: (context) => UpdateAppointment(
-          Appointment.copy(widget.patient.appointments[index]),
-        ),
-      ),
+      '/update_appointment',
+      arguments: widget.patient.appointments[index],
     );
     print(data);
     if (data != null) {
@@ -56,6 +54,10 @@ class _PatientDetailsState extends State<PatientDetails>
     // double width = queryData.size.width;
     double height = queryData.size.height;
     return Scaffold(
+      appBar: AppNav(
+        appBar: AppBar(),
+        name: 'Appointments',
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -81,12 +83,10 @@ class _PatientDetailsState extends State<PatientDetails>
               tag: 'appointment',
               child: RaisedButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushNamed(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          AddAppointment(Patient.copy(widget.patient)),
-                    ),
+                    '/add_appointment',
+                    arguments: Patient.copy(widget.patient),
                   );
                 }, //add appointment Functionality goes here!
                 color: Colors.blue[600],
