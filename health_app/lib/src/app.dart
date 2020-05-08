@@ -23,13 +23,13 @@ class _AppState extends State<App> {
       theme: ThemeData.light(),
       // home: buildSplashScreen(),
       initialRoute: '/',
+  
       routes: {
         '/': (context) => buildSplashScreen(),
         '/login': (context) => LoginForm(),
         '/hospital_register': (context) => HospRegistration(),
         '/patient_register': (context) => PatientReg(),
         '/welcoming_screen': (context) => WelcomingScreen(),
-        
       },
     );
   }

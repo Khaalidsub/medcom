@@ -1,10 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:health_app/src/screens/patientScreens/update_patient.dart';
 import '../../models/patient.dart';
 
-class PatientProfile extends StatelessWidget {
+class PatientProfile extends StatefulWidget {
   Patient user;
 
   PatientProfile(this.user);
+
+  @override
+  _PatientProfileState createState() => _PatientProfileState();
+}
+
+class _PatientProfileState extends State<PatientProfile> {
+  void _navigate() async {
+    final temp = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                PatientUpdate(Patient.copy(this.widget.user))));
+    if (temp != null) {
+      setState(() {
+        this.widget.user = temp;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +62,7 @@ class PatientProfile extends StatelessWidget {
               height: 10,
             ),
             Text(
-              'Name: ${user.name}',
+              'Name: ${widget.user?.name}',
               style: TextStyle(
                 fontSize: 20,
               ),
@@ -55,7 +74,7 @@ class PatientProfile extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  'ID: ${user.id}',
+                  'ID: ${widget.user?.id}',
                   style: TextStyle(fontSize: 15),
                 ),
                 SizedBox(
@@ -72,7 +91,7 @@ class PatientProfile extends StatelessWidget {
                   width: 12,
                 ),
                 Text(
-                  'Gender: ${user.gender}',
+                  'Gender: ${widget.user?.gender}',
                   style: TextStyle(fontSize: 15),
                 ),
                 SizedBox(
@@ -89,7 +108,7 @@ class PatientProfile extends StatelessWidget {
                   width: 12,
                 ),
                 Text(
-                  'Age: ${user.age}',
+                  'Age: ${widget.user?.age}',
                   style: TextStyle(fontSize: 15),
                 ),
               ],
@@ -115,7 +134,7 @@ class PatientProfile extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            user.bloodType,
+                            widget.user?.bloodType ?? "null",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 18,
@@ -137,7 +156,7 @@ class PatientProfile extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            user.alergese,
+                            widget.user.alergese ?? "Null",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 18,
@@ -159,7 +178,7 @@ class PatientProfile extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            user.familyNumber,
+                            widget.user?.familyNumber,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 18,
@@ -181,7 +200,7 @@ class PatientProfile extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            user.phoneNumber,
+                            widget.user?.phoneNumber,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 18,
@@ -203,7 +222,7 @@ class PatientProfile extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            user.address,
+                            widget.user?.address,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 18,
@@ -225,7 +244,7 @@ class PatientProfile extends StatelessWidget {
                       color: Colors.blueAccent,
                       child: Text('Update'),
                       textColor: Colors.white,
-                      onPressed: () {},
+                      onPressed: () => _navigate(),
                       shape: RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0),
                       ),
