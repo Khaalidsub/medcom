@@ -26,7 +26,8 @@ class _MainScreenState extends State<PatientNavigation> {
     } else if (index == 1) {
       navigatorKey.currentState.pushReplacementNamed('/history');
     } else if (index == 3) {
-      navigatorKey.currentState.pushReplacementNamed('/profile');
+      navigatorKey.currentState
+          .pushReplacementNamed('/profile', arguments: widget.user);
     } else if (index == 2) {
       navigatorKey.currentState
           .pushReplacementNamed('/scan', arguments: widget.user);

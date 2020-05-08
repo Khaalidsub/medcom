@@ -1,6 +1,5 @@
 import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/user.dart';
-import 'package:health_app/src/patient_navigation.dart';
 
 class Patient extends User {
   String bloodType;
@@ -8,6 +7,7 @@ class Patient extends User {
   String phoneNumber;
   String address;
   String gender;
+  String alergese;
   int age;
   //apointment List
   List<Appointment> appointments;
@@ -46,6 +46,7 @@ class Patient extends User {
       String email,
       String name,
       String password,
+      this.alergese,
       this.bloodType,
       this.familyNumber,
       this.phoneNumber,

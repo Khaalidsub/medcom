@@ -21,7 +21,7 @@ class PatientRoute {
         builder = (BuildContext context) => PatientHistory();
         break;
       case '/profile':
-        builder = (BuildContext context) => PatientProfile();
+        builder = (BuildContext context) => PatientProfile(settings.arguments);
         break;
       case '/settings':
         builder = (BuildContext context) => PatientSettings();

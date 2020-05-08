@@ -138,7 +138,7 @@ class _LoginFormState extends State<LoginForm> {
                                     dynamic result =
                                         singIn(email.trim(), password.trim());
                                     print(result);
-                                    if (result.type == null) {
+                                    if (result == null) {
                                       setState(() {
                                         error = 'the email does not exist';
                                       });

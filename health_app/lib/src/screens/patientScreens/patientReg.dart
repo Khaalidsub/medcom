@@ -2,8 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../welcoming_screen.dart';
+import '../../models/patient.dart';
+import '../../models/mockdata.dart';
 
 class PatientReg extends StatelessWidget {
+  Patient data;
+
+  final TextEditingController name = new TextEditingController();
+  final TextEditingController email = new TextEditingController();
+  final TextEditingController phone = new TextEditingController();
+  final TextEditingController age = new TextEditingController();
+  final TextEditingController password = new TextEditingController();
+  final TextEditingController confirmPassword = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -44,6 +55,7 @@ class PatientReg extends StatelessWidget {
                 runSpacing: 20,
                 children: <Widget>[
                   Reusablefield(
+                    controller: name,
                     label: "Enter Name",
                     color: Colors.white,
                     icon: Icon(Icons.local_hospital),
@@ -51,6 +63,7 @@ class PatientReg extends StatelessWidget {
                     hint: 'e.g Will Smith',
                   ),
                   Reusablefield(
+                    controller: email,
                     label: "Enter Email",
                     color: Colors.white,
                     icon: Icon(Icons.mail),
@@ -58,6 +71,7 @@ class PatientReg extends StatelessWidget {
                     hint: 'e.g willsmith20@gmail.com',
                   ),
                   Reusablefield(
+                    controller: phone,
                     label: "Enter Phone",
                     color: Colors.white,
                     icon: Icon(Icons.phone),
@@ -65,6 +79,7 @@ class PatientReg extends StatelessWidget {
                     hint: 'e.g +6012xxxxxxxx',
                   ),
                   Reusablefield(
+                    controller: age,
                     label: "Enter Age",
                     color: Colors.white,
                     icon: Icon(Icons.person),
@@ -72,6 +87,7 @@ class PatientReg extends StatelessWidget {
                     hint: 'e.g 25',
                   ),
                   Reusablefield(
+                    controller: password,
                     label: "Enter Password",
                     color: Colors.white,
                     icon: Icon(Icons.vpn_key),
@@ -79,6 +95,7 @@ class PatientReg extends StatelessWidget {
                     hint: 'e.g Will20@Smith',
                   ),
                   Reusablefield(
+                    controller: confirmPassword,
                     label: "Confirm Password",
                     color: Colors.white,
                     icon: Icon(Icons.vpn_key),
@@ -91,7 +108,49 @@ class PatientReg extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(bottom: 15),
               child: RaisedButton(
-                onPressed: null,
+                onPressed: () {
+                  if (password.text == confirmPassword.text) {
+                    data = Patient(
+                        name: name.text,
+                        email: email.text,
+                        age: int.parse(age.text),
+                        password: password.text,
+                        phoneNumber: phone.text);
+                    mockData.add(data);
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false, // user must tap button!
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Patient Registeration'),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: <Widget>[
+                                Text(
+                                    "Patient Register Was Successful. Please Login."),
+                              ],
+                            ),
+                          ),
+                          actions: <Widget>[
+                            FlatButton(
+                              child: Text('Okay'),
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pop(); //pop the dialog box
+                                Navigator.pushReplacementNamed(
+                                    context, '/login');
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  } else {
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text('Password Donot Match..'),
+                        backgroundColor: Colors.red));
+                  }
+                },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30)),
                 padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
@@ -113,6 +172,7 @@ class PatientReg extends StatelessWidget {
 }
 
 class Reusablefield extends StatelessWidget {
+  final TextEditingController controller;
   final String label;
   final Color color;
   final bool isPass;
@@ -120,7 +180,8 @@ class Reusablefield extends StatelessWidget {
   final String type;
   final String hint;
   Reusablefield(
-      {@required this.label,
+      {@required this.controller,
+      @required this.label,
       @required this.color,
       @required this.icon,
       @required this.hint,
@@ -158,6 +219,7 @@ class Reusablefield extends StatelessWidget {
                           ]
                         : null,
         obscureText: isPass == null ? false : isPass,
+        controller: this.controller,
         decoration: InputDecoration(
           hintText: hint,
           suffixIcon: icon,

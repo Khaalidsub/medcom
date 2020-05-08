@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import '../../models/patient.dart';
 
 class PatientProfile extends StatelessWidget {
-  // Function changeIndex;
-  // int index;
-  // PatientProfile({this.changeIndex, this.index});
+  Patient user;
+
+  PatientProfile(this.user);
+
   @override
   Widget build(BuildContext context) {
     // MediaQueryData queryData = MediaQuery.of(context);
@@ -41,7 +43,7 @@ class PatientProfile extends StatelessWidget {
               height: 10,
             ),
             Text(
-              'Mike Edward',
+              'Name: ${user.name}',
               style: TextStyle(
                 fontSize: 20,
               ),
@@ -53,7 +55,7 @@ class PatientProfile extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  'ID: 58496',
+                  'ID: ${user.id}',
                   style: TextStyle(fontSize: 15),
                 ),
                 SizedBox(
@@ -70,7 +72,7 @@ class PatientProfile extends StatelessWidget {
                   width: 12,
                 ),
                 Text(
-                  'Gender: Male',
+                  'Gender: ${user.gender}',
                   style: TextStyle(fontSize: 15),
                 ),
                 SizedBox(
@@ -87,7 +89,7 @@ class PatientProfile extends StatelessWidget {
                   width: 12,
                 ),
                 Text(
-                  'Age: 18',
+                  'Age: ${user.age}',
                   style: TextStyle(fontSize: 15),
                 ),
               ],
@@ -113,29 +115,7 @@ class PatientProfile extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Lorem Ipsum',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            'Blood Type',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 22,
-                            ),
-                          ),
-                          Text(
-                            'Lorem Ipsum',
+                            user.bloodType,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 18,
@@ -157,7 +137,7 @@ class PatientProfile extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Lorem Ipsum',
+                            user.alergese,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 18,
@@ -172,14 +152,14 @@ class PatientProfile extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            'Family Member',
+                            'Emergancy Member',
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 22,
                             ),
                           ),
                           Text(
-                            'Lorem Ipsum',
+                            user.familyNumber,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 18,
@@ -201,7 +181,7 @@ class PatientProfile extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Lorem Ipsum',
+                            user.phoneNumber,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 18,
@@ -216,14 +196,14 @@ class PatientProfile extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            'Location',
+                            'Address',
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 22,
                             ),
                           ),
                           Text(
-                            'Lorem Ipsum',
+                            user.address,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 18,
