@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:health_app/src/screens/widgets/input_field.dart';
+
 import '../welcoming_screen.dart';
 
 class PatientReg extends StatelessWidget {
@@ -47,28 +48,28 @@ class PatientReg extends StatelessWidget {
                     label: "Enter Name",
                     color: Colors.white,
                     icon: Icon(Icons.local_hospital),
-                    type: 'name',
+                    type: TextInputType.text,
                     hint: 'e.g Will Smith',
                   ),
                   Reusablefield(
                     label: "Enter Email",
                     color: Colors.white,
                     icon: Icon(Icons.mail),
-                    type: 'email',
+                    type: TextInputType.emailAddress,
                     hint: 'e.g willsmith20@gmail.com',
                   ),
                   Reusablefield(
                     label: "Enter Phone",
                     color: Colors.white,
                     icon: Icon(Icons.phone),
-                    type: 'phone',
+                    type: TextInputType.phone,
                     hint: 'e.g +6012xxxxxxxx',
                   ),
                   Reusablefield(
                     label: "Enter Age",
                     color: Colors.white,
                     icon: Icon(Icons.person),
-                    type: 'age',
+                    type: TextInputType.number,
                     hint: 'e.g 25',
                   ),
                   Reusablefield(
@@ -109,65 +110,5 @@ class PatientReg extends StatelessWidget {
         ),
       )),
     );
-  }
-}
-
-class Reusablefield extends StatelessWidget {
-  final String label;
-  final Color color;
-  final bool isPass;
-  final Icon icon;
-  final String type;
-  final String hint;
-  Reusablefield(
-      {@required this.label,
-      @required this.color,
-      @required this.icon,
-      @required this.hint,
-      this.isPass,
-      this.type});
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-        keyboardType: type == 'email'
-            ? TextInputType.emailAddress
-            : type == 'phone'
-                ? TextInputType.phone
-                : type == 'age' ? TextInputType.number : null,
-        inputFormatters: type == 'phone'
-            ? [
-                WhitelistingTextInputFormatter(RegExp("[+0-9]")),
-                LengthLimitingTextInputFormatter(13),
-              ]
-            : type == 'age'
-                ? [
-                    WhitelistingTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(2),
-                  ]
-                : type == 'name'
-                    ? [
-                        WhitelistingTextInputFormatter(RegExp("[a-z A-Z]")),
-                        LengthLimitingTextInputFormatter(50)
-                      ]
-                    : type == 'email'
-                        ? [
-                            WhitelistingTextInputFormatter(
-                                RegExp("[a-zA-Z0-9@._-]")),
-                            LengthLimitingTextInputFormatter(50)
-                          ]
-                        : null,
-        obscureText: isPass == null ? false : isPass,
-        decoration: InputDecoration(
-          hintText: hint,
-          suffixIcon: icon,
-          fillColor: color,
-          filled: true,
-          labelText: label,
-          labelStyle: TextStyle(color: Colors.black),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(width: 0, style: BorderStyle.none)),
-        ));
   }
 }

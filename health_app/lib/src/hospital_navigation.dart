@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:health_app/src/screens/widgets/app_nav.dart';
+<<<<<<< HEAD
 
-import 'package:health_app/src/screens/widgets/hospital_bottom_navigation.dart';
+import 'package:health_app/src/screens/widgets/app_nav.dart';
+=======
+>>>>>>> 88b199f881f78c2babf8bc2940e014887a27ead9
+
+import 'package:health_app/src/screens/widgets/hospital_widgets/hospital_bottom_navigation.dart';
 import 'package:health_app/src/utils/hospital_routing.dart';
 
 class HospitalNavigation extends StatefulWidget {
@@ -34,6 +38,9 @@ class _HospitalMainState extends State<HospitalNavigation> {
       case 2:
         navigatorKey.currentState.pushReplacementNamed('/history');
         break;
+      case 3:
+        navigatorKey.currentState.pushReplacementNamed('/scanHospital');
+        break;
       case 4:
         navigatorKey.currentState.pushReplacementNamed('/profile');
         break;
@@ -48,10 +55,6 @@ class _HospitalMainState extends State<HospitalNavigation> {
         return Future.value(Navigator.canPop(context));
       },
       child: Scaffold(
-        appBar: AppNav(
-          appBar: AppBar(),
-          name: name.toUpperCase(),
-        ),
         body: Navigator(
           key: navigatorKey,
           initialRoute: '/',

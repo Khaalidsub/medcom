@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:health_app/src/screens/widgets/input_field.dart';
 
 class HospRegistration extends StatelessWidget {
   @override
@@ -39,33 +40,33 @@ class HospRegistration extends StatelessWidget {
                         label: "Enter Name",
                         color: Colors.white,
                         icon: Icon(Icons.local_hospital),
+                        hint: 'e.g Will Smith',
                       ),
                       Reusablefield(
                         label: "Enter Email",
                         color: Colors.white,
                         icon: Icon(Icons.mail),
+                        hint: 'e.g Smith@gmail.com',
                       ),
                       Reusablefield(
                         label: "Enter Phone",
                         color: Colors.white,
                         icon: Icon(Icons.phone),
-                      ),
-                      Reusablefield(
-                        label: "Enter Drirector Name",
-                        color: Colors.white,
-                        icon: Icon(Icons.person),
+                        hint: 'e.g 01125601863',
                       ),
                       Reusablefield(
                         label: "Enter Password",
                         color: Colors.white,
                         icon: Icon(Icons.vpn_key),
                         isPass: true,
+                        hint: 'e.g Will Smith',
                       ),
                       Reusablefield(
                         label: "Confirm Password",
                         color: Colors.white,
                         icon: Icon(Icons.vpn_key),
                         isPass: true,
+                        hint: 'e.g Will Smith',
                       ),
                     ],
                   ),
@@ -93,48 +94,5 @@ class HospRegistration extends StatelessWidget {
             ),
           )),
     );
-  }
-}
-
-class Reusablefield extends StatelessWidget {
-  final String label;
-  final Color color;
-  final bool isPass;
-  final Icon icon;
-  Reusablefield(
-      {@required this.label,
-      @required this.color,
-      @required this.icon,
-      this.isPass});
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-        //validator: (String value) {
-        //  if (value.trim().isEmpty) {
-        //    return 'This is required';
-        //  }
-        //},
-        obscureText: isPass == null ? false : isPass,
-        decoration: InputDecoration(
-          suffixIcon: icon,
-          fillColor: color,
-          filled: true,
-          labelText: label,
-          labelStyle: TextStyle(color: Colors.black),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(width: 0, style: BorderStyle.none)),
-          //border: OutlineInputBorder(
-          //  borderRadius: BorderRadius.all(
-          //    Radius.circular(30),
-          //  ),
-          //),
-          //  focusedBorder: OutlineInputBorder(
-          //    borderRadius: BorderRadius.all(Radius.circular(30)),
-          //    borderSide: BorderSide(color: Color(0xffE6E5BF), width: 2),
-          //  ),
-          //),
-        ));
   }
 }

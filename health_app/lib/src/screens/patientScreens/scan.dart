@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -9,6 +10,10 @@ class Scan extends StatelessWidget {
     MediaQueryData queryData = MediaQuery.of(context);
     double width = queryData.size.width;
     return Scaffold(
+      appBar: AppNav(
+        appBar: AppBar(),
+        name: 'Scan',
+      ),
       backgroundColor: Colors.grey[100],
       body: Center(
         child: SingleChildScrollView(
@@ -23,7 +28,8 @@ class Scan extends StatelessWidget {
                   child: RaisedButton(
                     onPressed: () async {
                       String cameraScanResult = await scanner.scan();
-                      print(cameraScanResult); //Use this string to do wonders...
+                      print(
+                          cameraScanResult); //Use this string to do wonders...
                     },
                     child: Text("Tap to Scan"),
                   )),
@@ -41,7 +47,8 @@ class Scan extends StatelessWidget {
                 height: 300,
                 color: Colors.white,
                 child: QrImage(
-                  data: "1234567890", //put here the User specific code to generate QR for each user.
+                  data:
+                      "1234567890", //put here the User specific code to generate QR for each user.
                   version: QrVersions.auto,
                   size: 300.0,
                 ),

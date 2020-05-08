@@ -5,21 +5,19 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/models/Appointement.dart';
 
 class LatestAppointmenContent extends StatefulWidget {
-  List<Appointment> data;
-  LatestAppointmenContent(this.data);
+  final Function updateAppointment;
+  final List<Appointment> appointments;
+  LatestAppointmenContent({this.appointments, this.updateAppointment});
   @override
   _LatestAppointmenContentState createState() =>
       _LatestAppointmenContentState();
 }
 
 class _LatestAppointmenContentState extends State<LatestAppointmenContent> {
-  //final items = List<String>.generate(
-  //    5, (i) => "Brain Cancer. Must be taken care of sensitive mdication$i");
-
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: widget.data.length,
+        itemCount: widget.appointments.length,
         itemBuilder: (BuildContext context, int index) {
           return Dismissible(
             direction: DismissDirection.endToStart,
@@ -55,29 +53,32 @@ class _LatestAppointmenContentState extends State<LatestAppointmenContent> {
                 ),
               );
             },
-            child: Card(
-              elevation: 10,
-              color: Colors.white,
-              child: ListTile(
-                leading: Icon(FontAwesomeIcons.calendarAlt),
-                trailing: IconButton(
-                    icon: Icon(Icons.menu),
-                    onPressed:
-                        null), //on press shows a small action dialog, whatsapp for reference
-                title: Row(
-                  children: <Widget>[
-                    Text(
-                      widget.data[index].day + "  ",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      formatDate(
-                          widget.data[index].date, [dd, '-', mm, '-', yyyy]),
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ],
+            child: GestureDetector(
+              onLongPress: () => widget.updateAppointment(index),
+              child: Card(
+                elevation: 10,
+                color: Colors.white,
+                child: ListTile(
+                  leading: Icon(FontAwesomeIcons.calendarAlt),
+                  trailing: IconButton(
+                      icon: Icon(Icons.menu),
+                      onPressed:
+                          null), //on press shows a small action dialog, whatsapp for reference
+                  title: Row(
+                    children: <Widget>[
+                      Text(
+                        widget.appointments[index].day + "  ",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        formatDate(widget.appointments[index].date,
+                            [dd, '-', mm, '-', yyyy]),
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  subtitle: Text(widget.appointments[index].description),
                 ),
-                subtitle: Text(widget.data[index].description),
               ),
             ),
           );
