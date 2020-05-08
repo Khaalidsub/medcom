@@ -22,7 +22,7 @@ class HospitalProfile extends StatelessWidget {
                     Icons.settings,
                     color: Colors.black,
                   ),
-                  onPressed: () {},
+                   onPressed: () => Navigator.pushNamed(context, '/settings'),
                 ),
               ),
               SizedBox(
