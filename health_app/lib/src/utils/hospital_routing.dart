@@ -10,6 +10,7 @@ import 'package:health_app/src/screens/hospitalScreens/patient_list.dart';
 import 'package:health_app/src/screens/hospitalScreens/profile.dart';
 import 'package:health_app/src/screens/hospitalScreens/update_appointment.dart';
 import 'package:health_app/src/screens/hospitalScreens/settingsHospital.dart';
+import 'package:health_app/src/screens/hospitalScreens/ScanHospital.dart';
 
 class HospitalRouting {
   MaterialPageRoute<dynamic> routing(
@@ -50,6 +51,11 @@ class HospitalRouting {
         break;
       case '/profile':
         builder = (BuildContext context) => HospitalProfile();
+        break;
+         case '/scanHospital':
+       
+        builder = (BuildContext context) => ScanHospital();
+
         break;
       case '/settings':
         builder = (BuildContext context) => HospitalSettings();
