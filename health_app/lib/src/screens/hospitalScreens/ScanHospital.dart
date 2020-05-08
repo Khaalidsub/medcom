@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
-
+import 'package:health_app/src/screens/widgets/app_nav.dart';
 
 class ScanHospital extends StatelessWidget {
   @override
@@ -9,6 +9,10 @@ class ScanHospital extends StatelessWidget {
     MediaQueryData queryData = MediaQuery.of(context);
     double width = queryData.size.width;
     return Scaffold(
+        appBar: AppNav(
+        appBar: AppBar(),
+        name: 'Scan',
+      ),
       backgroundColor: Colors.grey[100],
       body: Center(
         child: SingleChildScrollView(

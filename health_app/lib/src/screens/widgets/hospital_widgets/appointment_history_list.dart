@@ -13,6 +13,40 @@ class AppointmenContent extends StatefulWidget {
 }
 
 class _AppointmenContentState extends State<AppointmenContent> {
+  createAlertDialog(BuildContext context){
+    return showDialog(context: context,builder:(context){
+      return AlertDialog(
+        
+        title: Text("Previuos Appoinment",
+        style: TextStyle(color: Colors.white),
+        textAlign: TextAlign.center),
+        content: Text("General check up, doctor: adeen",
+        style: TextStyle(color: Colors.white),
+        textAlign: TextAlign.center,),
+        
+
+        actions: [
+          FlatButton(
+            
+            child: Text("Ok",textAlign: TextAlign.center,style: TextStyle(color: Colors.white)),
+            onPressed: (){
+
+              Navigator.of(context).pop();
+            }
+            ,)
+          ,
+        ],
+        elevation: 24.0,
+        backgroundColor: Colors.blueAccent,
+        
+        
+
+      );
+      
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -59,8 +93,8 @@ class _AppointmenContentState extends State<AppointmenContent> {
                 leading: Icon(FontAwesomeIcons.calendarAlt),
                 trailing: IconButton(
                     icon: Icon(Icons.menu),
-                    onPressed:
-                        null), //on press shows a small action dialog, whatsapp for reference
+                     onPressed:
+                        (){createAlertDialog(context);}), //on press shows a small action dialog, whatsapp for reference
                 title: Row(
                   children: <Widget>[
                     Text(

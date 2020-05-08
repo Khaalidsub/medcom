@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/src/models/doctor.dart';
+import 'package:health_app/src/screens/widgets/app_nav.dart';
 class AddScreen extends StatelessWidget {
+  
+  
   var _controller = TextEditingController();
    String names, spec;
   @override
   Widget build(BuildContext context) {
+  
     return PageView(
+      
       children: <Widget>[
         buildPatient(),
         buildDoctor(),
@@ -14,7 +19,12 @@ class AddScreen extends StatelessWidget {
   }
 
   Widget buildDoctor() {
-      return Material(
+      return Scaffold(
+      appBar: AppNav(
+        appBar: AppBar(),
+        name: 'Doctor',
+      ),
+      body:SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
                        Container(
@@ -79,11 +89,18 @@ class AddScreen extends StatelessWidget {
                 ),
                     ],
                     ),
-                    );
+                    )
+      );
+                    
   }
 
   Widget buildPatient() {
-    return Container(
+    return Scaffold(
+      appBar: AppNav(
+        appBar: AppBar(),
+        name: 'Add',
+      ),
+      body:SingleChildScrollView(
       padding: EdgeInsets.only(left: 15, right: 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -206,6 +223,7 @@ class AddScreen extends StatelessWidget {
           ),
         ],
       ),
+    ),
     );
   }
 }
