@@ -6,6 +6,7 @@ import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/screens/hospitalScreens/add_appointment.dart';
 import 'package:health_app/src/screens/hospitalScreens/appointment_history_list.dart';
 import 'package:health_app/src/screens/hospitalScreens/appointment_latest_list.dart';
+import 'package:health_app/src/screens/hospitalScreens/patient_info.dart';
 import 'package:health_app/src/screens/hospitalScreens/update_appointment.dart';
 
 class PatientDetails extends StatefulWidget {
@@ -28,7 +29,7 @@ class _PatientDetailsState extends State<PatientDetails>
   @override
   void initState() {
     super.initState();
-    _controller = new TabController(length: 2, vsync: this);
+    _controller = new TabController(length: 3, vsync: this);
   }
 
   void updateAppointment(int index) async {
@@ -134,6 +135,13 @@ class _PatientDetailsState extends State<PatientDetails>
                     ),
                     text: 'History',
                   ),
+                  Tab(
+                    icon: const Icon(
+                      FontAwesomeIcons.user,
+                      color: Colors.blueAccent,
+                    ),
+                    text: 'Info',
+                  ),
                 ],
               ),
             ),
@@ -151,7 +159,9 @@ class _PatientDetailsState extends State<PatientDetails>
 
                   AppointmenContent((widget.patient.appointments
                       .where((test) => test.status == "history")
-                      .toList()))
+                      .toList())),
+
+                  PatientInfo(widget.patient)
                 ],
               ),
             ),

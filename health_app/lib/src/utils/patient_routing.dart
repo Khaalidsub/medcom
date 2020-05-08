@@ -4,8 +4,6 @@ import 'package:health_app/src/screens/patientScreens/home.dart';
 import 'package:health_app/src/screens/patientScreens/profile.dart';
 import 'package:health_app/src/screens/patientScreens/scan.dart';
 import 'package:health_app/src/screens/patientScreens/settings.dart';
-import 'package:health_app/src/screens/patientScreens/update_patient.dart';
-import 'package:health_app/src/models/patient.dart';
 
 class PatientRoute {
   MaterialPageRoute<dynamic> routing(
@@ -17,7 +15,6 @@ class PatientRoute {
         break;
       case '/home':
         builder = (BuildContext context) => PatientHome();
-
         break;
       case '/history':
         builder = (BuildContext context) => PatientHistory();
@@ -31,10 +28,6 @@ class PatientRoute {
       case '/scan':
         builder = (BuildContext context) =>
             Scan(settings.arguments); //send the patient data
-        break;
-      case '/update':
-        builder = (BuildContext context) => PatientUpdate(
-            Patient.copy(settings.arguments)); //send the patient data
         break;
       default:
         throw Exception('Invalid route: ${settings.name}');

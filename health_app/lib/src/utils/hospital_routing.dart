@@ -34,7 +34,7 @@ class HospitalRouting {
             PatientList(settings.arguments); //Expecting list of object Patient
         break;
       case '/profile':
-        builder = (BuildContext context) => HospitalProfile();
+        builder = (BuildContext context) => HospitalProfile(settings.arguments);
         break;
 
       default:
