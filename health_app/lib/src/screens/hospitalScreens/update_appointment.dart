@@ -30,7 +30,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
     print(medicines.length);
   }
 
-  void updateAppointment() {
+  bool updateAppointment() {
     setState(() {
       widget.appointment.status = 'history';
       widget.appointment.doctorName = doctor;

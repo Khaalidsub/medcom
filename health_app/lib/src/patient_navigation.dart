@@ -13,7 +13,6 @@ class PatientNavigation extends StatefulWidget {
 
 class _MainScreenState extends State<PatientNavigation> {
   int index = 0;
-  String name = 'home';
 
   void changeIndex(int ind) {
     setState(() {
@@ -51,12 +50,6 @@ class _MainScreenState extends State<PatientNavigation> {
           key: navigatorKey,
           initialRoute: '/',
           onGenerateRoute: (RouteSettings settings) {
-            if (settings.name != '/') {
-              setState(() {
-                name = settings.name.replaceAll('/', '');
-              });
-            }
-
             PatientRoute router = PatientRoute();
             return router.routing(settings, context);
           },

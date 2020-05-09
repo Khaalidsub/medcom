@@ -1,9 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:health_app/src/models/patient.dart';
+import 'package:health_app/src/screens/welcoming_screen.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 
 class PatientSettings extends StatelessWidget {
+  Patient patient;
+  PatientSettings(this.patient);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,8 +28,8 @@ class PatientSettings extends StatelessWidget {
                     backgroundColor: Colors.black,
                     backgroundImage: AssetImage('assets/images/ill.png'),
                   ),
-                  title: Text("Muhammad adeen Rabbani"),
-                  subtitle: Text("ID939204"),
+                  title: Text(patient.name ?? 'adeen'),
+                  subtitle: Text(patient.id ?? 'id016'),
                 ),
               ),
             ),
@@ -34,7 +39,10 @@ class PatientSettings extends StatelessWidget {
                   children: <Widget>[
                     Tile(
                       icon: Icon(FontAwesomeIcons.user),
-                      label: "My Profile",
+                      label: "Edit Profile",
+                      callback: () => Navigator.pushNamed(
+                          context, '/edit_profile',
+                          arguments: patient),
                     ),
                     Tile(
                       icon: Icon(Icons.help),
@@ -44,17 +52,13 @@ class PatientSettings extends StatelessWidget {
                       icon: Icon(FontAwesomeIcons.info),
                       label: "About",
                     ),
-                    GestureDetector(
-                      onTap: () => Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PatientSettings(),
-                        ),
-                      ),
-                      child: Tile(
-                        icon: Icon(FontAwesomeIcons.signOutAlt),
-                        label: "Logout",
-                      ),
+                    Tile(
+                      icon: Icon(FontAwesomeIcons.signOutAlt),
+                      label: "Logout",
+                      callback: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => WelcomingScreen())),
                     )
                   ],
                 )),
@@ -88,14 +92,14 @@ class PatientSettings extends StatelessWidget {
 class Tile extends StatelessWidget {
   final Icon icon;
   final String label;
-
-  Tile({this.icon, this.label});
+  final Function callback;
+  Tile({this.icon, this.label, this.callback});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        onTap: () => {}, //goes to patient full data page
+        onTap: callback, //goes to patient full data page
         leading: icon,
         title: Text(this.label),
         trailing: Icon(Icons.arrow_right),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class Reusablefield extends StatelessWidget {
+  final TextEditingController controller;
   final String label;
   final Color color;
   final bool isPass;
@@ -16,7 +17,8 @@ class Reusablefield extends StatelessWidget {
       this.hint,
       this.isPass,
       this.callback,
-      this.type});
+      this.type,
+      this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class Reusablefield extends StatelessWidget {
                   ]
                 : null,
         obscureText: isPass == null ? false : isPass,
+        controller: this.controller ?? null,
         decoration: InputDecoration(
           hintText: hint,
           suffixIcon: icon,

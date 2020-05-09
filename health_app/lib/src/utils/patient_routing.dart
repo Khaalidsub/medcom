@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_app/src/screens/patientScreens/history.dart';
 import 'package:health_app/src/screens/patientScreens/home.dart';
 import 'package:health_app/src/screens/patientScreens/profile.dart';
+import 'package:health_app/src/screens/patientScreens/edit_profile.dart';
 import 'package:health_app/src/screens/patientScreens/scan.dart';
 import 'package:health_app/src/screens/patientScreens/settings.dart';
 
@@ -22,8 +23,11 @@ class PatientRoute {
       case '/profile':
         builder = (BuildContext context) => PatientProfile(settings.arguments);
         break;
+      case '/edit_profile':
+        builder = (BuildContext context) => EditProfile(settings.arguments);
+        break;
       case '/settings':
-        builder = (BuildContext context) => PatientSettings();
+        builder = (BuildContext context) => PatientSettings(settings.arguments);
         break;
       case '/scan':
         builder = (BuildContext context) =>
