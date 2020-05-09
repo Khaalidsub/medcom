@@ -57,6 +57,11 @@ There are two different types of screens : Patient Screens and Hospital Screens
   - profile.dart displays user credentials
   - update_appointment.dart updates appointment to add diagnosis and medication of the appointment
 
+ ### Application Feauture :
+  - User(hospital/patient)- registration,update profile, read profile
+  - Appointment - add appointment,update appointment,read and delete appointment
+  - History - add Patient(with scan), read patient(with scan)
+
 ## Links
 - [Prototype video](https://www.youtube.com/watch?v=-KFwS1-F6QY)
 
