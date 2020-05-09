@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:health_app/src/screens/widgets/patient_widgets/patient_bottom_navigation.dart';
 import 'package:health_app/src/utils/patient_routing.dart';
+import 'models/patient.dart';
 
 class PatientNavigation extends StatefulWidget {
+  Patient user;
+  PatientNavigation(this.user);
   @override
   _MainScreenState createState() => _MainScreenState();
 }
@@ -22,9 +25,11 @@ class _MainScreenState extends State<PatientNavigation> {
     } else if (index == 1) {
       navigatorKey.currentState.pushReplacementNamed('/history');
     } else if (index == 3) {
-      navigatorKey.currentState.pushReplacementNamed('/profile');
+      navigatorKey.currentState
+          .pushReplacementNamed('/profile', arguments: widget.user);
     } else if (index == 2) {
-      navigatorKey.currentState.pushReplacementNamed('/scan');
+      navigatorKey.currentState
+          .pushReplacementNamed('/scan', arguments: widget.user);
     } else {
       navigatorKey.currentState.pushReplacementNamed('/home');
     }

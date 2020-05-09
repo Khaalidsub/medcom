@@ -5,6 +5,8 @@ import 'package:health_app/src/models/user.dart';
 class Hospital extends User {
   String phoneNumber;
   String address;
+  String dirName;
+  int numOfBeds;
   List<Doctor> doctors;
   List<Patient> patients;
   Hospital(
@@ -12,6 +14,8 @@ class Hospital extends User {
       String email,
       String name,
       String password,
+      this.dirName,
+      this.numOfBeds,
       this.phoneNumber,
       this.address,
       this.doctors,

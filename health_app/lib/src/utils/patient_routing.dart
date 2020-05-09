@@ -15,19 +15,19 @@ class PatientRoute {
         break;
       case '/home':
         builder = (BuildContext context) => PatientHome();
-
         break;
       case '/history':
         builder = (BuildContext context) => PatientHistory();
         break;
       case '/profile':
-        builder = (BuildContext context) => PatientProfile();
+        builder = (BuildContext context) => PatientProfile(settings.arguments);
         break;
       case '/settings':
         builder = (BuildContext context) => PatientSettings();
         break;
       case '/scan':
-        builder = (BuildContext context) => Scan();
+        builder = (BuildContext context) =>
+            Scan(settings.arguments); //send the patient data
         break;
       default:
         throw Exception('Invalid route: ${settings.name}');

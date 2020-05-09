@@ -25,6 +25,7 @@ class _AppState extends State<App> {
       theme: ThemeData.light(),
       // home: buildSplashScreen(),
       initialRoute: '/',
+  
       routes: {
         '/': (context) => buildSplashScreen(),
         '/login': (context) => LoginForm(),

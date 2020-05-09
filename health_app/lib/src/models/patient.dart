@@ -7,9 +7,23 @@ class Patient extends User {
   String phoneNumber;
   String address;
   String gender;
+  String alergese;
   int age;
   //apointment List
   List<Appointment> appointments;
+
+  String listAllData() {
+    return "Name: ${this.name}\n" +
+        "Age: ${this.age}\n" +
+        "${this.appointments}\n" +
+        "Blooad Type: ${this.bloodType}\n" +
+        "Email: ${this.email}\n" +
+        "Family: ${this.familyNumber}\n" +
+        "Gender: ${this.gender}\n" +
+        "Id: ${this.id}\n" +
+        "Phone: ${this.phoneNumber}\n" +
+        "Adress: ${this.address}\n";
+  }
 
   //copy constructor
   Patient.copy(Patient from)
@@ -31,6 +45,7 @@ class Patient extends User {
       String email,
       String name,
       String password,
+      this.alergese,
       this.bloodType,
       this.familyNumber,
       this.phoneNumber,
