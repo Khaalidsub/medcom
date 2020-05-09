@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 class Reusablefield extends StatelessWidget {
   final TextEditingController controller;
+  final Function validate;
   final String label;
   final Color color;
   final bool isPass;
@@ -14,6 +15,7 @@ class Reusablefield extends StatelessWidget {
       {@required this.label,
       @required this.color,
       @required this.icon,
+      this.validate,
       this.hint,
       this.isPass,
       this.callback,
@@ -38,6 +40,7 @@ class Reusablefield extends StatelessWidget {
                 : null,
         obscureText: isPass == null ? false : isPass,
         controller: this.controller ?? null,
+        validator: validate,
         decoration: InputDecoration(
           hintText: hint,
           suffixIcon: icon,

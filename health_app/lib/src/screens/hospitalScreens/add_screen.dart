@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/models/doctor.dart';
+import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/input_field.dart';
 
-class AddScreen extends StatelessWidget {
+class AddScreen extends StatefulWidget {
+  Hospital hospital;
+  AddScreen(this.hospital);
+
+  @override
+  _AddScreenState createState() => _AddScreenState();
+}
+
+class _AddScreenState extends State<AddScreen> {
   var _controller = TextEditingController();
+  final _formkey = GlobalKey<FormState>();
   String name, specialization;
 
   @override
@@ -28,44 +39,54 @@ class AddScreen extends StatelessWidget {
             children: <Widget>[
               Container(
                 height: 200,
-                child: Hero(
-                  tag: 'logo',
-                  child: Image.asset(
-                    "assets/images/logo-01.png",
-                  ),
+                child: Icon(
+                  FontAwesomeIcons.userMd,
+                  size: 130,
+                  color: Colors.blueAccent,
                 ),
               ),
-              Container(
-                height: 200,
-                padding: EdgeInsets.all(20),
-                child: Wrap(runSpacing: 20, children: <Widget>[
-                  Reusablefield(
-                      label: "Name",
-                      color: Colors.white,
-                      icon: Icon(Icons.nature_people),
-                      callback: (val) {
-                        setState(() {
-                          name = val;
-                        });
-                      }),
-                  Reusablefield(
-                      label: "Specialization",
-                      color: Colors.white,
-                      icon: Icon(Icons.tune),
-                      callback: (val) {
-                        setState(() {
-                          specialization = val;
-                        });
-                      }),
-                ]),
+              Form(
+                key: _formkey,
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  child: Wrap(runSpacing: 20, children: <Widget>[
+                    Reusablefield(
+                        label: "Name",
+                        color: Colors.white,
+                        icon: Icon(Icons.nature_people),
+                        validate: (val) => val.isEmpty ? 'Enter a name' : null,
+                        callback: (val) {
+                          setState(() {
+                            name = val;
+                          });
+                        }),
+                    Reusablefield(
+                        label: "Specialization",
+                        color: Colors.white,
+                        icon: Icon(Icons.tune),
+                        validate: (val) =>
+                            val.isEmpty ? 'Enter a Sepcialization' : null,
+                        callback: (val) {
+                          setState(() {
+                            specialization = val;
+                          });
+                        }),
+                  ]),
+                ),
               ),
               Container(
                 margin: EdgeInsets.only(bottom: 15),
                 child: RaisedButton(
-                  onPressed: () {
-                    Doctor newdoc = new Doctor(); //this->names, this->spec);
-                    //widget.data.doctor.add(newdoc);
-                    Navigator.pop(null, newdoc);
+                  onPressed: () async {
+                    if (_formkey.currentState.validate()) {
+                      Doctor doctor = new Doctor(
+                          name: this.name, specialization: this.specialization);
+                      widget.hospital.addDoctor(doctor);
+
+                      await buildShowDialog(context);
+                      Navigator.pushReplacementNamed(context, '/add',
+                          arguments: widget.hospital);
+                    }
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30)),
@@ -101,9 +122,9 @@ class AddScreen extends StatelessWidget {
               height: 120,
               child: Container(
                 child: Icon(
-                  Icons.person,
-                  size: 80,
-                  color: Colors.black,
+                  FontAwesomeIcons.userAlt,
+                  size: 100,
+                  color: Colors.blueAccent,
                 ),
               ),
             ),
@@ -214,5 +235,30 @@ class AddScreen extends StatelessWidget {
     );
   }
 
-  void setState(Null Function() param0) {}
+  Future buildShowDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Success'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text("Details Have been adden successfully!"),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Alright'),
+              onPressed: () {
+                Navigator.of(context).pop(); //pop the dialog box
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

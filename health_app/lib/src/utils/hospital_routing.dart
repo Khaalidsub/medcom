@@ -28,7 +28,7 @@ class HospitalRouting {
         builder = (BuildContext context) => HospitalHome();
         break;
       case '/add':
-        builder = (BuildContext context) => AddScreen();
+        builder = (BuildContext context) => AddScreen(settings.arguments);
         break;
       case '/history':
         builder = (BuildContext context) => HospitalHistory();
