@@ -1,5 +1,5 @@
 class Doctor {
-  String names;
-  String specializations;
-  Doctor(String name, String specialization, {this.names, this.specializations});
+  String name;
+  String specialization;
+  Doctor({this.name, this.specialization});
 }

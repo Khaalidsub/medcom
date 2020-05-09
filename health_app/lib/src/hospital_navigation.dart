@@ -1,11 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-
-import 'package:health_app/src/screens/widgets/app_nav.dart';
-=======
->>>>>>> 88b199f881f78c2babf8bc2940e014887a27ead9
-
 import 'package:health_app/src/screens/widgets/hospital_widgets/hospital_bottom_navigation.dart';
 import 'package:health_app/src/utils/hospital_routing.dart';
 

@@ -3,13 +3,10 @@ import 'package:health_app/src/models/doctor.dart';
 
 class AddScreen extends StatelessWidget {
   var _controller = TextEditingController();
-   String name, specialization;
-
-  
+  String name, specialization;
 
   @override
   Widget build(BuildContext context) {
-    
     return PageView(
       children: <Widget>[
         buildPatient(),
@@ -20,76 +17,70 @@ class AddScreen extends StatelessWidget {
 
   Widget buildDoctor() {
     return Material(
-                  child: Column(
-                    children: <Widget>[
-                       Container(
-                  height: 200,
-                  child: Hero(
-                    tag: 'logo',
-                    child: Image.asset(
-                      "assets/images/logo-01.png",
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 200,
-                  padding: EdgeInsets.all(20),
-                  child: Wrap(
-                    runSpacing: 20,
-                    children: <Widget>[
-                      Reusablefield(
-                        label: "Name",
-                        color: Colors.white,
-                        icon: Icon(Icons.nature_people),
-                        callback: (val) {
-                          setState(() {
-                            name = val;
-                          });
-                        }),
-                     
-                      Reusablefield(
-                        label: "Specialization",
-                        color: Colors.white,
-                        icon: Icon(Icons.tune),
-                         callback: (val) {
-                          setState(() {
-                            specialization = val;
-                          });
-                        }),
-                    ]),
-
-                ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 15),
-                  child: RaisedButton(
-                    onPressed: () {
-                      Doctor newdoc = new Doctor(name, specialization);
-                      //widget.data.doctor.add(newdoc);
-                      Navigator.pop(null,newdoc);
-                    },
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30)),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 150, vertical: 15),
-                    color: Colors.blueAccent,
-                    //disabledColor: Colors.blueAccent,
-                    child: Text(
-                      "Add",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
-                    ),
-                  ),
-                ),
-                    ],
-                    ),
-                    );
-
+      child: Column(
+        children: <Widget>[
+          Container(
+            height: 200,
+            child: Hero(
+              tag: 'logo',
+              child: Image.asset(
+                "assets/images/logo-01.png",
+              ),
+            ),
+          ),
+          Container(
+            height: 200,
+            padding: EdgeInsets.all(20),
+            child: Wrap(runSpacing: 20, children: <Widget>[
+              Reusablefield(
+                  label: "Name",
+                  color: Colors.white,
+                  icon: Icon(Icons.nature_people),
+                  callback: (val) {
+                    setState(() {
+                      name = val;
+                    });
+                  }),
+              Reusablefield(
+                  label: "Specialization",
+                  color: Colors.white,
+                  icon: Icon(Icons.tune),
+                  callback: (val) {
+                    setState(() {
+                      specialization = val;
+                    });
+                  }),
+            ]),
+          ),
+          Container(
+            margin: EdgeInsets.only(bottom: 15),
+            child: RaisedButton(
+              onPressed: () {
+                Doctor newdoc =
+                    new Doctor(name: name, specialization: specialization);
+                //widget.data.doctor.add(newdoc);
+                Navigator.pop(null, newdoc);
+              },
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30)),
+              padding: EdgeInsets.symmetric(horizontal: 150, vertical: 15),
+              color: Colors.blueAccent,
+              //disabledColor: Colors.blueAccent,
+              child: Text(
+                "Add",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget buildPatient() {
-    
     return Container(
       padding: EdgeInsets.only(left: 15, right: 15),
       child: Column(
@@ -97,39 +88,34 @@ class AddScreen extends StatelessWidget {
         children: <Widget>[
           Container(
             height: 120,
-            
-              child: Container(
-                child: Icon(
-                  Icons.person,
-                  size: 80,
-                  color: Colors.black,
-                ),
-                
+            child: Container(
+              child: Icon(
+                Icons.person,
+                size: 80,
+                color: Colors.black,
               ),
-       
+            ),
           ),
           Container(
-            height: 80,
-            margin: const EdgeInsets.only(right: 20, left: 20),
-            child: TextField(
+              height: 80,
+              margin: const EdgeInsets.only(right: 20, left: 20),
+              child: TextField(
                   controller: _controller,
                   decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(vertical: 16.0),
-                    prefixIcon: Icon(
-                    Icons.account_box,
-                    size: 28.0,
-                  ),
-                     suffixIcon: IconButton(
+                      contentPadding:
+                          const EdgeInsets.symmetric(vertical: 16.0),
+                      prefixIcon: Icon(
+                        Icons.account_box,
+                        size: 28.0,
+                      ),
+                      suffixIcon: IconButton(
                         onPressed: () => _controller.clear(),
                         icon: Icon(Icons.add),
-                    ),
-                    hintText: "Write ID",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    )
-                  )  
-             )
-          ),
+                      ),
+                      hintText: "Write ID",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      )))),
           Divider(),
           Container(
             alignment: Alignment.center,
@@ -211,9 +197,6 @@ class AddScreen extends StatelessWidget {
               style: TextStyle(fontSize: 10),
             ),
           ),
-          
-
-
         ],
       ),
     );
@@ -221,8 +204,8 @@ class AddScreen extends StatelessWidget {
 
   void setState(Null Function() param0) {}
 }
+
 class Reusablefield extends StatelessWidget {
-  
   final String label;
   final Color color;
   final Icon icon;
@@ -249,5 +232,4 @@ class Reusablefield extends StatelessWidget {
               borderSide: BorderSide(width: 0, style: BorderStyle.none)),
         ));
   }
-  
 }

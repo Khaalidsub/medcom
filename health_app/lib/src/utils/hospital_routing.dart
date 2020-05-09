@@ -8,11 +8,8 @@ import 'package:health_app/src/screens/hospitalScreens/home.dart';
 import 'package:health_app/src/screens/hospitalScreens/patient_appointment_list.dart';
 import 'package:health_app/src/screens/hospitalScreens/patient_list.dart';
 import 'package:health_app/src/screens/hospitalScreens/profile.dart';
-<<<<<<< HEAD
 import 'package:health_app/src/screens/hospitalScreens/ScanHospital.dart';
-=======
 import 'package:health_app/src/screens/hospitalScreens/update_appointment.dart';
->>>>>>> 88b199f881f78c2babf8bc2940e014887a27ead9
 
 class HospitalRouting {
   MaterialPageRoute<dynamic> routing(
@@ -32,14 +29,8 @@ class HospitalRouting {
         builder = (BuildContext context) => AddScreen();
         break;
       case '/history':
-<<<<<<< HEAD
-<<<<<<< HEAD
-        
-=======
+
         // print("the value is " + settings.arguments);
->>>>>>> 9311d37efad5c185b195d5cdba80fba1878ccfb0
-=======
->>>>>>> 88b199f881f78c2babf8bc2940e014887a27ead9
         builder = (BuildContext context) => HospitalHistory();
         break;
       case '/patient_appointment_list':
@@ -55,8 +46,7 @@ class HospitalRouting {
         builder =
             (BuildContext context) => UpdateAppointment(settings.arguments);
         break;
-          case '/scanHospital':
-       
+      case '/scanHospital':
         builder = (BuildContext context) => ScanHospital();
 
         break;
