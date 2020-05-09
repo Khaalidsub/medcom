@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/screens/welcoming_screen.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
+import 'package:health_app/src/screens/widgets/info_tile.dart';
 
 class PatientSettings extends StatelessWidget {
   Patient patient;
@@ -85,25 +86,6 @@ class PatientSettings extends StatelessWidget {
       ),
       // bottomNavigationBar:
       //       PatientBottomNavigation(changeIndex: ()=>{}, index: 1),
-    );
-  }
-}
-
-class Tile extends StatelessWidget {
-  final Icon icon;
-  final String label;
-  final Function callback;
-  Tile({this.icon, this.label, this.callback});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        onTap: callback, //goes to patient full data page
-        leading: icon,
-        title: Text(this.label),
-        trailing: Icon(Icons.arrow_right),
-      ),
     );
   }
 }

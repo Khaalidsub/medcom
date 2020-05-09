@@ -1,18 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/screens/login.dart';
+import 'package:health_app/src/screens/welcoming_screen.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
+import 'package:health_app/src/screens/widgets/info_tile.dart';
+
 class HospitalSettings extends StatelessWidget {
+  final Hospital hospital;
+  HospitalSettings(this.hospital);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppNav(
         appBar: AppBar(),
         name: 'Settings',
       ),
-      
+
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -26,7 +32,6 @@ class HospitalSettings extends StatelessWidget {
                     backgroundImage: AssetImage('assets/images/clin.png'),
                   ),
                   title: Text("Hospital1"),
-                  
                 ),
               ),
             ),
@@ -36,7 +41,10 @@ class HospitalSettings extends StatelessWidget {
                   children: <Widget>[
                     Tile(
                       icon: Icon(FontAwesomeIcons.user),
-                      label: "Profile",
+                      label: "Edit Profile",
+                      callback: () => Navigator.pushNamed(
+                          context, '/edit_profile',
+                          arguments: hospital),
                     ),
                     Tile(
                       icon: Icon(Icons.help),
@@ -46,16 +54,14 @@ class HospitalSettings extends StatelessWidget {
                       icon: Icon(FontAwesomeIcons.info),
                       label: "About",
                     ),
-                    GestureDetector(
-                      onTap: () => Navigator.pushReplacement(
+                    Tile(
+                      icon: Icon(FontAwesomeIcons.signOutAlt),
+                      label: "Logout",
+                      callback: () => Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => LoginForm(),
+                          builder: (context) => WelcomingScreen(),
                         ),
-                      ),
-                      child: Tile(
-                        icon: Icon(FontAwesomeIcons.signOutAlt),
-                        label: "Logout",
                       ),
                     )
                   ],
@@ -83,25 +89,6 @@ class HospitalSettings extends StatelessWidget {
       ),
       // bottomNavigationBar:
       //       PatientBottomNavigation(changeIndex: ()=>{}, index: 1),
-    );
-  }
-}
-
-class Tile extends StatelessWidget {
-  final Icon icon;
-  final String label;
-
-  Tile({this.icon, this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        onTap: () => {}, //goes to patient full data page
-        leading: icon,
-        title: Text(this.label),
-        trailing: Icon(Icons.arrow_right),
-      ),
     );
   }
 }
