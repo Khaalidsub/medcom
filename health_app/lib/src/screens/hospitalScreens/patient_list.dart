@@ -17,6 +17,37 @@ class PatientList extends StatefulWidget {
 }
 
 class _PatientListState extends State<PatientList> {
+    createAlertDialog(BuildContext context){
+    return showDialog(context: context,builder:(context){
+      return AlertDialog(
+        
+        title: Text("Patient info",
+        style: TextStyle(color: Colors.white),
+        textAlign: TextAlign.center),
+        content: Text("Abdi, 18",
+        style: TextStyle(color: Colors.white),
+        textAlign: TextAlign.center,),
+        actions: [
+          FlatButton(
+            
+            child: Text("Ok",textAlign: TextAlign.center,style: TextStyle(color: Colors.white)),
+            onPressed: (){
+
+              Navigator.of(context).pop();
+            }
+            ,)
+          ,
+        ],
+        elevation: 24.0,
+        backgroundColor: Colors.blueAccent,
+        shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+        
+
+      );
+      
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +77,9 @@ class _PatientListState extends State<PatientList> {
                     title: Text(widget.patientList[index].name),
                     subtitle: Text(widget.patientList[index].age.toString()),
                     trailing: IconButton(
-                      onPressed: null, //some crud operation on the data
+                      onPressed:  () {
+                    createAlertDialog(context);
+                  }, //some crud operation on the data
                       icon: Icon(Icons.menu),
                     )),
               );

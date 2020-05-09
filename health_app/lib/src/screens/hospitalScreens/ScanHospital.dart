@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
-import 'package:qr_flutter/qr_flutter.dart';
+import 'package:health_app/src/screens/widgets/app_nav.dart';
 
 class ScanHospital extends StatelessWidget {
   @override
@@ -9,12 +9,16 @@ class ScanHospital extends StatelessWidget {
     MediaQueryData queryData = MediaQuery.of(context);
     double width = queryData.size.width;
     return Scaffold(
+      appBar: AppNav(
+        appBar: AppBar(),
+        name: 'Scan',
+      ),
       backgroundColor: Colors.grey[100],
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-               Text(
+              Text(
                 "Scan",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -26,37 +30,28 @@ class ScanHospital extends StatelessWidget {
                   alignment: Alignment.center,
                   width: width * 0.6,
                   height: 250,
-                  
                   decoration: new BoxDecoration(
-              color: Colors.lightBlue,
-              borderRadius: new BorderRadius.circular(40.0),
-                
-              
-                ),
-                  
+                    color: Colors.lightBlue,
+                    borderRadius: new BorderRadius.circular(40.0),
+                  ),
                   child: RaisedButton(
-                    
-                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
-                     padding: const EdgeInsets.all(0.0),
-                     highlightColor: Colors.blue,
-                     color: Colors.lightBlueAccent,
-                     child: Ink(
-                      
-                     decoration: const BoxDecoration(
-                      
-                      borderRadius: BorderRadius.all(Radius.circular(80.0)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40.0)),
+                    padding: const EdgeInsets.all(0.0),
+                    highlightColor: Colors.blue,
+                    color: Colors.lightBlueAccent,
+                    child: Ink(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(80.0)),
+                      ),
+                      child: Icon(Icons.camera),
                     ),
-                    child: Icon(Icons.camera),
-                    
-                     ),
                     onPressed: () async {
                       String cameraScanResult = await scanner.scan();
-                      print(cameraScanResult); //Use this string to do wonders...
+                      print(
+                          cameraScanResult); //Use this string to do wonders...
                     },
-                   
                   )),
-             
-             
             ],
           ),
         ),
