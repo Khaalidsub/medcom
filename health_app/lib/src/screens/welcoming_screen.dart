@@ -74,7 +74,7 @@ class _WelcomingScreenState extends State<WelcomingScreen> {
                             TextStyle(fontSize: 20, color: Colors.blueAccent),
                       ),
                       onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/login');
+                        Navigator.pushNamed(context, '/login');
                       },
                     ),
                     SizedBox(
@@ -93,8 +93,7 @@ class _WelcomingScreenState extends State<WelcomingScreen> {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                       onPressed: () {
-                        Navigator.pushReplacementNamed(
-                            context, '/patient_register');
+                        Navigator.pushNamed(context, '/patient_register');
                       },
                     ),
                     SizedBox(

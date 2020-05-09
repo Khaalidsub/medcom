@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/input_field.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,22 +16,15 @@ class HospRegistration extends StatelessWidget {
   final TextEditingController confirmPassword = new TextEditingController();
   final TextEditingController phoneNumber = new TextEditingController();
   final TextEditingController dirName = new TextEditingController();
-  final TextEditingController numOfBeds = new TextEditingController();
+
   final TextEditingController address = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 5,
-          backgroundColor: Colors.blueAccent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(30),
-              bottomRight: Radius.circular(30),
-            ),
-          ),
-          titleSpacing: 0,
+        appBar: AppNav(
+          appBar: AppBar(),
+          name: 'Register Hospital',
         ),
         body: Builder(
           builder: (context) => SingleChildScrollView(
@@ -79,18 +73,11 @@ class HospRegistration extends StatelessWidget {
                         icon: Icon(Icons.location_on),
                       ),
                       Reusablefield(
-                        label: "Enter Number Of Beds",
-                        controller: numOfBeds,
-                        color: Colors.white,
-                        type: "numBed",
-                        icon: Icon(FontAwesomeIcons.bed),
-                      ),
-                      Reusablefield(
-                        label: "Enter Drirector Name",
+                        label: "Enter Director's Name",
                         controller: dirName,
-                        color: Colors.white,
                         type: "name",
-                        icon: Icon(Icons.person),
+                        color: Colors.white,
+                        icon: Icon(Icons.supervised_user_circle),
                       ),
                       Reusablefield(
                         label: "Enter Password",
@@ -121,7 +108,6 @@ class HospRegistration extends StatelessWidget {
                             email: email.text,
                             address: address.text,
                             dirName: dirName.text,
-                            numOfBeds: int.parse(numOfBeds.text),
                             password: password.text,
                             phoneNumber: phoneNumber.text);
                         mockData.add(data);

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/input_field.dart';
 
 import '../welcoming_screen.dart';
@@ -22,152 +23,140 @@ class PatientReg extends StatelessWidget {
     return Material(
       child: Scaffold(
           //registration card
+          appBar: AppNav(
+            appBar: AppBar(),
+            name: 'Register Patient',
+          ),
           body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              alignment: Alignment.centerLeft,
-              padding: EdgeInsets.only(top: 35, left: 10),
-              child: GestureDetector(
-                onTap: () => Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => WelcomingScreen())),
-                child: Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.arrow_left,
-                      size: 30,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  height: 200,
+                  child: Hero(
+                    tag: 'logo',
+                    child: Image.asset(
+                      "assets/images/logo-01.png",
                     ),
-                    Text('Back'),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-            Container(
-              height: 200,
-              child: Hero(
-                tag: 'logo',
-                child: Image.asset(
-                  "assets/images/logo-01.png",
+                Container(
+                  margin: EdgeInsets.fromLTRB(25, 5, 25, 15),
+                  child: Wrap(
+                    runSpacing: 20,
+                    children: <Widget>[
+                      Reusablefield(
+                        controller: name,
+                        label: "Enter Name",
+                        color: Colors.white,
+                        icon: Icon(Icons.local_hospital),
+                        hint: 'e.g Will Smith',
+                      ),
+                      Reusablefield(
+                        controller: email,
+                        label: "Enter Email",
+                        color: Colors.white,
+                        icon: Icon(Icons.mail),
+                        type: 'email',
+                        hint: 'e.g willsmith20@gmail.com',
+                      ),
+                      Reusablefield(
+                        controller: phone,
+                        label: "Enter Phone",
+                        color: Colors.white,
+                        icon: Icon(Icons.phone),
+                        type: 'phone',
+                        hint: 'e.g +6012xxxxxxxx',
+                      ),
+                      Reusablefield(
+                        controller: age,
+                        label: "Enter Age",
+                        color: Colors.white,
+                        icon: Icon(Icons.person),
+                        type: 'age',
+                        hint: 'e.g 25',
+                      ),
+                      Reusablefield(
+                        controller: password,
+                        label: "Enter Password",
+                        color: Colors.white,
+                        icon: Icon(Icons.vpn_key),
+                        isPass: true,
+                        hint: 'e.g Will20@Smith',
+                      ),
+                      Reusablefield(
+                        controller: confirmPassword,
+                        label: "Confirm Password",
+                        color: Colors.white,
+                        icon: Icon(Icons.vpn_key),
+                        isPass: true,
+                        hint: 'Rewrite Password Again',
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+                Container(
+                  margin: EdgeInsets.only(bottom: 15),
+                  child: RaisedButton(
+                    onPressed: () {
+                      if (password.text == confirmPassword.text) {
+                        data = Patient(
+                            name: name.text,
+                            email: email.text,
+                            age: int.parse(age.text),
+                            password: password.text,
+                            phoneNumber: phone.text);
+                        mockData.add(data);
+                        buildShowDialog(context);
+                      } else {
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                            content: Text('Password Donot Match..'),
+                            backgroundColor: Colors.red));
+                      }
+                    },
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                    padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
+                    color: Colors.blueAccent,
+                    child: Text(
+                      "Register",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
+                  ),
+                )
+              ],
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(25, 5, 25, 15),
-              child: Wrap(
-                runSpacing: 20,
-                children: <Widget>[
-                  Reusablefield(
-                    controller: name,
-                    label: "Enter Name",
-                    color: Colors.white,
-                    icon: Icon(Icons.local_hospital),
-                    hint: 'e.g Will Smith',
-                  ),
-                  Reusablefield(
-                    controller: email,
-                    label: "Enter Email",
-                    color: Colors.white,
-                    icon: Icon(Icons.mail),
-                    type: 'email',
-                    hint: 'e.g willsmith20@gmail.com',
-                  ),
-                  Reusablefield(
-                    controller: phone,
-                    label: "Enter Phone",
-                    color: Colors.white,
-                    icon: Icon(Icons.phone),
-                    type: 'phone',
-                    hint: 'e.g +6012xxxxxxxx',
-                  ),
-                  Reusablefield(
-                    controller: age,
-                    label: "Enter Age",
-                    color: Colors.white,
-                    icon: Icon(Icons.person),
-                    type: 'age',
-                    hint: 'e.g 25',
-                  ),
-                  Reusablefield(
-                    controller: password,
-                    label: "Enter Password",
-                    color: Colors.white,
-                    icon: Icon(Icons.vpn_key),
-                    isPass: true,
-                    hint: 'e.g Will20@Smith',
-                  ),
-                  Reusablefield(
-                    controller: confirmPassword,
-                    label: "Confirm Password",
-                    color: Colors.white,
-                    icon: Icon(Icons.vpn_key),
-                    isPass: true,
-                    hint: 'Rewrite Password Again',
-                  ),
-                ],
-              ),
+          )),
+    );
+  }
+
+  Future buildShowDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Patient Registeration'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text("Patient Register Was Successful. Please Login."),
+              ],
             ),
-            Container(
-              margin: EdgeInsets.only(bottom: 15),
-              child: RaisedButton(
-                onPressed: () {
-                  if (password.text == confirmPassword.text) {
-                    data = Patient(
-                        name: name.text,
-                        email: email.text,
-                        age: int.parse(age.text),
-                        password: password.text,
-                        phoneNumber: phone.text);
-                    mockData.add(data);
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false, // user must tap button!
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Patient Registeration'),
-                          content: SingleChildScrollView(
-                            child: ListBody(
-                              children: <Widget>[
-                                Text(
-                                    "Patient Register Was Successful. Please Login."),
-                              ],
-                            ),
-                          ),
-                          actions: <Widget>[
-                            FlatButton(
-                              child: Text('Okay'),
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .pop(); //pop the dialog box
-                                Navigator.pushReplacementNamed(
-                                    context, '/login');
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  } else {
-                    Scaffold.of(context).showSnackBar(SnackBar(
-                        content: Text('Password Donot Match..'),
-                        backgroundColor: Colors.red));
-                  }
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)),
-                padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
-                disabledColor: Colors.blueAccent,
-                child: Text(
-                  "Register",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20),
-                ),
-              ),
-            )
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Okay'),
+              onPressed: () {
+                Navigator.of(context).pop(); //pop the dialog box
+                Navigator.pushReplacementNamed(context, '/login');
+              },
+            ),
           ],
-        ),
-      )),
+        );
+      },
     );
   }
 }

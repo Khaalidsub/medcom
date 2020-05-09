@@ -85,6 +85,7 @@ class _LoginFormState extends State<LoginForm> {
                             height: 30,
                           ),
                           TextFormField(
+                            keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
                                 labelText: 'Email',
                                 focusColor: Colors.white,
@@ -165,7 +166,8 @@ class _LoginFormState extends State<LoginForm> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    HospitalNavigation(result)));
+                                                    HospitalNavigation(
+                                                        result)));
                                       }
                                     }
                                   }
