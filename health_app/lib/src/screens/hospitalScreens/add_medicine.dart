@@ -119,7 +119,7 @@ class _AddMedicineState extends State<AddMedicine> {
 
 class DatePicker extends StatefulWidget {
   DateTime date;
-  String label;
+  final String label;
   DatePicker({this.date, this.label});
 
   @override

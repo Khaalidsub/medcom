@@ -84,8 +84,6 @@ class _AddScreenState extends State<AddScreen> {
                       widget.hospital.addDoctor(doctor);
 
                       await buildShowDialog(context);
-                      Navigator.pushReplacementNamed(context, '/add',
-                          arguments: widget.hospital);
                     }
                   },
                   shape: RoundedRectangleBorder(

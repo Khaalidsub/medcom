@@ -33,7 +33,7 @@ class _PatientDetailsState extends State<PatientDetails>
   void updateAppointment(int index) async {
     final data = await Navigator.pushNamed(
       context,
-      '/update_appointment',
+      '/hospital/update_appointment',
       arguments: widget.patient.appointments[index],
     );
     print(data);
@@ -82,7 +82,7 @@ class _PatientDetailsState extends State<PatientDetails>
                 onPressed: () {
                   Navigator.pushNamed(
                     context,
-                    '/add_appointment',
+                    '/hospital/add_appointment',
                     arguments: Patient.copy(widget.patient),
                   );
                 }, //add appointment Functionality goes here!

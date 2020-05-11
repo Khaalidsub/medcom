@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:health_app/src/hospital_navigation.dart';
 import 'package:health_app/src/models/mockdata.dart';
-import 'package:health_app/src/patient_navigation.dart';
 import 'package:health_app/src/screens/welcoming_screen.dart';
 
 class LoginForm extends StatefulWidget {
@@ -162,12 +160,11 @@ class _LoginFormState extends State<LoginForm> {
                                             ModalRoute.withName('/'),
                                             arguments: result);
                                       } else {
-                                        Navigator.pushReplacement(
+                                        Navigator.pushNamedAndRemoveUntil(
                                             context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    HospitalNavigation(
-                                                        result)));
+                                            '/hospital',
+                                            ModalRoute.withName('/'),
+                                            arguments: result);
                                       }
                                     }
                                   }

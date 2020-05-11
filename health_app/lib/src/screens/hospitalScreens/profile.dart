@@ -1,14 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/display_user_field.dart';
-import 'package:health_app/src/screens/widgets/input_field.dart';
 
 class HospitalProfile extends StatefulWidget {
-  Hospital user;
+  final Hospital user;
   HospitalProfile(this.user);
 
   @override
@@ -35,7 +32,8 @@ class _HospitalProfileState extends State<HospitalProfile> {
                     Icons.settings,
                     color: Colors.black,
                   ),
-                  onPressed: () => Navigator.pushNamed(context, '/settings',
+                  onPressed: () => Navigator.pushNamed(
+                      context, '/hospital/settings',
                       arguments: widget.user),
                 ),
               ),

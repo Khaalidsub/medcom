@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:health_app/src/models/patient.dart';
 
 class PatientInfo extends StatelessWidget {
-  Patient user;
+  final Patient user;
   PatientInfo(this.user);
   @override
   Widget build(BuildContext context) {

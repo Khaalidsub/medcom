@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/models/hospital.dart';
-import 'package:health_app/src/screens/login.dart';
-import 'package:health_app/src/screens/welcoming_screen.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/info_tile.dart';
 
@@ -43,7 +41,7 @@ class HospitalSettings extends StatelessWidget {
                       icon: Icon(FontAwesomeIcons.user),
                       label: "Edit Profile",
                       callback: () => Navigator.pushNamed(
-                          context, '/edit_profile',
+                          context, '/hospital/edit_profile',
                           arguments: hospital),
                     ),
                     Tile(
@@ -57,12 +55,8 @@ class HospitalSettings extends StatelessWidget {
                     Tile(
                       icon: Icon(FontAwesomeIcons.signOutAlt),
                       label: "Logout",
-                      callback: () => Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => WelcomingScreen(),
-                        ),
-                      ),
+                      callback: () => Navigator.pushNamedAndRemoveUntil(context,
+                          '/welcoming_screen', ModalRoute.withName('/')),
                     )
                   ],
                 )),

@@ -5,14 +5,12 @@ import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/models/medicine.dart';
 import 'package:health_app/src/models/mockdata.dart';
-
-import 'package:health_app/src/screens/hospitalScreens/add_medicine.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/input_field.dart';
 
 class UpdateAppointment extends StatefulWidget {
-  Appointment appointment;
+  final Appointment appointment;
   UpdateAppointment(this.appointment);
   @override
   _UpdateAppointmentState createState() => _UpdateAppointmentState();
@@ -178,7 +176,8 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         onPressed: () async {
-          final data = await Navigator.pushNamed(context, '/add_medicine');
+          final data =
+              await Navigator.pushNamed(context, '/hospital/add_medicine');
           if (data != null) {
             updateMedicine(data);
           }
@@ -195,9 +194,9 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
 }
 
 class SubmitButton extends StatelessWidget {
-  Function submit;
-  String label;
-  Color color;
+  final Function submit;
+  final String label;
+  final Color color;
   SubmitButton({this.submit, this.label, this.color});
   @override
   Widget build(BuildContext context) {

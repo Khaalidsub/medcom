@@ -2,12 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/models/patient.dart';
-import 'package:health_app/src/screens/welcoming_screen.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/info_tile.dart';
 
 class PatientSettings extends StatelessWidget {
-  Patient patient;
+  final Patient patient;
   PatientSettings(this.patient);
 
   @override

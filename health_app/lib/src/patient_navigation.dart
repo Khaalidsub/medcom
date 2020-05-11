@@ -7,7 +7,7 @@ import 'package:health_app/src/screens/patientScreens/profile.dart';
 import 'package:health_app/src/screens/patientScreens/scan.dart';
 
 class PatientNavigation extends StatefulWidget {
-  Patient user;
+  final Patient user;
   PatientNavigation(this.user);
   @override
   _MainScreenState createState() => _MainScreenState();

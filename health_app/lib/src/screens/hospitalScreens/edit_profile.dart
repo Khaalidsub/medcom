@@ -4,7 +4,7 @@ import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/input_field.dart';
 
 class HospitalEditProfile extends StatefulWidget {
-  Hospital hospital;
+  final Hospital hospital;
   HospitalEditProfile(this.hospital);
   final TextEditingController phoneNumber = new TextEditingController();
   @override

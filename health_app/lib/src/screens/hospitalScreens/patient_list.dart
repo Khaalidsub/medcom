@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:health_app/src/models/patient.dart';
-import 'package:health_app/src/screens/hospitalScreens/patient_appointment_list.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 
 //stateful because of deleting a patient functinality
@@ -17,37 +15,37 @@ class PatientList extends StatefulWidget {
 }
 
 class _PatientListState extends State<PatientList> {
-    createAlertDialog(BuildContext context){
-    return showDialog(context: context,builder:(context){
-      return AlertDialog(
-        
-        title: Text("Patient info",
-        style: TextStyle(color: Colors.white),
-        textAlign: TextAlign.center),
-        content: Text("Abdi, 18",
-        style: TextStyle(color: Colors.white),
-        textAlign: TextAlign.center,),
-        actions: [
-          FlatButton(
-            
-            child: Text("Ok",textAlign: TextAlign.center,style: TextStyle(color: Colors.white)),
-            onPressed: (){
-
-              Navigator.of(context).pop();
-            }
-            ,)
-          ,
-        ],
-        elevation: 24.0,
-        backgroundColor: Colors.blueAccent,
-        shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-        
-
-      );
-      
-    });
-
+  createAlertDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Patient info",
+                style: TextStyle(color: Colors.white),
+                textAlign: TextAlign.center),
+            content: Text(
+              "Abdi, 18",
+              style: TextStyle(color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+            actions: [
+              FlatButton(
+                child: Text("Ok",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white)),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+            elevation: 24.0,
+            backgroundColor: Colors.blueAccent,
+            shape: new RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(30.0)),
+          );
+        });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +64,7 @@ class _PatientListState extends State<PatientList> {
                     onTap: () {
                       Navigator.pushNamed(
                         context,
-                        '/patient_appointment_list',
+                        '/hospital/patient_appointment_list',
                         arguments: widget.patientList[index],
                       );
                     }, //goes to patient full data page
@@ -77,9 +75,9 @@ class _PatientListState extends State<PatientList> {
                     title: Text(widget.patientList[index].name),
                     subtitle: Text(widget.patientList[index].age.toString()),
                     trailing: IconButton(
-                      onPressed:  () {
-                    createAlertDialog(context);
-                  }, //some crud operation on the data
+                      onPressed: () {
+                        createAlertDialog(context);
+                      }, //some crud operation on the data
                       icon: Icon(Icons.menu),
                     )),
               );

@@ -15,37 +15,37 @@ class HospitalHome extends StatefulWidget {
 }
 
 class _HomeState extends State<HospitalHome> {
-    createAlertDialog(BuildContext context){
-    return showDialog(context: context,builder:(context){
-      return AlertDialog(
-        
-        title: Text("Updates",
-        style: TextStyle(color: Colors.white),
-        textAlign: TextAlign.center),
-        content: Text("No updates",
-        style: TextStyle(color: Colors.white),
-        textAlign: TextAlign.center,),
-        actions: [
-          FlatButton(
-            
-            child: Text("Ok",textAlign: TextAlign.center,style: TextStyle(color: Colors.white)),
-            onPressed: (){
-
-              Navigator.of(context).pop();
-            }
-            ,)
-          ,
-        ],
-        elevation: 24.0,
-        backgroundColor: Colors.blueAccent,
-        shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-        
-
-      );
-      
-    });
-
+  createAlertDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Updates",
+                style: TextStyle(color: Colors.white),
+                textAlign: TextAlign.center),
+            content: Text(
+              "No updates",
+              style: TextStyle(color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+            actions: [
+              FlatButton(
+                child: Text("Ok",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white)),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+            elevation: 24.0,
+            backgroundColor: Colors.blueAccent,
+            shape: new RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(30.0)),
+          );
+        });
   }
+
   @override
   void initState() {
     super.initState();
@@ -80,7 +80,8 @@ class _HomeState extends State<HospitalHome> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, '/patientList',
+                    onTap: () => Navigator.pushNamed(
+                        context, '/hospital/patientList',
                         arguments: mockData
                             .where((user) => user.type == 'patient')
                             .toList()),
@@ -112,7 +113,7 @@ class _HomeState extends State<HospitalHome> {
                   GestureDetector(
                     onTap: () => Navigator.pushNamed(
                       context,
-                      '/patientList',
+                      '/hospital/patientList',
                       arguments: mockData
                           .where((user) => user.type == 'patient')
                           .toList(),
@@ -144,8 +145,8 @@ class _HomeState extends State<HospitalHome> {
                   ),
                   GestureDetector(
                     onTap: () {
-                    createAlertDialog(context);
-                  },
+                      createAlertDialog(context);
+                    },
                     child: Container(
                       height: 120,
                       width: width * 0.29,

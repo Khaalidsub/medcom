@@ -4,7 +4,7 @@ import 'package:health_app/src/screens/widgets/display_user_field.dart';
 import '../../models/patient.dart';
 
 class PatientProfile extends StatefulWidget {
-  Patient user;
+  final Patient user;
 
   PatientProfile(this.user);
 

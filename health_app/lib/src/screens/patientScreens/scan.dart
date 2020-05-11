@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:health_app/src/models/patient.dart';
@@ -8,9 +6,7 @@ import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:qr_flutter/qr_flutter.dart';
 
 class Scan extends StatelessWidget {
-  //TODO require patient details
-  Patient user;
-
+  final Patient user;
   Scan(this.user);
 
   void _neverSatisfied(String details, context) async {

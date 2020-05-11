@@ -97,7 +97,6 @@ class _AddAppointmentState extends State<AddAppointment> {
       child: FloatingActionButton(
         heroTag: 'appointment',
         onPressed: () {
-          //     //TODO: For now add this to users appointment list
           Appointment newApp = new Appointment(
             date: newDate,
             day: widget.day ?? DateFormat('EEEE').format(newDate),
