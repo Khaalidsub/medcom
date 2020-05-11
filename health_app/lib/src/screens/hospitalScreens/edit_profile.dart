@@ -3,15 +3,15 @@ import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/input_field.dart';
 
-class EditProfile extends StatefulWidget {
+class HospitalEditProfile extends StatefulWidget {
   Hospital hospital;
-  EditProfile(this.hospital);
+  HospitalEditProfile(this.hospital);
   final TextEditingController phoneNumber = new TextEditingController();
   @override
   _EditProfileState createState() => _EditProfileState();
 }
 
-class _EditProfileState extends State<EditProfile> {
+class _EditProfileState extends State<HospitalEditProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

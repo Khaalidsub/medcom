@@ -42,7 +42,7 @@ class PatientSettings extends StatelessWidget {
                       icon: Icon(FontAwesomeIcons.user),
                       label: "Edit Profile",
                       callback: () => Navigator.pushNamed(
-                          context, '/edit_profile',
+                          context, '/patient/edit_profile',
                           arguments: patient),
                     ),
                     Tile(
@@ -56,10 +56,8 @@ class PatientSettings extends StatelessWidget {
                     Tile(
                       icon: Icon(FontAwesomeIcons.signOutAlt),
                       label: "Logout",
-                      callback: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => WelcomingScreen())),
+                      callback: () => Navigator.pushReplacementNamed(
+                          context, '/welcoming_screen'),
                     )
                   ],
                 )),

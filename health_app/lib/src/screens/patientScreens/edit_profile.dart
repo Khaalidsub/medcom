@@ -4,9 +4,9 @@ import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/input_field.dart';
 
-class EditProfile extends StatefulWidget {
+class PatientEditProfile extends StatefulWidget {
   final Patient patient;
-  EditProfile(this.patient);
+  PatientEditProfile(this.patient);
   final TextEditingController bloodtype = new TextEditingController();
 
   final TextEditingController familyNumber = new TextEditingController();
@@ -22,7 +22,7 @@ class EditProfile extends StatefulWidget {
   _EditProfileState createState() => _EditProfileState();
 }
 
-class _EditProfileState extends State<EditProfile> {
+class _EditProfileState extends State<PatientEditProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

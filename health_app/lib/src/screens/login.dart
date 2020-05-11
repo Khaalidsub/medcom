@@ -156,11 +156,11 @@ class _LoginFormState extends State<LoginForm> {
                                       );
                                     } else {
                                       if (result.type == 'patient') {
-                                        Navigator.pushReplacement(
+                                        Navigator.pushNamedAndRemoveUntil(
                                             context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    PatientNavigation(result)));
+                                            '/patient',
+                                            ModalRoute.withName('/'),
+                                            arguments: result);
                                       } else {
                                         Navigator.pushReplacement(
                                             context,

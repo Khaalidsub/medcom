@@ -28,7 +28,8 @@ class _PatientProfileState extends State<PatientProfile> {
               Container(
                 alignment: Alignment.topRight,
                 child: IconButton(
-                  onPressed: () => Navigator.pushNamed(context, '/settings',
+                  onPressed: () => Navigator.pushNamed(
+                      context, '/patient/settings',
                       arguments: widget.user),
                   icon: Icon(
                     Icons.settings,

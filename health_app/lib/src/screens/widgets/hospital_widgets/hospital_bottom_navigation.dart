@@ -11,6 +11,7 @@ class BottomNavigation extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: CurvedNavigationBar(
+        // key: ,
         // key: PageKe,
         height: 50,
         items: <Widget>[
