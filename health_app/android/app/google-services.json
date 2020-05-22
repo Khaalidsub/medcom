@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "116296838986",
+    "firebase_url": "https://medcom-6492b.firebaseio.com",
+    "project_id": "medcom-6492b",
+    "storage_bucket": "medcom-6492b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116296838986:android:db7ad067f23edd0849dbb3",
+        "android_client_info": {
+          "package_name": "com.onebyte.medcom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116296838986-bu6uli58uplcof7rl4ahr4ab3q41ohan.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxlG-gCruIocE4jMoKhIxYjiPSO9KlkEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116296838986-bu6uli58uplcof7rl4ahr4ab3q41ohan.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
