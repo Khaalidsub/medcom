@@ -20,7 +20,12 @@ class Hospital extends User {
       this.address,
       this.doctors,
       this.patients})
-      : super(id, email, name, 'hospital', password);
+      : super(
+            id: id,
+            email: email,
+            name: name,
+            type: 'hospital',
+            password: password);
 
   void addDoctor(Doctor doc) {
     doctors.add(doc);

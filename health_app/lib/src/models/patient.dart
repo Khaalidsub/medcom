@@ -53,5 +53,10 @@ class Patient extends User {
       this.gender,
       this.age,
       this.appointments})
-      : super(id, email, name, 'patient', password);
+      : super(
+            id: id,
+            email: email,
+            name: name,
+            type: 'patient',
+            password: password);
 }
