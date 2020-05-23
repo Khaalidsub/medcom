@@ -2,6 +2,8 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:health_app/src/blocs/login_bloc.dart';
 import 'package:health_app/src/screens/welcoming_screen.dart';
+import 'package:health_app/src/screens/widgets/error_message.dart';
+import 'package:health_app/src/screens/widgets/progress_bar.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -112,55 +114,85 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   Widget buildEmailField() {
-    return TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-          labelText: 'Email',
-          focusColor: Colors.white,
-          suffixIcon: Icon(Icons.mail),
-          hintText: 'Enter Email'),
-      onChanged: (val) {},
-    );
+    return StreamBuilder<Object>(
+        stream: _loginBloc.email,
+        builder: (context, snapshot) {
+          return TextFormField(
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+                labelText: 'Email',
+                focusColor: Colors.white,
+                suffixIcon: Icon(Icons.mail),
+                hintText: 'Enter Email',
+                errorText: snapshot.error),
+            onChanged: _loginBloc.changeEmail,
+          );
+        });
   }
 
   Widget buildPasswordField() {
-    return TextFormField(
-      obscureText: true,
-      decoration: InputDecoration(
-          labelText: 'Password',
-          suffixIcon: Icon(Icons.edit),
-          focusColor: Colors.blue,
-          hintText: 'Enter Password'),
-      onChanged: (val) {},
-    );
+    return StreamBuilder<Object>(
+        stream: _loginBloc.password,
+        builder: (context, snapshot) {
+          return TextFormField(
+            obscureText: true,
+            decoration: InputDecoration(
+                labelText: 'Password',
+                suffixIcon: Icon(Icons.edit),
+                focusColor: Colors.blue,
+                hintText: 'Enter Password',
+                errorText: snapshot.error),
+            onChanged: _loginBloc.changePassword,
+          );
+        });
   }
 
   Widget buildSubmitButton() {
-    return RaisedButton(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18),
-      ),
-      splashColor: Colors.blueAccent,
-      elevation: 10,
-      padding: EdgeInsets.symmetric(vertical: 15),
-      color: Colors.blue,
-      child: Text(
-        'Sign In',
-        style: TextStyle(fontSize: 20, color: Colors.white),
-      ),
-      onPressed: () {},
-    );
+    return StreamBuilder<Object>(
+        stream: _loginBloc.signInStatus,
+        builder: (context, snapshot) {
+          if (snapshot.data == true) {
+            return ProgressBar();
+          }
+          return RaisedButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18),
+            ),
+            splashColor: Colors.blueAccent,
+            elevation: 10,
+            padding: EdgeInsets.symmetric(vertical: 15),
+            color: Colors.blue,
+            child: Text(
+              'Sign In',
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            ),
+            onPressed: () {
+              _loginBloc.showProgressBar(true);
+
+              if (_loginBloc.validateSignInFields()) {
+                authenticateUser(context);
+              } else {
+                ErrorMessage(context: context, input: 'wrong user fields')
+                    .showErrorMessage();
+              }
+
+              _loginBloc.showProgressBar(false);
+            },
+          );
+        });
   }
 
-  void showErrorMessage(BuildContext context) {
-    final snackbar = SnackBar(
-      backgroundColor: Colors.pinkAccent,
-      content: Text(
-        error,
-        style: TextStyle(color: Colors.white),
-      ),
-      duration: new Duration(seconds: 3),
-    );
-    Scaffold.of(context).showSnackBar(snackbar);
+  void authenticateUser(BuildContext context) {
+    _loginBloc.signIn().then((result) {
+      print('result : ${result.id}');
+      _loginBloc.showProgressBar(false);
+      if (result.id == null) {
+        // erro
+        ErrorMessage(context: context, input: 'email/password is incorrect!')
+            .showErrorMessage();
+      }
+      ErrorMessage(context: context, input: 'Welcome ${result.email}')
+          .showSuccessMessage();
+    });
   }
 }
