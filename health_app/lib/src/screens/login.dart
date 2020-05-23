@@ -150,35 +150,41 @@ class _LoginFormState extends State<LoginForm> {
   Widget buildSubmitButton() {
     return StreamBuilder<Object>(
         stream: _loginBloc.signInStatus,
+        initialData: _loginBloc.showProgressBar(false),
         builder: (context, snapshot) {
-          if (snapshot.data == true) {
-            return ProgressBar();
+          if (snapshot.hasData) {
+            if (snapshot.data) {
+              return ProgressBar();
+            }
+
+            return RaisedButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18),
+              ),
+              splashColor: Colors.blueAccent,
+              elevation: 10,
+              padding: EdgeInsets.symmetric(vertical: 15),
+              color: Colors.blue,
+              child: Text(
+                'Sign In',
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+              onPressed: () {
+                _loginBloc.showProgressBar(true);
+
+                if (_loginBloc.validateSignInFields()) {
+                  authenticateUser(context);
+                } else {
+                  ErrorMessage(context: context, input: 'wrong user fields')
+                      .showErrorMessage();
+                  _loginBloc.showProgressBar(false);
+                }
+
+                // _loginBloc.showProgressBar(false);
+              },
+            );
           }
-          return RaisedButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18),
-            ),
-            splashColor: Colors.blueAccent,
-            elevation: 10,
-            padding: EdgeInsets.symmetric(vertical: 15),
-            color: Colors.blue,
-            child: Text(
-              'Sign In',
-              style: TextStyle(fontSize: 20, color: Colors.white),
-            ),
-            onPressed: () {
-              _loginBloc.showProgressBar(true);
-
-              if (_loginBloc.validateSignInFields()) {
-                authenticateUser(context);
-              } else {
-                ErrorMessage(context: context, input: 'wrong user fields')
-                    .showErrorMessage();
-              }
-
-              _loginBloc.showProgressBar(false);
-            },
-          );
+          return ProgressBar();
         });
   }
 
@@ -190,6 +196,7 @@ class _LoginFormState extends State<LoginForm> {
         // erro
         ErrorMessage(context: context, input: 'email/password is incorrect!')
             .showErrorMessage();
+        _loginBloc.showProgressBar(false);
       }
       ErrorMessage(context: context, input: 'Welcome ${result.email}')
           .showSuccessMessage();
