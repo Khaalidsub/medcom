@@ -1,5 +1,6 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
-import 'package:health_app/src/models/mockdata.dart';
+import 'package:health_app/src/blocs/login_bloc.dart';
 import 'package:health_app/src/screens/welcoming_screen.dart';
 
 class LoginForm extends StatefulWidget {
@@ -8,21 +9,14 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final _formkey = GlobalKey<FormState>();
-  bool loading = false;
+  final LoginBloc _loginBloc = BlocProvider.getBloc<LoginBloc>();
 
-  String email = '';
-  String password = '';
   String error = '';
 
-  dynamic singIn(String email, String password) {
-    var result;
-    for (var i = 0; i < mockData.length; i++) {
-      if (mockData[i].email == email && mockData[i].password == password) {
-        result = mockData[i];
-      }
-    }
-    return result;
+  @override
+  void dispose() {
+    super.dispose();
+    _loginBloc.dispose();
   }
 
   @override
@@ -62,131 +56,50 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                     ),
                   ),
-                  Form(
-                    key: _formkey,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 40.0, right: 40.0),
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            // color: Colors.green,
-
-                            height: 200,
-                            child: Hero(
-                              tag: 'logo',
-                              child: Image.asset(
-                                "assets/images/logo-01.png",
-                              ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 40.0, right: 40.0),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          height: 200,
+                          child: Hero(
+                            tag: 'logo',
+                            child: Image.asset(
+                              "assets/images/logo-01.png",
                             ),
                           ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          TextFormField(
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                                labelText: 'Email',
-                                focusColor: Colors.white,
-                                suffixIcon: Icon(Icons.mail),
-                                hintText: 'Enter Email'),
-                            validator: (val) =>
-                                val.isEmpty ? 'Enter an email' : null,
-                            onChanged: (val) {
-                              setState(() => email = val);
-                            },
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          TextFormField(
-                            obscureText: true,
-                            decoration: InputDecoration(
-                                labelText: 'Password',
-                                suffixIcon: Icon(Icons.edit),
-                                focusColor: Colors.blue,
-                                hintText: 'Enter Password'),
-                            validator: (val) => val.length < 3
-                                ? 'Enter a password more than 6 characters'
-                                : null,
-                            onChanged: (val) {
-                              setState(() => password = val);
-                            },
-                          ),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: <Widget>[
-                              RaisedButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18),
-                                ),
-                                splashColor: Colors.blueAccent,
-                                elevation: 10,
-                                padding: EdgeInsets.symmetric(vertical: 15),
-                                color: Colors.blue,
-                                child: Text(
-                                  'Sign In',
-                                  style: TextStyle(
-                                      fontSize: 20, color: Colors.white),
-                                ),
-                                onPressed: () {
-                                  if (_formkey.currentState.validate()) {
-                                    setState(() => loading = true);
-                                    dynamic result =
-                                        singIn(email.trim(), password.trim());
-                                    print(result);
-                                    if (result == null) {
-                                      setState(() {
-                                        error = 'the email does not exist';
-                                      });
-                                      // showErrorMessage(context);
-                                      Scaffold.of(context).showSnackBar(
-                                        SnackBar(
-                                          backgroundColor: Colors.redAccent,
-                                          content: Row(
-                                            children: <Widget>[
-                                              Text(error),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    } else {
-                                      if (result.type == 'patient') {
-                                        Navigator.pushNamedAndRemoveUntil(
-                                            context,
-                                            '/patient',
-                                            ModalRoute.withName('/'),
-                                            arguments: result);
-                                      } else {
-                                        Navigator.pushNamedAndRemoveUntil(
-                                            context,
-                                            '/hospital',
-                                            ModalRoute.withName('/'),
-                                            arguments: result);
-                                      }
-                                    }
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Text(
-                                'Forgot Password? ',
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.blueGrey),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        buildEmailField(),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        buildPasswordField(),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: <Widget>[
+                            buildSubmitButton(),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Text(
+                              'Forgot Password? ',
+                              style: TextStyle(
+                                  fontSize: 18, color: Colors.blueGrey),
+                            ),
+                          ],
+                        )
+                      ],
                     ),
                   ),
                 ],
@@ -195,6 +108,47 @@ class _LoginFormState extends State<LoginForm> {
           ),
         );
       }),
+    );
+  }
+
+  Widget buildEmailField() {
+    return TextFormField(
+      keyboardType: TextInputType.emailAddress,
+      decoration: InputDecoration(
+          labelText: 'Email',
+          focusColor: Colors.white,
+          suffixIcon: Icon(Icons.mail),
+          hintText: 'Enter Email'),
+      onChanged: (val) {},
+    );
+  }
+
+  Widget buildPasswordField() {
+    return TextFormField(
+      obscureText: true,
+      decoration: InputDecoration(
+          labelText: 'Password',
+          suffixIcon: Icon(Icons.edit),
+          focusColor: Colors.blue,
+          hintText: 'Enter Password'),
+      onChanged: (val) {},
+    );
+  }
+
+  Widget buildSubmitButton() {
+    return RaisedButton(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(18),
+      ),
+      splashColor: Colors.blueAccent,
+      elevation: 10,
+      padding: EdgeInsets.symmetric(vertical: 15),
+      color: Colors.blue,
+      child: Text(
+        'Sign In',
+        style: TextStyle(fontSize: 20, color: Colors.white),
+      ),
+      onPressed: () {},
     );
   }
 

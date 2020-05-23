@@ -1,4 +1,6 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:health_app/src/blocs/login_bloc.dart';
 import 'package:health_app/src/utils/routing.dart';
 // import 'package:health_app/src/screens/splash_screen.dart';
 
@@ -16,17 +18,22 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
-      // home: buildSplashScreen(),
-      navigatorKey: navigatorKey,
-      initialRoute: '/',
-      onGenerateRoute: (RouteSettings settings) {
-        //creating instance of hospital routing to return the materialPage route.
-        Routes routing = Routes();
-        return routing.routing(settings, context);
-      },
+    return BlocProvider(
+      blocs: [
+        Bloc((i) => LoginBloc()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.light(),
+        // home: buildSplashScreen(),
+        navigatorKey: navigatorKey,
+        initialRoute: '/',
+        onGenerateRoute: (RouteSettings settings) {
+          //creating instance of hospital routing to return the materialPage route.
+          Routes routing = Routes();
+          return routing.routing(settings, context);
+        },
+      ),
     );
   }
 }

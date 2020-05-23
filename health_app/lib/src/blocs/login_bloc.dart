@@ -16,10 +16,12 @@ class LoginBloc extends BlocBase {
   Function(String) get changeEmail => _email.sink.add;
   Function(String) get changePassword => _password.sink.add;
   Function(bool) get showProgressBar => _isSignedIn.sink.add;
+
   //stream functions
   Stream<String> get email => _email.stream.transform(_validateEmail);
   Stream<String> get password => _password.stream.transform(_validatePassword);
   Stream<bool> get signInStatus => _isSignedIn.stream;
+
   //validator functions
   final _validateEmail =
       StreamTransformer<String, String>.fromHandlers(handleData: (email, sink) {
