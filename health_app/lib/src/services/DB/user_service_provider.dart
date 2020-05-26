@@ -7,7 +7,6 @@ class UserServiceProvider {
       Firestore.instance.collection('User_List');
 
   //function that stores data i.e Reigstration to the firestore db
-
   Future createPatientData(Patient patient) async {
     return await userCollection.document(patient.id).setData({
       'name': patient.name,

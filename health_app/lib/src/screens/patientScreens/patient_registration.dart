@@ -1,19 +1,23 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:health_app/src/blocs/patient_register_bloc.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
+import 'package:health_app/src/screens/widgets/stream_input_field.dart';
 import '../../models/patient.dart';
 import '../../models/mockdata.dart';
 
 class PatientReg extends StatelessWidget {
   Patient data;
-
-  final TextEditingController name = new TextEditingController();
-  final TextEditingController email = new TextEditingController();
-  final TextEditingController phone = new TextEditingController();
-  final TextEditingController age = new TextEditingController();
-  final TextEditingController password = new TextEditingController();
-  final TextEditingController confirmPassword = new TextEditingController();
+  final PatientRegisterBloc _patientRegisterBloc =
+      BlocProvider.getBloc<PatientRegisterBloc>();
+  // final TextEditingController name = new TextEditingController();
+  // final TextEditingController email = new TextEditingController();
+  // final TextEditingController phone = new TextEditingController();
+  // final TextEditingController age = new TextEditingController();
+  // final TextEditingController password = new TextEditingController();
+  // final TextEditingController confirmPassword = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,38 +46,49 @@ class PatientReg extends StatelessWidget {
                     runSpacing: 20,
                     children: <Widget>[
                       Reusablefield(
-                        controller: name,
+                        // controller: name,
+                        stream: _patientRegisterBloc.name,
+                        onChangeFunction: _patientRegisterBloc.changeName,
                         label: "Enter Name",
                         color: Colors.white,
                         icon: Icon(Icons.local_hospital),
                         hint: 'e.g Will Smith',
                       ),
                       Reusablefield(
-                        controller: email,
+                        // controller: email,
+                        stream: _patientRegisterBloc.name,
+                        onChangeFunction: _patientRegisterBloc.changeName,
                         label: "Enter Email",
                         color: Colors.white,
                         icon: Icon(Icons.mail),
-                        type: 'email',
+                        type: TextInputType.emailAddress,
                         hint: 'e.g willsmith20@gmail.com',
                       ),
                       Reusablefield(
-                        controller: phone,
+                        // controller: phone,
+                        stream: _patientRegisterBloc.phoneNumber,
+                        onChangeFunction:
+                            _patientRegisterBloc.changePhoneNumber,
                         label: "Enter Phone",
                         color: Colors.white,
                         icon: Icon(Icons.phone),
-                        type: 'phone',
+                        type: TextInputType.phone,
                         hint: 'e.g +6012xxxxxxxx',
                       ),
                       Reusablefield(
-                        controller: age,
+                        // controller: age,
+                        stream: _patientRegisterBloc.name,
+                        onChangeFunction: _patientRegisterBloc.changeName,
                         label: "Enter Age",
                         color: Colors.white,
                         icon: Icon(Icons.person),
-                        type: 'age',
+                        type: TextInputType.number,
                         hint: 'e.g 25',
                       ),
                       Reusablefield(
-                        controller: password,
+                        // controller: password,
+                        stream: _patientRegisterBloc.password,
+                        onChangeFunction: _patientRegisterBloc.changePassword,
                         label: "Enter Password",
                         color: Colors.white,
                         icon: Icon(Icons.vpn_key),
@@ -81,7 +96,9 @@ class PatientReg extends StatelessWidget {
                         hint: 'e.g Will20@Smith',
                       ),
                       Reusablefield(
-                        controller: confirmPassword,
+                        // controller: confirmPassword,
+                        stream: _patientRegisterBloc.name,
+                        onChangeFunction: _patientRegisterBloc.changeName,
                         label: "Confirm Password",
                         color: Colors.white,
                         icon: Icon(Icons.vpn_key),
@@ -93,39 +110,40 @@ class PatientReg extends StatelessWidget {
                 ),
                 Container(
                   margin: EdgeInsets.only(bottom: 15),
-                  child: RaisedButton(
-                    onPressed: () {
-                      if (password.text == confirmPassword.text) {
-                        data = Patient(
-                            name: name.text,
-                            email: email.text,
-                            age: int.parse(age.text),
-                            password: password.text,
-                            phoneNumber: phone.text);
-                        mockData.add(data);
-                        buildShowDialog(context);
-                      } else {
-                        Scaffold.of(context).showSnackBar(SnackBar(
-                            content: Text('Password Donot Match..'),
-                            backgroundColor: Colors.red));
-                      }
-                    },
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30)),
-                    padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
-                    color: Colors.blueAccent,
-                    child: Text(
-                      "Register",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
-                    ),
-                  ),
+                  child: buildRegisterButton(context),
                 )
               ],
             ),
           )),
+    );
+  }
+
+  RaisedButton buildRegisterButton(BuildContext context) {
+    return RaisedButton(
+      onPressed: () {
+        // if (password.text == confirmPassword.text) {
+        //   data = Patient(
+        //       name: name.text,
+        //       email: email.text,
+        //       age: int.parse(age.text),
+        //       password: password.text,
+        //       phoneNumber: phone.text);
+        //   mockData.add(data);
+        //   buildShowDialog(context);
+        // } else {
+        //   Scaffold.of(context).showSnackBar(SnackBar(
+        //       content: Text('Password Donot Match..'),
+        //       backgroundColor: Colors.red));
+        // }
+      },
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
+      color: Colors.blueAccent,
+      child: Text(
+        "Register",
+        style: TextStyle(
+            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+      ),
     );
   }
 
@@ -158,65 +176,65 @@ class PatientReg extends StatelessWidget {
   }
 }
 
-class Reusablefield extends StatelessWidget {
-  final TextEditingController controller;
-  final String label;
-  final Color color;
-  final bool isPass;
-  final Icon icon;
-  final String type;
-  final String hint;
-  Reusablefield(
-      {@required this.controller,
-      @required this.label,
-      @required this.color,
-      @required this.icon,
-      @required this.hint,
-      this.isPass,
-      this.type});
+// class Reusablefield extends StatelessWidget {
+//   final TextEditingController controller;
+//   final String label;
+//   final Color color;
+//   final bool isPass;
+//   final Icon icon;
+//   final String type;
+//   final String hint;
+//   Reusablefield(
+//       {@required this.controller,
+//       @required this.label,
+//       @required this.color,
+//       @required this.icon,
+//       @required this.hint,
+//       this.isPass,
+//       this.type});
 
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-        keyboardType: type == 'email'
-            ? TextInputType.emailAddress
-            : type == 'phone'
-                ? TextInputType.phone
-                : type == 'age' ? TextInputType.number : null,
-        inputFormatters: type == 'phone'
-            ? [
-                WhitelistingTextInputFormatter(RegExp("[+0-9]")),
-                LengthLimitingTextInputFormatter(13),
-              ]
-            : type == 'age'
-                ? [
-                    WhitelistingTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(2),
-                  ]
-                : type == 'name'
-                    ? [
-                        WhitelistingTextInputFormatter(RegExp("[a-z A-Z]")),
-                        LengthLimitingTextInputFormatter(50)
-                      ]
-                    : type == 'email'
-                        ? [
-                            WhitelistingTextInputFormatter(
-                                RegExp("[a-zA-Z0-9@._-]")),
-                            LengthLimitingTextInputFormatter(50)
-                          ]
-                        : null,
-        obscureText: isPass == null ? false : isPass,
-        controller: this.controller,
-        decoration: InputDecoration(
-          hintText: hint,
-          suffixIcon: icon,
-          fillColor: color,
-          filled: true,
-          labelText: label,
-          labelStyle: TextStyle(color: Colors.black),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(width: 0, style: BorderStyle.none)),
-        ));
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return TextFormField(
+//         keyboardType: type == 'email'
+//             ? TextInputType.emailAddress
+//             : type == 'phone'
+//                 ? TextInputType.phone
+//                 : type == 'age' ? TextInputType.number : null,
+//         inputFormatters: type == 'phone'
+//             ? [
+//                 WhitelistingTextInputFormatter(RegExp("[+0-9]")),
+//                 LengthLimitingTextInputFormatter(13),
+//               ]
+//             : type == 'age'
+//                 ? [
+//                     WhitelistingTextInputFormatter.digitsOnly,
+//                     LengthLimitingTextInputFormatter(2),
+//                   ]
+//                 : type == 'name'
+//                     ? [
+//                         WhitelistingTextInputFormatter(RegExp("[a-z A-Z]")),
+//                         LengthLimitingTextInputFormatter(50)
+//                       ]
+//                     : type == 'email'
+//                         ? [
+//                             WhitelistingTextInputFormatter(
+//                                 RegExp("[a-zA-Z0-9@._-]")),
+//                             LengthLimitingTextInputFormatter(50)
+//                           ]
+//                         : null,
+//         obscureText: isPass == null ? false : isPass,
+//         // controller: this.controller,
+//         decoration: InputDecoration(
+//           hintText: hint,
+//           suffixIcon: icon,
+//           fillColor: color,
+//           filled: true,
+//           labelText: label,
+//           labelStyle: TextStyle(color: Colors.black),
+//           border: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(10),
+//               borderSide: BorderSide(width: 0, style: BorderStyle.none)),
+//         ));
+//   }
+// }
