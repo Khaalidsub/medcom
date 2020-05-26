@@ -8,30 +8,36 @@ import 'package:rxdart/rxdart.dart';
 
 class PatientRegisterBloc extends BlocBase {
   Repository _repository = new Repository();
+  static String pass;
   //sink and streams object
   final _email = BehaviorSubject<String>();
   final _name = BehaviorSubject<String>();
   final _password = BehaviorSubject<String>();
+  final _confirm_password = BehaviorSubject<String>();
   final _bloodType = BehaviorSubject<String>();
   final _gender = BehaviorSubject<String>();
   final _phoneNumber = BehaviorSubject<String>();
+  final _isSignedIn = BehaviorSubject<bool>();
 
   //onChanged Functions
   Function(String) get changeEmail => _email.sink.add;
   Function(String) get changeName => _name.sink.add;
   Function(String) get changePassword => _password.sink.add;
-  Function(String) get changeBloodType => _password.sink.add;
-  Function(String) get changeGender => _password.sink.add;
-  Function(String) get changePhoneNumber => _password.sink.add;
-
+  Function(String) get changeConfirmPassword => _confirm_password.sink.add;
+  Function(String) get changeBloodType => _bloodType.sink.add;
+  Function(String) get changeGender => _gender.sink.add;
+  Function(String) get changePhoneNumber => _phoneNumber.sink.add;
+  Function(bool) get showProgressBar => _isSignedIn.sink.add;
   //stream functions
   Stream<String> get email => _email.stream.transform(_validateEmail);
   Stream<String> get name => _name.stream;
   Stream<String> get password => _password.stream.transform(_validatePassword);
-  Stream<String> get bloodType => _password.stream;
-  Stream<String> get gender => _password.stream;
-  Stream<String> get phoneNumber => _password.stream;
-
+  Stream<String> get confirmPassword =>
+      _confirm_password.stream.transform(_validatePassword);
+  Stream<String> get bloodType => _bloodType.stream;
+  Stream<String> get gender => _gender.stream;
+  Stream<String> get phoneNumber => _phoneNumber.stream;
+  Stream<bool> get signInStatus => _isSignedIn.stream;
   //validator functions
   final _validateEmail =
       StreamTransformer<String, String>.fromHandlers(handleData: (email, sink) {
@@ -45,9 +51,19 @@ class PatientRegisterBloc extends BlocBase {
   final _validatePassword = StreamTransformer<String, String>.fromHandlers(
       handleData: (password, sink) {
     if (password.length > 5) {
+      pass = password.trim();
       sink.add(password.trim());
     } else {
       sink.addError('password should be more than 5');
+    }
+  });
+  final _validateConfirmPassword =
+      StreamTransformer<String, String>.fromHandlers(
+          handleData: (password, sink) {
+    if (password == pass) {
+      sink.add(password.trim());
+    } else {
+      sink.addError('Password Is not the same!');
     }
   });
 
@@ -80,6 +96,8 @@ class PatientRegisterBloc extends BlocBase {
     _name.close();
     await _password.drain();
     _password.close();
+    await _confirm_password.drain();
+    _confirm_password.close();
     await _phoneNumber.drain();
     _phoneNumber.close();
     await _bloodType.drain();

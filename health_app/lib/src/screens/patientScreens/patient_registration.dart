@@ -1,23 +1,23 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/blocs/patient_register_bloc.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
+import 'package:health_app/src/screens/widgets/error_message.dart';
+import 'package:health_app/src/screens/widgets/progress_bar.dart';
 import 'package:health_app/src/screens/widgets/stream_input_field.dart';
-import '../../models/patient.dart';
-import '../../models/mockdata.dart';
 
-class PatientReg extends StatelessWidget {
-  Patient data;
+class PatientReg extends StatefulWidget {
+  @override
+  _PatientRegState createState() => _PatientRegState();
+}
+
+class _PatientRegState extends State<PatientReg> {
   final PatientRegisterBloc _patientRegisterBloc =
       BlocProvider.getBloc<PatientRegisterBloc>();
-  // final TextEditingController name = new TextEditingController();
-  // final TextEditingController email = new TextEditingController();
-  // final TextEditingController phone = new TextEditingController();
-  // final TextEditingController age = new TextEditingController();
-  // final TextEditingController password = new TextEditingController();
-  // final TextEditingController confirmPassword = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +32,11 @@ class PatientReg extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Container(
-                  height: 200,
-                  child: Hero(
-                    tag: 'logo',
-                    child: Image.asset(
-                      "assets/images/logo-01.png",
-                    ),
+                  height: 180,
+                  child: Icon(
+                    FontAwesomeIcons.userPlus,
+                    size: 80,
+                    color: Colors.blueAccent,
                   ),
                 ),
                 Container(
@@ -46,7 +45,6 @@ class PatientReg extends StatelessWidget {
                     runSpacing: 20,
                     children: <Widget>[
                       Reusablefield(
-                        // controller: name,
                         stream: _patientRegisterBloc.name,
                         onChangeFunction: _patientRegisterBloc.changeName,
                         label: "Enter Name",
@@ -55,9 +53,8 @@ class PatientReg extends StatelessWidget {
                         hint: 'e.g Will Smith',
                       ),
                       Reusablefield(
-                        // controller: email,
-                        stream: _patientRegisterBloc.name,
-                        onChangeFunction: _patientRegisterBloc.changeName,
+                        stream: _patientRegisterBloc.email,
+                        onChangeFunction: _patientRegisterBloc.changeEmail,
                         label: "Enter Email",
                         color: Colors.white,
                         icon: Icon(Icons.mail),
@@ -65,7 +62,6 @@ class PatientReg extends StatelessWidget {
                         hint: 'e.g willsmith20@gmail.com',
                       ),
                       Reusablefield(
-                        // controller: phone,
                         stream: _patientRegisterBloc.phoneNumber,
                         onChangeFunction:
                             _patientRegisterBloc.changePhoneNumber,
@@ -75,18 +71,9 @@ class PatientReg extends StatelessWidget {
                         type: TextInputType.phone,
                         hint: 'e.g +6012xxxxxxxx',
                       ),
+                      buildDropDownGender(),
+                      buildDropDownBloodType(),
                       Reusablefield(
-                        // controller: age,
-                        stream: _patientRegisterBloc.name,
-                        onChangeFunction: _patientRegisterBloc.changeName,
-                        label: "Enter Age",
-                        color: Colors.white,
-                        icon: Icon(Icons.person),
-                        type: TextInputType.number,
-                        hint: 'e.g 25',
-                      ),
-                      Reusablefield(
-                        // controller: password,
                         stream: _patientRegisterBloc.password,
                         onChangeFunction: _patientRegisterBloc.changePassword,
                         label: "Enter Password",
@@ -97,8 +84,9 @@ class PatientReg extends StatelessWidget {
                       ),
                       Reusablefield(
                         // controller: confirmPassword,
-                        stream: _patientRegisterBloc.name,
-                        onChangeFunction: _patientRegisterBloc.changeName,
+                        stream: _patientRegisterBloc.confirmPassword,
+                        onChangeFunction:
+                            _patientRegisterBloc.changeConfirmPassword,
                         label: "Confirm Password",
                         color: Colors.white,
                         icon: Icon(Icons.vpn_key),
@@ -118,33 +106,109 @@ class PatientReg extends StatelessWidget {
     );
   }
 
-  RaisedButton buildRegisterButton(BuildContext context) {
-    return RaisedButton(
-      onPressed: () {
-        // if (password.text == confirmPassword.text) {
-        //   data = Patient(
-        //       name: name.text,
-        //       email: email.text,
-        //       age: int.parse(age.text),
-        //       password: password.text,
-        //       phoneNumber: phone.text);
-        //   mockData.add(data);
-        //   buildShowDialog(context);
-        // } else {
-        //   Scaffold.of(context).showSnackBar(SnackBar(
-        //       content: Text('Password Donot Match..'),
-        //       backgroundColor: Colors.red));
-        // }
-      },
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-      padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
-      color: Colors.blueAccent,
-      child: Text(
-        "Register",
-        style: TextStyle(
-            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
-      ),
-    );
+  StreamBuilder<Object> buildDropDownBloodType() {
+    return StreamBuilder<Object>(
+        stream: _patientRegisterBloc.bloodType,
+        initialData: '',
+        builder: (context, snapshot) {
+          return DropDownFormField(
+            titleText: 'BloodType',
+            hintText: 'Please choose one',
+            required: true,
+            value: snapshot.data,
+            onChanged: _patientRegisterBloc.changeBloodType,
+            dataSource: [
+              {"display": 'A-', "value": 'A-'},
+              {"display": 'B+', "value": 'B+'},
+              {"display": 'B-', "value": 'B-'},
+              {"display": 'AB+', "value": 'AB+'},
+              {"display": 'AB-', "value": 'AB-'},
+              {"display": 'O+', "value": 'O+'},
+              {"display": 'O-', "value": 'O-'},
+            ],
+            textField: 'display',
+            valueField: 'value',
+            errorText: snapshot.error,
+          );
+        });
+  }
+
+  StreamBuilder<Object> buildDropDownGender() {
+    return StreamBuilder<Object>(
+        stream: _patientRegisterBloc.gender,
+        initialData: '',
+        builder: (context, snapshot) {
+          return DropDownFormField(
+            titleText: 'Gender',
+            hintText: 'Please choose one',
+            required: true,
+            value: snapshot.data,
+            onChanged: _patientRegisterBloc.changeGender,
+            dataSource: [
+              {"display": 'Male', "value": 'M'},
+              {"display": 'Female', "value": 'F'},
+              {"display": 'Others', "value": 'O'},
+            ],
+            textField: 'display',
+            valueField: 'value',
+            errorText: snapshot.error,
+          );
+        });
+  }
+
+  Widget buildRegisterButton(BuildContext context) {
+    return StreamBuilder<Object>(
+        stream: _patientRegisterBloc.signInStatus,
+        initialData: _patientRegisterBloc.showProgressBar(false),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data) {
+              return ProgressBar();
+            }
+
+            return RaisedButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
+              color: Colors.blueAccent,
+              child: Text(
+                "Register",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              ),
+              onPressed: () {
+                _patientRegisterBloc.showProgressBar(true);
+
+                if (_patientRegisterBloc.validateSignUpFields())
+                  authenticateUser(context);
+                else {
+                  ErrorMessage(context: context, input: 'wrong user fields')
+                      .showErrorMessage();
+                  _patientRegisterBloc.showProgressBar(false);
+                }
+              },
+            );
+          }
+          return ProgressBar();
+        });
+  }
+
+  void authenticateUser(BuildContext context) {
+    _patientRegisterBloc.signUp().then((result) {
+      print('result : ${result.id}');
+      _patientRegisterBloc.showProgressBar(false);
+      if (result.id == null) {
+        // erro
+        ErrorMessage(context: context, input: 'email/password is incorrect!')
+            .showErrorMessage();
+        _patientRegisterBloc.showProgressBar(false);
+      }
+      ErrorMessage(context: context, input: 'Welcome ${result.email}')
+          .showSuccessMessage();
+    });
   }
 
   Future buildShowDialog(BuildContext context) {
@@ -175,66 +239,3 @@ class PatientReg extends StatelessWidget {
     );
   }
 }
-
-// class Reusablefield extends StatelessWidget {
-//   final TextEditingController controller;
-//   final String label;
-//   final Color color;
-//   final bool isPass;
-//   final Icon icon;
-//   final String type;
-//   final String hint;
-//   Reusablefield(
-//       {@required this.controller,
-//       @required this.label,
-//       @required this.color,
-//       @required this.icon,
-//       @required this.hint,
-//       this.isPass,
-//       this.type});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return TextFormField(
-//         keyboardType: type == 'email'
-//             ? TextInputType.emailAddress
-//             : type == 'phone'
-//                 ? TextInputType.phone
-//                 : type == 'age' ? TextInputType.number : null,
-//         inputFormatters: type == 'phone'
-//             ? [
-//                 WhitelistingTextInputFormatter(RegExp("[+0-9]")),
-//                 LengthLimitingTextInputFormatter(13),
-//               ]
-//             : type == 'age'
-//                 ? [
-//                     WhitelistingTextInputFormatter.digitsOnly,
-//                     LengthLimitingTextInputFormatter(2),
-//                   ]
-//                 : type == 'name'
-//                     ? [
-//                         WhitelistingTextInputFormatter(RegExp("[a-z A-Z]")),
-//                         LengthLimitingTextInputFormatter(50)
-//                       ]
-//                     : type == 'email'
-//                         ? [
-//                             WhitelistingTextInputFormatter(
-//                                 RegExp("[a-zA-Z0-9@._-]")),
-//                             LengthLimitingTextInputFormatter(50)
-//                           ]
-//                         : null,
-//         obscureText: isPass == null ? false : isPass,
-//         // controller: this.controller,
-//         decoration: InputDecoration(
-//           hintText: hint,
-//           suffixIcon: icon,
-//           fillColor: color,
-//           filled: true,
-//           labelText: label,
-//           labelStyle: TextStyle(color: Colors.black),
-//           border: OutlineInputBorder(
-//               borderRadius: BorderRadius.circular(10),
-//               borderSide: BorderSide(width: 0, style: BorderStyle.none)),
-//         ));
-//   }
-// }
