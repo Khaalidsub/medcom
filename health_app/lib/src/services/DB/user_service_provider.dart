@@ -8,7 +8,7 @@ class UserServiceProvider {
 
   //function that stores data i.e Reigstration to the firestore db
   Future createPatientData(Patient patient) async {
-    return await userCollection.document(patient.id).setData({
+    await userCollection.document(patient.id).setData({
       'name': patient.name,
       'type': patient.type,
       'bloodType': patient.bloodType,
@@ -19,5 +19,6 @@ class UserServiceProvider {
       'phone': patient.phoneNumber,
       // 'faimilyPhone': patient.familyNumber
     });
+    return patient;
   }
 }

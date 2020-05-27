@@ -81,8 +81,14 @@ class PatientRegisterBloc extends BlocBase {
   }
 
   //sign in
-  Future<User> signUp() {
-    Patient patient = new Patient();
+  Future<Patient> signUp() {
+    Patient patient = new Patient(
+        name: _name.value,
+        gender: _gender.value,
+        bloodType: _bloodType.value,
+        email: _email.value,
+        password: _password.value,
+        phoneNumber: _phoneNumber.value);
 
     return _repository.signUpPatient(patient);
   }

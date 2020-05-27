@@ -13,17 +13,22 @@ class Repository {
   }
 
   //sign up
-  Future<User> signUpPatient(Patient patient) {
+  Future<Patient> signUpPatient(Patient patient) async {
     _authServiceProvider = new AuthServiceProvider();
     _userServiceProvider = new UserServiceProvider();
-    //go to authentication provider and return user for the id
-    _authServiceProvider.signUp(patient.email, patient.password).then((user) {
-      patient.id = user.id;
+    try {
+      //go to authentication provider and return user for the id
+      User result =
+          await _authServiceProvider.signUp(patient.email, patient.password);
+      patient.id = result.id;
       //create a user data for that specific patient and the document is the id from the authentication
-      _userServiceProvider.createPatientData(patient).then((value) => user);
-    }).catchError((error) {
-      print(error.toString());
-    });
+      patient = await _userServiceProvider.createPatientData(patient);
+
+      return patient;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
   }
   //logout
 }

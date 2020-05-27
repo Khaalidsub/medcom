@@ -206,8 +206,7 @@ class _PatientRegState extends State<PatientReg> {
             .showErrorMessage();
         _patientRegisterBloc.showProgressBar(false);
       }
-      ErrorMessage(context: context, input: 'Welcome ${result.email}')
-          .showSuccessMessage();
+      buildShowDialog(context);
     });
   }
 

@@ -24,10 +24,10 @@ class Reusablefield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Object>(
-        stream: null,
+        stream: stream,
         builder: (context, snapshot) {
           return TextFormField(
-              onChanged: (val) => onChangeFunction(val),
+              onChanged: onChangeFunction,
               keyboardType: type,
               inputFormatters: type == TextInputType.phone
                   ? [
