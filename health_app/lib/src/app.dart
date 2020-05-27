@@ -1,5 +1,6 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:health_app/src/blocs/hospital_register_bloc.dart';
 import 'package:health_app/src/blocs/login_bloc.dart';
 import 'package:health_app/src/blocs/patient_register_bloc.dart';
 import 'package:health_app/src/utils/routing.dart';
@@ -23,6 +24,7 @@ class _AppState extends State<App> {
       blocs: [
         Bloc((i) => LoginBloc()),
         Bloc((i) => PatientRegisterBloc()),
+        Bloc((i) => HospitalRegisterBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
