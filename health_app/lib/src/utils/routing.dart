@@ -26,7 +26,7 @@ class Routes {
       case '/':
         builder = (context) => Splash();
         break;
-      case 'hospital_register':
+      case '/hospital_register':
         builder = (context) => HospRegistration();
         break;
       case '/patient_register':
