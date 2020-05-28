@@ -3,7 +3,12 @@ import 'package:health_app/src/models/user.dart';
 
 class AuthServiceProvider {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  static String uid;
+  String uid;
+  //check if there is any user session
+  Stream<User> get user {
+    return _auth.onAuthStateChanged.map(_userFromFirebase);
+  }
+
   //sign in
   Future<User> signIn(String email, String password) async {
     try {

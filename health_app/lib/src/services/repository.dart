@@ -7,6 +7,19 @@ import 'package:health_app/src/services/auth_service_provider.dart';
 class Repository {
   AuthServiceProvider _authServiceProvider;
   UserServiceProvider _userServiceProvider;
+  String documentId;
+  //check user session
+  Stream<User> get user {
+    _authServiceProvider = new AuthServiceProvider();
+    return _authServiceProvider.user;
+  }
+
+  //get user data from database
+  Stream<User> get userData {
+    _userServiceProvider = new UserServiceProvider(documentId: documentId);
+    return _userServiceProvider.userData;
+  }
+
   //sign in
   Future<User> signIn(String email, String password) {
     _authServiceProvider = new AuthServiceProvider();
@@ -31,24 +44,24 @@ class Repository {
       return null;
     }
   }
+
   //sign up by hospital
   Future<Hospital> singUpHospital(Hospital hospital) async {
     _authServiceProvider = new AuthServiceProvider();
     _userServiceProvider = new UserServiceProvider();
     try {
       //go to authentication provider and return user for the id
-      User result = 
-            await _authServiceProvider.signUp(hospital.email, hospital.password);
+      User result =
+          await _authServiceProvider.signUp(hospital.email, hospital.password);
       hospital.id = result.id;
-       //create a user data for that specific hospital and the document is the id from the authentication
+      //create a user data for that specific hospital and the document is the id from the authentication
       hospital = await _userServiceProvider.createHospitalData(hospital);
       return hospital;
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return null;
     }
   }
-
 
   //logout
 }
