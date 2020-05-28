@@ -59,25 +59,20 @@ class _HospitalProfileState extends State<HospitalProfile> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Text(
-                    'ID: ${widget.user.id}',
+                    'ID: ${widget.user.id}'.substring(0, 15).toUpperCase(),
                     style: TextStyle(fontSize: 15),
-                  ),
-                  SizedBox(
-                    width: 10,
                   ),
                   Container(
                     height: 12,
+                    width: 24,
                     child: VerticalDivider(
                       width: 2,
                       color: Colors.black,
                     ),
                     //  onPressed: () => Navigator.pushNamed(context, '/settings'),
                   ),
-                  SizedBox(
-                    width: 12,
-                  ),
                   Text(
-                    'Number Of Patients: ${widget.user.patients.length}',
+                    'Patients: ${widget.user.patients?.length}',
                     style: TextStyle(fontSize: 15),
                   ),
                 ],
@@ -86,27 +81,23 @@ class _HospitalProfileState extends State<HospitalProfile> {
                 height: 10,
               ),
               Row(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    'ID: 58496',
+                    'Director: ${widget.user.dirName}',
                     style: TextStyle(fontSize: 15),
-                  ),
-                  SizedBox(
-                    width: 10,
                   ),
                   Container(
                     height: 12,
+                    width: 24,
                     child: VerticalDivider(
                       width: 2,
                       color: Colors.black,
                     ),
-                  ),
-                  SizedBox(
-                    width: 12,
+                    //  onPressed: () => Navigator.pushNamed(context, '/settings'),
                   ),
                   Text(
-                    'Member: Lorem Ipsum',
+                    'Email: ${widget.user.email}',
                     style: TextStyle(fontSize: 15),
                   ),
                 ],
@@ -126,7 +117,7 @@ class _HospitalProfileState extends State<HospitalProfile> {
                       label: 'Address',
                     ),
                     DisplayUserField(
-                      info: widget.user.doctors.length.toString(),
+                      info: widget.user.doctors?.length.toString(),
                       label: 'Doctor Count',
                     ),
                     DisplayUserField(
