@@ -200,6 +200,7 @@ class _LoginFormState extends State<LoginForm> {
       }
       ErrorMessage(context: context, input: 'Welcome ${result.email}')
           .showSuccessMessage();
+      Navigator.pushNamed(context, '/welcoming_screen');
     });
   }
 }

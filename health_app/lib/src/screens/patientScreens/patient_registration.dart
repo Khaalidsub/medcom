@@ -228,8 +228,7 @@ class _PatientRegState extends State<PatientReg> {
             FlatButton(
               child: Text('Okay'),
               onPressed: () {
-                Navigator.of(context).pop(); //pop the dialog box
-                Navigator.pushReplacementNamed(context, '/login');
+                Navigator.pushReplacementNamed(context, '/welcoming_screen');
               },
             ),
           ],
