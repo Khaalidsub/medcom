@@ -67,38 +67,28 @@ class _PatientProfileState extends State<PatientProfile> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Text(
-                    'ID: ${widget.user?.id}',
+                    'ID: ${widget.user.id}'.substring(0, 15).toUpperCase(),
                     style: TextStyle(fontSize: 15),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'ID: 58496',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                  SizedBox(
-                    width: 12,
-                  ),
-                  Text(
-                    'Gender: ${widget.user?.gender}',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                  SizedBox(
-                    width: 10,
                   ),
                   Container(
                     height: 12,
+                    width: 22,
                     child: VerticalDivider(
                       width: 5,
                       color: Colors.black,
                     ),
                   ),
-                  SizedBox(
-                    width: 12,
+                  Text(
+                    'Gender: ${widget.user?.gender}',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                  Container(
+                    height: 12,
+                    width: 24,
+                    child: VerticalDivider(
+                      width: 5,
+                      color: Colors.black,
+                    ),
                   ),
                   Text(
                     'Age: ${widget.user?.age}',
@@ -116,20 +106,20 @@ class _PatientProfileState extends State<PatientProfile> {
                   runSpacing: 30,
                   children: <Widget>[
                     DisplayUserField(
-                      info: widget.user?.bloodType,
+                      info: widget.user.bloodType,
                       label: 'Blood Type',
                     ),
                     DisplayUserField(
-                      info: widget.user?.familyNumber,
+                      info: widget.user.familyNumber ?? '',
                       label: 'Emergency Number',
                     ),
                     DisplayUserField(
-                      info: widget.user?.phoneNumber,
+                      info: widget.user.phoneNumber,
                       label: 'Phone Number',
                     ),
                     DisplayUserField(
-                      info: widget.user?.address,
-                      label: 'Addresss',
+                      info: widget.user.address ?? '',
+                      label: 'Address',
                     ),
                   ],
                 ),

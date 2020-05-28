@@ -22,12 +22,31 @@ class UserServiceProvider {
   User _userDataFromSnap(DocumentSnapshot snap) {
     User user;
     if (snap.data['type'] == 'patient') {
-      user = Patient();
+      user = Patient(
+        bloodType: snap.data['bloodType'],
+        gender: snap.data['gender'],
+        name: snap.data['name'],
+        phoneNumber: snap.data['phone'],
+        address: snap.data['address'],
+        age: snap.data['age'],
+        alergese: snap.data['alergese'],
+        appointments: snap.data['appointments'],
+        familyNumber: snap.data['familyPhone'],
+        id: documentId,
+      );
     } else if (snap.data['type'] == 'hospital') {
-      user = Hospital();
+      user = Hospital(
+        address: snap.data['address'],
+        dirName: snap.data['director'],
+        phoneNumber: snap.data['phone'],
+        doctors: snap.data['doctors'],
+        id: documentId,
+        name: snap.data['name'],
+        patients: snap.data['patient'],
+      );
     } else
       throw new Error();
-
+    user.type = snap.data['type'];
     return user;
   }
 

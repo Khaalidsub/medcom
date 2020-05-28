@@ -5,9 +5,13 @@ import 'package:health_app/src/services/DB/user_service_provider.dart';
 import 'package:health_app/src/services/auth_service_provider.dart';
 
 class Repository {
+  String documentId;
+
+  Repository({this.documentId});
+
   AuthServiceProvider _authServiceProvider;
   UserServiceProvider _userServiceProvider;
-  String documentId;
+
   //check user session
   Stream<User> get user {
     _authServiceProvider = new AuthServiceProvider();
