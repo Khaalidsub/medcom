@@ -1,10 +1,12 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:health_app/src/blocs/hospital_navigation_bloc.dart';
 import 'package:health_app/src/blocs/hospital_register_bloc.dart';
 import 'package:health_app/src/blocs/login_bloc.dart';
+import 'package:health_app/src/blocs/patient_navigation_bloc.dart';
 import 'package:health_app/src/blocs/patient_register_bloc.dart';
 import 'package:health_app/src/blocs/welcoming_screen_bloc.dart';
-import 'package:health_app/src/screens/welcoming_screen.dart';
+
 import 'package:health_app/src/utils/routing.dart';
 // import 'package:health_app/src/screens/splash_screen.dart';
 
@@ -25,6 +27,8 @@ class _AppState extends State<App> {
     return BlocProvider(
       blocs: [
         Bloc((i) => WelcomingScreenBloc()),
+        Bloc((i) => PatientNavigationBloc()),
+        Bloc((i) => HospitalNavigationBloc()),
         Bloc((i) => LoginBloc()),
         Bloc((i) => PatientRegisterBloc()),
         Bloc((i) => HospitalRegisterBloc()),

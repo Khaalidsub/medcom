@@ -19,9 +19,11 @@ class Repository {
   }
 
   //get user data from database
-  Stream<User> get userData {
-    _userServiceProvider = new UserServiceProvider(documentId: documentId);
-    return _userServiceProvider.userData;
+  Future<User> get userData async {
+    User userAuth = await user.first;
+
+    _userServiceProvider = new UserServiceProvider(documentId: userAuth.id);
+    return _userServiceProvider.userData.first;
   }
 
   //sign in

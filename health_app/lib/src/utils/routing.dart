@@ -41,8 +41,7 @@ class Routes {
 
       //patient routings
       case '/patient':
-        builder =
-            (BuildContext context) => PatientNavigation(settings.arguments);
+        builder = (BuildContext context) => PatientNavigation();
         break;
       case '/patient/edit_profile':
         builder =
@@ -54,8 +53,7 @@ class Routes {
 
       //hospital routings
       case '/hospital':
-        builder =
-            (BuildContext context) => HospitalNavigation(settings.arguments);
+        builder = (BuildContext context) => HospitalNavigation();
 
         break;
       case '/hospital/patient_appointment_list':

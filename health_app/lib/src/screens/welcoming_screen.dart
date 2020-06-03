@@ -23,12 +23,16 @@ class _WelcomingScreenState extends State<WelcomingScreen> {
           Patient patient = user;
           print('welcomging screen ${patient.bloodType}');
           Navigator.pushNamedAndRemoveUntil(
-              context, '/patient', ModalRoute.withName('/welcoming_screen'),
-              arguments: user);
+            context,
+            '/patient',
+            ModalRoute.withName('/welcoming_screen'),
+          );
         } else if (user.type == 'hospital') {
           Navigator.pushNamedAndRemoveUntil(
-              context, '/hospital', ModalRoute.withName('/welcoming_screen'),
-              arguments: user);
+            context,
+            '/hospital',
+            ModalRoute.withName('/welcoming_screen'),
+          );
         }
       }
     });
