@@ -44,8 +44,7 @@ class Routes {
         builder = (BuildContext context) => PatientNavigation();
         break;
       case '/patient/edit_profile':
-        builder =
-            (BuildContext context) => PatientEditProfile(settings.arguments);
+        builder = (BuildContext context) => PatientEditProfile();
         break;
       case '/patient/settings':
         builder = (BuildContext context) => PatientSettings(settings.arguments);

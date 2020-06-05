@@ -50,7 +50,7 @@ class UserServiceProvider {
     return user;
   }
 
-  //function that stores data i.e Reigstration to the firestore db
+  ///function that stores data i.e Reigstration to the firestore db
   Future createPatientData(Patient patient) async {
     await userCollection.document(patient.id).setData({
       'name': patient.name,
@@ -76,6 +76,20 @@ class UserServiceProvider {
       //'beds': hospital.numOfBeds
       //'doctors': hospital.doctors
     });
+
     return hospital;
+  }
+
+  ///edit profile to update user data
+  Future updatePatientData(Patient patient) async {
+    await userCollection.document(patient.id).setData({
+      'name': patient.name,
+      'type': patient.type,
+      'address': patient.address,
+      // 'age': patient.age,
+      'phone': patient.phoneNumber,
+      'faimilyPhone': patient.familyNumber
+    });
+    return patient;
   }
 }
