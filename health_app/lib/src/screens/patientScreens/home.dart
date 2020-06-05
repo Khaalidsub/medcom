@@ -4,10 +4,16 @@ import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/chart.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class PatientHome extends StatelessWidget {
+class PatientHome extends StatefulWidget {
   // Function changeIndex;
   // int index;
   // PatientHome({this.changeIndex, this.index});
+
+  @override
+  _PatientHomeState createState() => _PatientHomeState();
+}
+
+class _PatientHomeState extends State<PatientHome> {
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
