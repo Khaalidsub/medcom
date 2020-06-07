@@ -190,9 +190,9 @@ class _LoginFormState extends State<LoginForm> {
 
   void authenticateUser(BuildContext context) {
     _loginBloc.signIn().then((result) {
-      print('result : ${result.id}');
+      // print('result : ${result.id}');
       _loginBloc.showProgressBar(false);
-      if (result.id == null) {
+      if (result == null) {
         // erro
         ErrorMessage(context: context, input: 'email/password is incorrect!')
             .showErrorMessage();

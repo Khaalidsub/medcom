@@ -52,44 +52,48 @@ class UserServiceProvider {
 
   ///function that stores data i.e Reigstration to the firestore db
   Future createPatientData(Patient patient) async {
-    await userCollection.document(patient.id).setData({
-      'name': patient.name,
-      'type': patient.type,
-      'bloodType': patient.bloodType,
-      // 'address': patient.address,
-      // 'age': patient.age,
-      // 'allergese': patient.alergese,
-      'gender': patient.gender,
-      'phone': patient.phoneNumber,
-      // 'faimilyPhone': patient.familyNumber
-    });
+    await _patientSetData(patient);
     return patient;
   }
 
   Future createHospitalData(Hospital hospital) async {
-    await userCollection.document(hospital.id).setData({
-      'name': hospital.name,
-      'type': hospital.type,
-      'phone': hospital.phoneNumber,
-      'address': hospital.address,
-      'director': hospital.dirName,
-      //'beds': hospital.numOfBeds
-      //'doctors': hospital.doctors
-    });
+    await _hospitalSetData(hospital);
 
     return hospital;
   }
 
   ///edit profile to update user data
   Future updatePatientData(Patient patient) async {
+    try {
+      await _patientSetData(patient);
+      return patient;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  ///call this function whenever you want to change/create user data
+  Future _patientSetData(Patient patient) async {
     await userCollection.document(patient.id).setData({
-      'name': patient.name,
       'type': patient.type,
+      'bloodType': patient.bloodType,
+      'name': patient.name,
       'address': patient.address,
-      // 'age': patient.age,
+      'age': patient.age,
       'phone': patient.phoneNumber,
-      'faimilyPhone': patient.familyNumber
+      'faimilyPhone': patient.familyNumber,
+      'gender': patient.gender,
     });
-    return patient;
+  }
+
+  Future _hospitalSetData(Hospital hospital) async {
+    await userCollection.document(hospital.id).setData({
+      'name': hospital.name,
+      'type': hospital.type,
+      'phone': hospital.phoneNumber,
+      'address': hospital.address,
+      'director': hospital.dirName,
+    });
   }
 }

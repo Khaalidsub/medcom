@@ -2,7 +2,6 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:health_app/src/blocs/welcoming_screen_bloc.dart';
 import 'package:health_app/src/models/patient.dart';
-import 'package:health_app/src/models/user.dart';
 import 'package:health_app/src/screens/widgets/progress_bar.dart';
 
 class WelcomingScreen extends StatefulWidget {

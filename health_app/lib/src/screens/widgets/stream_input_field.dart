@@ -10,11 +10,13 @@ class Reusablefield extends StatelessWidget {
   final String hint;
   final onChangeFunction;
   final Stream stream;
+  final String initialValue;
   Reusablefield({
     @required this.label,
     @required this.color,
     @required this.icon,
     @required this.stream,
+    this.initialValue,
     this.hint,
     this.isPass,
     @required this.onChangeFunction,
@@ -42,6 +44,7 @@ class Reusablefield extends StatelessWidget {
                         ]
                       : null,
               obscureText: isPass == null ? false : isPass,
+              initialValue: initialValue ?? '',
               decoration: InputDecoration(
                 hintText: hint,
                 suffixIcon: icon,
@@ -49,7 +52,7 @@ class Reusablefield extends StatelessWidget {
                 filled: true,
                 labelText: label,
                 errorText: snapshot.error,
-                labelStyle: TextStyle(color: Colors.black),
+                labelStyle: TextStyle(color: Colors.blueAccent),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(width: 0, style: BorderStyle.none)),

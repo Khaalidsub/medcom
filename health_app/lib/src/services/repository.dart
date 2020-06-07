@@ -53,6 +53,19 @@ class Repository {
     }
   }
 
+  ///edit profile
+  Future<Patient> editPatient(Patient patient) async {
+    _userServiceProvider = new UserServiceProvider();
+    try {
+      patient = await _userServiceProvider.updatePatientData(patient);
+      print(patient.name);
+      return patient;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
   //sign up by hospital
   Future<Hospital> singUpHospital(Hospital hospital) async {
     _authServiceProvider = new AuthServiceProvider();

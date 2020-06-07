@@ -13,18 +13,19 @@ class PatientEditProfileBloc extends BlocBase {
   final _phoneNumber = BehaviorSubject<String>();
   final _address = BehaviorSubject<String>();
   final _familyNumber = BehaviorSubject<String>();
-
+  final _isSubmit = BehaviorSubject<bool>();
   //onChange
   Function(String) get changeName => _name.sink.add;
   Function(String) get changePhoneNumber => _phoneNumber.sink.add;
   Function(String) get changeFamilyNumber => _familyNumber.sink.add;
   Function(String) get changeAddress => _address.sink.add;
-
+  Function(bool) get showProgressBar => _isSubmit.sink.add;
   //streams
   Stream<String> get name => _name.stream;
   Stream<String> get phoneNumber => _phoneNumber.stream;
   Stream<String> get familyNumber => _familyNumber.stream;
   Stream<String> get address => _address.stream;
+  Stream<bool> get submitStatus => _isSubmit.stream;
 
   //validators
   // bool validateFields() {
@@ -37,18 +38,19 @@ class PatientEditProfileBloc extends BlocBase {
 
   //edit function
   Future<Patient> editProfile(Patient patient) async {
-    Patient editedPatient = Patient(
-      address: _address.value.trim() ?? patient.address,
-      name: _name.value.trim() ?? patient.name,
-      phoneNumber: _phoneNumber.value.trim() ?? patient.phoneNumber,
-      familyNumber: _familyNumber.value.trim() ?? patient.familyNumber,
-    );
+    patient.address = _address.value ?? patient.address;
+    patient.name = _name.value ?? patient.name;
+    patient.familyNumber = _familyNumber.value ?? patient.familyNumber;
+    patient.phoneNumber = _phoneNumber.value ?? patient.phoneNumber;
+    return await _repository.editPatient(patient);
   }
 
   @override
   void dispose() async {
     await _address.drain();
     _address.close();
+    await _isSubmit.drain();
+    _isSubmit.close();
     await _phoneNumber.drain();
     _phoneNumber.close();
     await _familyNumber.drain();
