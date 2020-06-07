@@ -1,3 +1,8 @@
-import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:health_app/src/blocs/stream_user_bloc.dart';
+import 'package:health_app/src/services/repository.dart';
 
-class PatientSettingsBloc extends BlocBase {}
+class PatientSettingsBloc extends StreamUserBloc {
+  Future logout() async {
+    await Repository().signOut();
+  }
+}

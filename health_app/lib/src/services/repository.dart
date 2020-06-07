@@ -72,4 +72,12 @@ class Repository {
   }
 
   //logout
+  Future signOut() async {
+    try {
+      _authServiceProvider = new AuthServiceProvider();
+      await _authServiceProvider.signOut();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }
