@@ -1,5 +1,7 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:health_app/src/blocs/hospital_navigation_bloc.dart';
 import 'package:health_app/src/models/doctor.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
@@ -14,6 +16,15 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
+  final HospitalNavigationBloc _hospitalNavigationBloc =
+      BlocProvider.getBloc<HospitalNavigationBloc>();
+
+  @override
+  void dispose() {
+    _hospitalNavigationBloc.dispose();
+    super.dispose();
+  }
+
   var _controller = TextEditingController();
   final _formkey = GlobalKey<FormState>();
   String name, specialization;
@@ -126,26 +137,7 @@ class _AddScreenState extends State<AddScreen> {
                 ),
               ),
             ),
-            Container(
-                height: 80,
-                margin: const EdgeInsets.only(right: 20, left: 20),
-                child: TextField(
-                    controller: _controller,
-                    decoration: InputDecoration(
-                        contentPadding:
-                            const EdgeInsets.symmetric(vertical: 16.0),
-                        prefixIcon: Icon(
-                          Icons.account_box,
-                          size: 28.0,
-                        ),
-                        suffixIcon: IconButton(
-                          onPressed: () => _controller.clear(),
-                          icon: Icon(Icons.add),
-                        ),
-                        hintText: "Write ID",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        )))),
+            buildPatientEmailField(),
             Divider(),
             Container(
               alignment: Alignment.center,
@@ -230,6 +222,39 @@ class _AddScreenState extends State<AddScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildPatientEmailField() {
+    return StreamBuilder<Object>(
+      stream: _hospitalNavigationBloc.email,
+      builder: (context, snapshot) {
+        return Container(
+          height: 80,
+          margin: const EdgeInsets.only(right: 20, left: 20),
+          child: TextField(
+            onChanged: _hospitalNavigationBloc.changeEmmail,
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.symmetric(vertical: 16.0),
+              prefixIcon: Icon(
+                Icons.account_box,
+                size: 28.0,
+              ),
+              suffixIcon: IconButton(
+                onPressed: () async {
+                  await _hospitalNavigationBloc.addPatient();
+                },
+                icon: Icon(Icons.add),
+              ),
+              hintText: "Enter Patient Email",
+              errorText: snapshot.error,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 

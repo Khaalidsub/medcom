@@ -84,6 +84,7 @@ class UserServiceProvider {
       'phone': patient.phoneNumber,
       'faimilyPhone': patient.familyNumber,
       'gender': patient.gender,
+      'appointments': patient.appointments
     });
   }
 
@@ -94,6 +95,8 @@ class UserServiceProvider {
       'phone': hospital.phoneNumber,
       'address': hospital.address,
       'director': hospital.dirName,
+      'doctors': hospital.doctors,
+      'patients': hospital.patients
     });
   }
 }

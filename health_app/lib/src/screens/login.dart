@@ -200,7 +200,8 @@ class _LoginFormState extends State<LoginForm> {
       }
       ErrorMessage(context: context, input: 'Welcome ${result.email}')
           .showSuccessMessage();
-      Navigator.pushNamed(context, '/welcoming_screen');
+      Navigator.pushNamedAndRemoveUntil(context, '/welcoming_screen',
+          ModalRoute.withName('/welcoming_screen'));
     });
   }
 }
