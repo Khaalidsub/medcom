@@ -33,6 +33,7 @@ class AuthServiceProvider {
   //sign up
   Future<User> signUp(String email, String password) async {
     try {
+      // _auth.
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       FirebaseUser user = result.user;

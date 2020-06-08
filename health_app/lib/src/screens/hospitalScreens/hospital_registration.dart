@@ -154,9 +154,9 @@ class _HospRegistration extends State<HospRegistration> {
 
   void authenticateUser(BuildContext context) {
     _hospitalRegisterBloc.signUp().then((result) {
-      print('result : ${result.id}');
+      // print('result : ${result.id}');
       _hospitalRegisterBloc.showProgressBar(false);
-      if (result.id == null) {
+      if (result == null) {
         // erro
         ErrorMessage(context: context, input: 'email/password is incorrect!')
             .showErrorMessage();

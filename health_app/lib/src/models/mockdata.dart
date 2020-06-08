@@ -41,13 +41,13 @@ Patient p1 = Patient(
 
 Doctor d1 = Doctor(name: 'sheref', specialization: 'general specialization');
 Hospital h1 = Hospital(
-    name: 'med01',
-    id: 'h01',
-    email: 'med@gmail.com',
-    address: 'taman sri pulai',
-    password: '123',
-    phoneNumber: '+6011',
-    doctors: [d1],
-    patients: [p1]);
+  name: 'med01',
+  id: 'h01',
+  email: 'med@gmail.com',
+  address: 'taman sri pulai',
+  password: '123',
+  phoneNumber: '+6011',
+  doctors: [d1],
+);
 
 final mockData = [p1, h1];

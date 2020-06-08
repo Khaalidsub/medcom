@@ -21,7 +21,7 @@ class _AddScreenState extends State<AddScreen> {
 
   @override
   void dispose() {
-    _hospitalNavigationBloc.dispose();
+    // _hospitalNavigationBloc.dispose();
     super.dispose();
   }
 
@@ -242,7 +242,7 @@ class _AddScreenState extends State<AddScreen> {
               ),
               suffixIcon: IconButton(
                 onPressed: () async {
-                  await _hospitalNavigationBloc.addPatient();
+                  await _hospitalNavigationBloc.addPatient(widget.hospital);
                 },
                 icon: Icon(Icons.add),
               ),

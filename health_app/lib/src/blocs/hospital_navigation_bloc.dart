@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:health_app/src/blocs/stream_user_bloc.dart';
+import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/services/repository.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -21,8 +22,8 @@ class HospitalNavigationBloc extends StreamUserBloc {
     }
   });
 
-  Future addPatient() async {
-    return Repository();
+  Future addPatient(Hospital hospital) {
+    return Repository().addPatient(hospital, _email.value);
   }
 
   @override

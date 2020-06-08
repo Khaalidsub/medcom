@@ -8,7 +8,7 @@ class Hospital extends User {
   String dirName;
   int numOfBeds;
   List<Doctor> doctors;
-  List<Patient> patients;
+  List<String> patients;
   Hospital(
       {String id,
       String email,
@@ -35,7 +35,7 @@ class Hospital extends User {
     doctors.remove(doc);
   }
 
-  void addPatient(Patient patient) {
-    patients.add(patient);
+  void addPatient(String patientId) {
+    patients.add(patientId);
   }
 }

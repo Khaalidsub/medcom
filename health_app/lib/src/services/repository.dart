@@ -9,8 +9,8 @@ class Repository {
 
   Repository({this.documentId});
 
-  AuthServiceProvider _authServiceProvider;
-  UserServiceProvider _userServiceProvider;
+  AuthServiceProvider _authServiceProvider = new AuthServiceProvider();
+  UserServiceProvider _userServiceProvider = new UserServiceProvider();
 
   //check user session
   Stream<User> get user {
@@ -30,14 +30,11 @@ class Repository {
 
   //sign in
   Future<User> signIn(String email, String password) {
-    _authServiceProvider = new AuthServiceProvider();
     return _authServiceProvider.signIn(email, password);
   }
 
   //sign up by patient
   Future<Patient> signUpPatient(Patient patient) async {
-    _authServiceProvider = new AuthServiceProvider();
-    _userServiceProvider = new UserServiceProvider();
     try {
       //go to authentication provider and return user for the id
       User result =
@@ -55,7 +52,6 @@ class Repository {
 
   ///edit profile
   Future<Patient> editPatient(Patient patient) async {
-    _userServiceProvider = new UserServiceProvider();
     try {
       patient = await _userServiceProvider.updatePatientData(patient);
       print(patient.name);
@@ -69,7 +65,7 @@ class Repository {
   //sign up by hospital
   Future<Hospital> singUpHospital(Hospital hospital) async {
     _authServiceProvider = new AuthServiceProvider();
-    _userServiceProvider = new UserServiceProvider();
+
     try {
       //go to authentication provider and return user for the id
       User result =
@@ -82,6 +78,16 @@ class Repository {
       print(e.toString());
       return null;
     }
+  }
+
+  ///add a patient to the hospital
+  Future addPatient(Hospital hospital, String patientEmail) async {
+    //get the user with the email
+    Patient patient = await _userServiceProvider.getUser(patientEmail);
+    print('here in addPatient repo : ${patient.name}');
+    //get hospital
+
+    return await _userServiceProvider.addUserToHospital(hospital, patient);
   }
 
   //logout
