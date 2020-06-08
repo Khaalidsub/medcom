@@ -5,6 +5,7 @@ import 'package:health_app/src/blocs/hospital_navigation_bloc.dart';
 import 'package:health_app/src/models/doctor.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
+import 'package:health_app/src/screens/widgets/error_message.dart';
 import 'package:health_app/src/screens/widgets/input_field.dart';
 
 class AddScreen extends StatefulWidget {
@@ -162,7 +163,7 @@ class _AddScreenState extends State<AddScreen> {
                             fontSize: 17, fontWeight: FontWeight.w300),
                       ),
                       Text(
-                        '50',
+                        widget.hospital.patients.length.toString() ?? 0,
                         style: TextStyle(
                             fontSize: 17, fontWeight: FontWeight.w300),
                       ),
@@ -242,7 +243,21 @@ class _AddScreenState extends State<AddScreen> {
               ),
               suffixIcon: IconButton(
                 onPressed: () async {
-                  await _hospitalNavigationBloc.addPatient(widget.hospital);
+                  dynamic result =
+                      await _hospitalNavigationBloc.addPatient(widget.hospital);
+                  if (result == null) {
+                    ErrorMessage(
+                            context: context, input: 'Patient Does not exist')
+                        .showErrorMessage();
+                  } else if (result != widget.hospital) {
+                    ErrorMessage(context: context, input: result)
+                        .showErrorMessage();
+                  } else {
+                    ErrorMessage(
+                            context: context,
+                            input: 'Patient has been successfully added')
+                        .showSuccessMessage();
+                  }
                 },
                 icon: Icon(Icons.add),
               ),

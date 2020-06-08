@@ -65,15 +65,15 @@ class UserServiceProvider {
         alergese: snap.data['alergese'],
         appointments: snap.data['appointments'],
         familyNumber: snap.data['familyPhone'],
-        id: documentId,
+        id: documentId ?? snap.documentID,
       );
     } else if (snap.data['type'] == 'hospital') {
       user = Hospital(
           address: snap.data['address'],
           dirName: snap.data['director'],
           phoneNumber: snap.data['phone'],
-          doctors: snap.data['doctors'],
-          id: documentId,
+          // doctors: snap.data['doctors'],
+          id: documentId ?? snap.documentID,
           name: snap.data['name'],
           patients: snap.data['patient'] ?? [],
           email: snap.data['email']);
@@ -108,10 +108,10 @@ class UserServiceProvider {
   }
 
   ///add patient to hospital
-  Future addUserToHospital(Hospital hospital, Patient patient) async {
+  Future<User> addUserToHospital(Hospital hospital, Patient patient) async {
     try {
       print(patient.id);
-      hospital.addPatient(patient.id);
+      hospital.patients.add(patient.id);
       await _hospitalSetData(hospital);
       return hospital;
     } catch (e) {

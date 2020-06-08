@@ -84,9 +84,19 @@ class Repository {
   Future addPatient(Hospital hospital, String patientEmail) async {
     //get the user with the email
     Patient patient = await _userServiceProvider.getUser(patientEmail);
-    print('here in addPatient repo : ${patient.name}');
-    //get hospital
 
+    //check if there is any such patient
+    if (patient == null) {
+      return null;
+    }
+    //check if user already exists in hospital
+    if (hospital.patients.contains(patient.id)) {
+      return 'Patient has already been added!';
+    }
+    //check if user is a patient
+    if (patient.type != 'patient') {
+      return null;
+    }
     return await _userServiceProvider.addUserToHospital(hospital, patient);
   }
 
