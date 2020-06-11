@@ -7,8 +7,8 @@ class Hospital extends User {
   String address;
   String dirName;
   int numOfBeds;
-  List<String> doctors;
-  List<String> patients;
+  List<dynamic> doctors;
+  List<dynamic> patients;
   Hospital(
       {String id,
       String email,

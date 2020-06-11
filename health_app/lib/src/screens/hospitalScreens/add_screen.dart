@@ -2,14 +2,13 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/blocs/hospital_navigation_bloc.dart';
-import 'package:health_app/src/models/doctor.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/error_message.dart';
-import 'package:health_app/src/screens/widgets/input_field.dart';
+import 'package:health_app/src/screens/widgets/stream_input_field.dart';
 
 class AddScreen extends StatefulWidget {
-  Hospital hospital;
+  final Hospital hospital;
   AddScreen(this.hospital);
 
   @override
@@ -26,10 +25,6 @@ class _AddScreenState extends State<AddScreen> {
     super.dispose();
   }
 
-  var _controller = TextEditingController();
-  final _formkey = GlobalKey<FormState>();
-  String name, specialization;
-
   @override
   Widget build(BuildContext context) {
     return PageView(
@@ -41,6 +36,7 @@ class _AddScreenState extends State<AddScreen> {
   }
 
   Widget buildDoctor() {
+    print(widget.hospital.id);
     return Scaffold(
         appBar: AppNav(
           appBar: AppBar(),
@@ -57,45 +53,43 @@ class _AddScreenState extends State<AddScreen> {
                   color: Colors.blueAccent,
                 ),
               ),
-              Form(
-                key: _formkey,
-                child: Container(
-                  padding: EdgeInsets.all(20),
-                  child: Wrap(runSpacing: 20, children: <Widget>[
-                    Reusablefield(
-                        label: "Name",
-                        color: Colors.white,
-                        icon: Icon(Icons.nature_people),
-                        validate: (val) => val.isEmpty ? 'Enter a name' : null,
-                        callback: (val) {
-                          setState(() {
-                            name = val;
-                          });
-                        }),
-                    Reusablefield(
-                        label: "Specialization",
-                        color: Colors.white,
-                        icon: Icon(Icons.tune),
-                        validate: (val) =>
-                            val.isEmpty ? 'Enter a Sepcialization' : null,
-                        callback: (val) {
-                          setState(() {
-                            specialization = val;
-                          });
-                        }),
-                  ]),
-                ),
+              Container(
+                padding: EdgeInsets.all(20),
+                child: Wrap(runSpacing: 20, children: <Widget>[
+                  Reusablefield(
+                    label: "Name",
+                    color: Colors.white,
+                    icon: Icon(Icons.nature_people),
+                    onChangeFunction: _hospitalNavigationBloc.changeDoctorName,
+                    stream: _hospitalNavigationBloc.doctorName,
+                    type: TextInputType.text,
+                  ),
+                  Reusablefield(
+                    label: "Specialization",
+                    color: Colors.white,
+                    icon: Icon(Icons.tune),
+                    onChangeFunction:
+                        _hospitalNavigationBloc.changeDoctorSpecialization,
+                    stream: _hospitalNavigationBloc.doctorSpecialization,
+                    type: TextInputType.text,
+                  ),
+                ]),
               ),
               Container(
                 margin: EdgeInsets.only(bottom: 15),
                 child: RaisedButton(
                   onPressed: () async {
-                    if (_formkey.currentState.validate()) {
-                      Doctor doctor = new Doctor(
-                          name: this.name, specialization: this.specialization);
-                      widget.hospital.addDoctor(doctor);
-
-                      await buildShowDialog(context);
+                    dynamic result = await _hospitalNavigationBloc
+                        .addDoctor(widget.hospital);
+                    if (result == null || result != widget.hospital) {
+                      ErrorMessage(
+                              context: context, input: 'Some Error has occured')
+                          .showErrorMessage();
+                    } else {
+                      ErrorMessage(
+                              context: context,
+                              input: 'Doctor has been successfully added')
+                          .showSuccessMessage();
                     }
                   },
                   shape: RoundedRectangleBorder(
@@ -163,7 +157,7 @@ class _AddScreenState extends State<AddScreen> {
                             fontSize: 17, fontWeight: FontWeight.w300),
                       ),
                       Text(
-                        widget.hospital.patients.length.toString() ?? 0,
+                        widget.hospital.patients.length.toString(),
                         style: TextStyle(
                             fontSize: 17, fontWeight: FontWeight.w300),
                       ),

@@ -74,8 +74,8 @@ class UserServiceProvider {
           dirName: snap.data['director'],
           phoneNumber: snap.data['phone'],
           id: documentId ?? snap.documentID,
-          patients: snap.data['patient'] as List<String> ?? ['0'],
-          doctors: snap.data['doctors'] as List<String> ?? [],
+          patients: snap.data['patient'] ?? [],
+          doctors: snap.data['doctors'] ?? [],
           name: snap.data['name'],
           email: snap.data['email']);
     } else
@@ -124,7 +124,7 @@ class UserServiceProvider {
   ///add doctor id to hospital
   Future addDoctorToHospital(Hospital hospital, String doctorId) async {
     try {
-      hospital.addDoctor(doctorId);
+      hospital.doctors.add(doctorId);
       await _hospitalSetData(hospital);
       return hospital;
     } catch (e) {

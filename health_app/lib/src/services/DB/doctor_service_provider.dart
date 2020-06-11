@@ -26,11 +26,12 @@ class DoctorServiceProvider {
 
   ///add doctor to the firestore
   Future createDoctor(Doctor doctor) async {
-    await doctorCollection.document().setData({
+    final docRef = await doctorCollection.add({
       'name': doctor.name,
       'specialization': doctor.specialization,
-      'hospitalId': doctor.hospitalId
+      'hospitalId': hospitalId
     });
+    return docRef.documentID;
   }
 
   ///

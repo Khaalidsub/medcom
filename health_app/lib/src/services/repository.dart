@@ -108,11 +108,11 @@ class Repository {
     _doctorServiceProvider = new DoctorServiceProvider(hospitalId: hospital.id);
     try {
       //create a new doctor
-      await _doctorServiceProvider.createDoctor(doctor);
+      String docId = await _doctorServiceProvider.createDoctor(doctor);
       //get new doctor with the id;
-      doctor = await _doctorServiceProvider.doctor.first;
-      await _userServiceProvider.addDoctorToHospital(
-          hospital, doctor.documentId);
+
+      await _userServiceProvider.addDoctorToHospital(hospital, docId);
+      return hospital;
     } catch (e) {
       throw e.toString();
       return null;
