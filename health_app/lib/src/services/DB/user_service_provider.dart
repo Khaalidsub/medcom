@@ -72,10 +72,10 @@ class UserServiceProvider {
           address: snap.data['address'],
           dirName: snap.data['director'],
           phoneNumber: snap.data['phone'],
-          // doctors: snap.data['doctors'],
           id: documentId ?? snap.documentID,
+          patients: snap.data['patient'] as List<String> ?? ['0'],
+          doctors: snap.data['doctors'] as List<String> ?? [],
           name: snap.data['name'],
-          patients: snap.data['patient'] ?? [],
           email: snap.data['email']);
     } else
       throw new Error();
