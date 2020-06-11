@@ -1,6 +1,8 @@
+import 'package:health_app/src/models/doctor.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/models/user.dart';
+import 'package:health_app/src/services/DB/doctor_service_provider.dart';
 import 'package:health_app/src/services/DB/user_service_provider.dart';
 import 'package:health_app/src/services/auth_service_provider.dart';
 
@@ -11,6 +13,7 @@ class Repository {
 
   AuthServiceProvider _authServiceProvider = new AuthServiceProvider();
   UserServiceProvider _userServiceProvider = new UserServiceProvider();
+  DoctorServiceProvider _doctorServiceProvider;
 
   //check user session
   Stream<User> get user {
@@ -98,6 +101,22 @@ class Repository {
       return null;
     }
     return await _userServiceProvider.addUserToHospital(hospital, patient);
+  }
+
+  ///add a doctor to the hospital
+  Future addDoctor(Doctor doctor, Hospital hospital) async {
+    _doctorServiceProvider = new DoctorServiceProvider(hospitalId: hospital.id);
+    try {
+      //create a new doctor
+      await _doctorServiceProvider.createDoctor(doctor);
+      //get new doctor with the id;
+      doctor = await _doctorServiceProvider.doctor.first;
+      await _userServiceProvider.addDoctorToHospital(
+          hospital, doctor.documentId);
+    } catch (e) {
+      throw e.toString();
+      return null;
+    }
   }
 
   //logout

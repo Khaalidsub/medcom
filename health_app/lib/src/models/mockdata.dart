@@ -47,7 +47,7 @@ Hospital h1 = Hospital(
   address: 'taman sri pulai',
   password: '123',
   phoneNumber: '+6011',
-  doctors: [d1],
+  // doctors: [d1],
 );
 
 final mockData = [p1, h1];

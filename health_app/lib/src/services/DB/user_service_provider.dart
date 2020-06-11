@@ -1,5 +1,6 @@
 //
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:health_app/src/models/doctor.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/models/user.dart';
@@ -116,6 +117,17 @@ class UserServiceProvider {
       return hospital;
     } catch (e) {
       print(e.toString());
+      return null;
+    }
+  }
+
+  ///add doctor id to hospital
+  Future addDoctorToHospital(Hospital hospital, String doctorId) async {
+    try {
+      hospital.addDoctor(doctorId);
+      await _hospitalSetData(hospital);
+      return hospital;
+    } catch (e) {
       return null;
     }
   }

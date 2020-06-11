@@ -7,7 +7,7 @@ class Hospital extends User {
   String address;
   String dirName;
   int numOfBeds;
-  List<Doctor> doctors;
+  List<String> doctors;
   List<String> patients;
   Hospital(
       {String id,
@@ -27,7 +27,7 @@ class Hospital extends User {
             type: 'hospital',
             password: password);
 
-  void addDoctor(Doctor doc) {
+  void addDoctor(String doc) {
     doctors.add(doc);
   }
 
