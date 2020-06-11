@@ -1,5 +1,7 @@
 class Doctor {
   String name;
   String specialization;
-  Doctor({this.name, this.specialization});
+  String hospitalId;
+  String documentId;
+  Doctor({this.name, this.specialization, this.hospitalId, this.documentId});
 }
