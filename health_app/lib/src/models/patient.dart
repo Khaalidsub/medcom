@@ -9,6 +9,7 @@ class Patient extends User {
   String gender;
   String alergese;
   int age;
+  List<dynamic> hospitals;
   //apointment List
   List<Appointment> appointments;
 
@@ -52,6 +53,7 @@ class Patient extends User {
       this.address,
       this.gender,
       this.age,
+      this.hospitals,
       this.appointments})
       : super(
             id: id,

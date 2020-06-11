@@ -57,7 +57,7 @@ class Repository {
   Future<Patient> editPatient(Patient patient) async {
     try {
       patient = await _userServiceProvider.updatePatientData(patient);
-      print(patient.name);
+
       return patient;
     } catch (e) {
       print(e.toString());
@@ -89,17 +89,14 @@ class Repository {
     Patient patient = await _userServiceProvider.getUser(patientEmail);
 
     //check if there is any such patient
-    if (patient == null) {
+    if (patient == null || patient.type != 'patient') {
       return null;
     }
     //check if user already exists in hospital
     if (hospital.patients.contains(patient.id)) {
       return 'Patient has already been added!';
     }
-    //check if user is a patient
-    if (patient.type != 'patient') {
-      return null;
-    }
+    print(patient.type);
     return await _userServiceProvider.addUserToHospital(hospital, patient);
   }
 
@@ -114,7 +111,6 @@ class Repository {
       await _userServiceProvider.addDoctorToHospital(hospital, docId);
       return hospital;
     } catch (e) {
-      throw e.toString();
       return null;
     }
   }

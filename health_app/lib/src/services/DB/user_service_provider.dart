@@ -1,6 +1,5 @@
 //
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:health_app/src/models/doctor.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/models/user.dart';
@@ -66,6 +65,7 @@ class UserServiceProvider {
         alergese: snap.data['alergese'],
         appointments: snap.data['appointments'],
         familyNumber: snap.data['familyPhone'],
+        hospitals: snap.data['hospitals'] ?? [],
         id: documentId ?? snap.documentID,
       );
     } else if (snap.data['type'] == 'hospital') {
@@ -111,9 +111,11 @@ class UserServiceProvider {
   ///add patient to hospital
   Future<User> addUserToHospital(Hospital hospital, Patient patient) async {
     try {
-      print(patient.id);
       hospital.patients.add(patient.id);
       await _hospitalSetData(hospital);
+      patient.hospitals.add(hospital.id);
+      await updatePatientData(patient);
+
       return hospital;
     } catch (e) {
       print(e.toString());
