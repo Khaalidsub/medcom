@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/models/user.dart';
+import 'package:health_app/src/models/Appointement.dart';
 
 class UserServiceProvider {
   final CollectionReference userCollection =
@@ -133,6 +134,22 @@ class UserServiceProvider {
       return null;
     }
   }
+
+  /* add appoitment to patient
+Future<Appointment> addAppointmentToUser(Appointment appointment, Patient patient) async {
+    try {
+      appointment.patients.add(patient.id);
+      await _patientSetData(appointment);
+      patient.appointment.add(appointment.id);
+      await updatePatientData(patient);
+
+      return hospital;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+*/
 
   ///call this function whenever you want to change/create user data
   Future _patientSetData(Patient patient) async {

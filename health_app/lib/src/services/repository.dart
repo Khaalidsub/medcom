@@ -1,8 +1,12 @@
+import 'dart:html';
+
+import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/doctor.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/models/user.dart';
 import 'package:health_app/src/services/DB/doctor_service_provider.dart';
+import 'package:health_app/src/services/DB/appointment_service_provider.dart';
 import 'package:health_app/src/services/DB/user_service_provider.dart';
 import 'package:health_app/src/services/auth_service_provider.dart';
 
@@ -14,6 +18,8 @@ class Repository {
   AuthServiceProvider _authServiceProvider = new AuthServiceProvider();
   UserServiceProvider _userServiceProvider = new UserServiceProvider();
   DoctorServiceProvider _doctorServiceProvider;
+  AppoitmentServiceProvider _appoitmentServiceProvider;
+
 
   //check user session
   Stream<User> get user {
@@ -114,6 +120,21 @@ class Repository {
       return null;
     }
   }
+
+// add appoitment
+
+Future addAppoitment(Appointment appointment, Hospital hospital) async{
+  _appoitmentServiceProvider = new AppoitmentServiceProvider(documentId: documentId);
+  try {
+    // create new appoitment
+    String apId = await _appoitmentServiceProvider.createAppoitment(appointment);
+    // get new appoitment with id
+    return apId;
+  } catch (e) {
+      return null;
+  }
+}
+
 
   //logout
   Future signOut() async {

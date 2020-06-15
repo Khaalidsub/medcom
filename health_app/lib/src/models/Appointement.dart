@@ -1,4 +1,6 @@
 import 'package:health_app/src/models/medicine.dart';
+import 'package:health_app/src/models/patient.dart';
+
 
 class Appointment {
   DateTime date;
@@ -17,7 +19,7 @@ class Appointment {
       this.status,
       this.medicines,
       this.diagnosis,
-      this.doctorName});
+      this.doctorName, doctorID, ownerID, String documentId});
 
 //copy constructor
   Appointment.copy(Appointment from)
@@ -39,7 +41,11 @@ class Appointment {
 
     medicines.add(med);
   }
-
+  /*
+  void addPatient(String patientId) {
+    ownerId.add(patientId);
+  }
+*/
 // //usual
 //   get date => this.date;
 //   get description => this.description;
