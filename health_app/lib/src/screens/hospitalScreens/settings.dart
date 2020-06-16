@@ -53,7 +53,7 @@ class _HospitalSettingsState extends State<HospitalSettings> {
                             backgroundImage:
                                 AssetImage('assets/images/clin.png'),
                           ),
-                          title: Text("Hospital1"),
+                          title: Text(hospital.name),
                         ),
                       ),
                     ),
@@ -77,13 +77,15 @@ class _HospitalSettingsState extends State<HospitalSettings> {
                               label: "About",
                             ),
                             Tile(
-                              icon: Icon(FontAwesomeIcons.signOutAlt),
-                              label: "Logout",
-                              callback: () => Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  '/welcoming_screen',
-                                  ModalRoute.withName('/')),
-                            )
+                                icon: Icon(FontAwesomeIcons.signOutAlt),
+                                label: "Logout",
+                                callback: () async {
+                                  await _hospitalSettingsBloc.logout();
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      '/welcoming_scren',
+                                      ModalRoute.withName('/hospital'));
+                                })
                           ],
                         )),
                     Column(
