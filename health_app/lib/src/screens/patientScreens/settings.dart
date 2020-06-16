@@ -17,6 +17,12 @@ class _PatientSettingsState extends State<PatientSettings> {
   final PatientSettingsBloc _patientSettingsBloc =
       BlocProvider.getBloc<PatientSettingsBloc>();
   @override
+  void dispose() {
+    _patientSettingsBloc.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppNav(
