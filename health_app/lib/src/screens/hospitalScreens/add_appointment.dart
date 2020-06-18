@@ -1,9 +1,10 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:date_format/date_format.dart';
 import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/patient.dart';
-
+import 'package:health_app/src/blocs/appointment_block.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/input_field.dart';
@@ -22,6 +23,8 @@ class AddAppointment extends StatefulWidget {
 }
 
 class _AddAppointmentState extends State<AddAppointment> {
+  final AppointmentBloc _appointmentBloc =
+      BlocProvider.getBloc<AppointmentBloc>();
   // final _formkey = GlobalKey<FormState>();
   DateTime newDate = DateTime.now();
 
@@ -35,7 +38,7 @@ class _AddAppointmentState extends State<AddAppointment> {
   Future selectDate(context) async {
     DateTime selectedDate = await showDatePicker(
         context: context,
-        initialDate: newDate,
+        //initialDate: _appointmentBloc.date,
         firstDate: DateTime(2000),
         lastDate: DateTime(3000));
 
@@ -92,11 +95,15 @@ class _AddAppointmentState extends State<AddAppointment> {
   }
 
   Widget buildSubmitButton(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 15, left: 40, right: 40),
-      child: FloatingActionButton(
+    return StreamBuilder<Object>(
+      stream: _appointmentBloc.ifaddedStatus,
+      initialData: _appointmentBloc.showifadded(false),
+      builder: (context, snapshot) {
+      //margin: EdgeInsets.only(bottom: 15, left: 40, right: 40),
+      return FloatingActionButton(
         heroTag: 'appointment',
         onPressed: () {
+          _appointmentBloc.showifadded(true);
           Appointment newApp = new Appointment(
             date: newDate,
             day: widget.day ?? DateFormat('EEEE').format(newDate),
@@ -113,8 +120,9 @@ class _AddAppointmentState extends State<AddAppointment> {
           style: TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
         ),
-      ),
-    );
+      );},
+      );
+    }
   }
 
   Widget buildDay() {
@@ -122,7 +130,7 @@ class _AddAppointmentState extends State<AddAppointment> {
       readOnly: true,
       enabled: false,
       decoration: InputDecoration(
-        labelText: widget.day ?? DateFormat('EEEE').format(newDate),
+       // labelText: widget.day ?? DateFormat('EEEE').format(_appointmentBloc.day),
         labelStyle: TextStyle(color: Colors.black),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -136,12 +144,12 @@ class _AddAppointmentState extends State<AddAppointment> {
     return TextFormField(
       readOnly: true,
       onChanged: (val) {
-        setState(() {
+      /*  setState(() {
           newDate = DateTime.parse(val);
-        });
+        });*/
       },
       decoration: InputDecoration(
-          labelText: formatDate(this.newDate, [dd, '-', mm, '-', yyyy]),
+         // labelText: formatDate(this.newDate, [dd, '-', mm, '-', yyyy]),
           labelStyle: TextStyle(color: Colors.black),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
@@ -149,8 +157,8 @@ class _AddAppointmentState extends State<AddAppointment> {
           suffixIcon: IconButton(
               icon: Icon(FontAwesomeIcons.calendarWeek),
               onPressed: () {
-                selectDate(context);
+               // selectDate(context);
               })),
     );
   }
-}
+//}

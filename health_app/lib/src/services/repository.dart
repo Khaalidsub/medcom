@@ -1,8 +1,15 @@
+//import 'dart:html';
+
+import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/doctor.dart';
 import 'package:health_app/src/models/hospital.dart';
+import 'package:health_app/src/models/medicine.dart';
 import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/models/user.dart';
+import 'package:health_app/src/screens/hospitalScreens/add_medicine.dart';
 import 'package:health_app/src/services/DB/doctor_service_provider.dart';
+import 'package:health_app/src/services/DB/appointment_service_provider.dart';
+import 'package:health_app/src/services/DB/medicine_service_provider.dart';
 import 'package:health_app/src/services/DB/user_service_provider.dart';
 import 'package:health_app/src/services/auth_service_provider.dart';
 
@@ -14,6 +21,9 @@ class Repository {
   AuthServiceProvider _authServiceProvider = new AuthServiceProvider();
   UserServiceProvider _userServiceProvider = new UserServiceProvider();
   DoctorServiceProvider _doctorServiceProvider;
+  AppoitmentServiceProvider _appoitmentServiceProvider;
+  MedicineServiceProvider _medicineServiceProvider;
+
 
   //check user session
   Stream<User> get user {
@@ -114,6 +124,39 @@ class Repository {
       return null;
     }
   }
+
+// add appoitment
+
+Future addAppoitment(Appointment appointment, String patientEmail) async{
+  Patient patient = await _userServiceProvider.getUser(patientEmail);
+ // _appoitmentServiceProvider = new AppoitmentServiceProvider(documentId: documentId);
+  try {
+    // create new appoitment
+   // String apId = await _appoitmentServiceProvider.createAppoitment(appointment);
+    // get new appoitment with id
+    //return apId;
+    return await _userServiceProvider.addAppointmentToUser(appointment, patient);
+  } catch (e) {
+      return null;
+  }
+}
+
+// add medicine to patient
+
+Future addMedicine(Medicine medicine, Patient patient) async{
+  _medicineServiceProvider = new MedicineServiceProvider(documentId: documentId);
+  try {
+    // create new medicine
+    String apId = await _medicineServiceProvider.createMedicine(medicine);
+    // get new medicine with id
+    return apId;
+  } catch (e) {
+      return null;
+  }
+}
+
+
+
 
   //logout
   Future signOut() async {

@@ -12,6 +12,10 @@ import 'package:health_app/src/blocs/welcoming_screen_bloc.dart';
 
 import 'package:health_app/src/utils/routing.dart';
 
+import 'blocs/appointment_block.dart';
+import 'blocs/medicine_block.dart';
+// import 'package:health_app/src/screens/splash_screen.dart';
+
 class App extends StatefulWidget {
   @override
   _AppState createState() => _AppState();
@@ -37,6 +41,8 @@ class _AppState extends State<App> {
         Bloc((i) => HospitalSettingsBloc()),
         Bloc((i) => PatientEditProfileBloc()),
         Bloc((i) => HospitalRegisterBloc()),
+        Bloc((i) => AppointmentBloc()),
+        Bloc((i) => MedicineBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

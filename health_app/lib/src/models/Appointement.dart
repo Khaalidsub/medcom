@@ -1,10 +1,13 @@
 import 'package:health_app/src/models/medicine.dart';
+import 'package:health_app/src/models/patient.dart';
+import 'package:health_app/src/models/user.dart';
 
-class Appointment {
+
+class Appointment extends User {
   DateTime date;
   String day;
   String description;
-  String ownerId; //storing the owner of this appointment.
+  dynamic ownerId; //storing the owner of this appointment.
   String status; // latest or history
   String diagnosis;
   String doctorName;
@@ -17,7 +20,7 @@ class Appointment {
       this.status,
       this.medicines,
       this.diagnosis,
-      this.doctorName});
+      this.doctorName, doctorID, ownerID, String documentId});
 
 //copy constructor
   Appointment.copy(Appointment from)
@@ -28,6 +31,8 @@ class Appointment {
             ownerId: from.ownerId,
             status: from.status,
             medicines: from.medicines);
+
+  get patient => null;
   void addMedicines(List<Medicine> meds) {
     medicines.addAll(meds);
   }
@@ -38,6 +43,10 @@ class Appointment {
     }
 
     medicines.add(med);
+  }
+  
+  void addPatient(String patientId) {
+    ownerId.add(patientId);
   }
 
 // //usual
