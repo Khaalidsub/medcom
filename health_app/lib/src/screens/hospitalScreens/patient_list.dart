@@ -64,8 +64,8 @@ class _PatientListState extends State<PatientList> {
                     onTap: () {
                       Navigator.pushNamed(
                         context,
-                        '/hospital/patient_appointment_list',
-                        arguments: widget.patientList[index],
+                        '/hospital/patient_details',
+                        arguments: 'QodzpSmCQiQGMY9058zQyBYtZKJ2',
                       );
                     }, //goes to patient full data page
                     leading: CircleAvatar(

@@ -1,6 +1,7 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:health_app/src/blocs/hospital_blocs/hospital_settings_bloc.dart';
+import 'package:health_app/src/blocs/hospital_blocs/patient_details_bloc.dart';
 import 'package:health_app/src/blocs/hospital_navigation_bloc.dart';
 import 'package:health_app/src/blocs/hospital_register_bloc.dart';
 import 'package:health_app/src/blocs/login_bloc.dart';
@@ -39,6 +40,7 @@ class _AppState extends State<App> {
         Bloc((i) => PatientRegisterBloc()),
         Bloc((i) => PatientSettingsBloc()),
         Bloc((i) => HospitalSettingsBloc()),
+        Bloc((i) => PatientDetailsBloc()),
         Bloc((i) => PatientEditProfileBloc()),
         Bloc((i) => HospitalRegisterBloc()),
         Bloc((i) => AppointmentBloc()),

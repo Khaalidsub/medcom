@@ -24,7 +24,6 @@ class Repository {
   AppoitmentServiceProvider _appoitmentServiceProvider;
   MedicineServiceProvider _medicineServiceProvider;
 
-
   //check user session
   Stream<User> get user {
     _authServiceProvider = new AuthServiceProvider();
@@ -39,6 +38,11 @@ class Repository {
       return _userServiceProvider.userData.first;
     }
     return null;
+  }
+
+  //method gets the document based on the id given
+  Stream<User> getUser(String documentId) {
+    return _userServiceProvider.getUserWithDocumentId(documentId);
   }
 
   //sign in
@@ -127,36 +131,35 @@ class Repository {
 
 // add appoitment
 
-Future addAppoitment(Appointment appointment, String patientEmail) async{
-  Patient patient = await _userServiceProvider.getUser(patientEmail);
- // _appoitmentServiceProvider = new AppoitmentServiceProvider(documentId: documentId);
-  try {
-    // create new appoitment
-   // String apId = await _appoitmentServiceProvider.createAppoitment(appointment);
-    // get new appoitment with id
-    //return apId;
-    return await _userServiceProvider.addAppointmentToUser(appointment, patient);
-  } catch (e) {
+  Future addAppoitment(Appointment appointment, String patientEmail) async {
+    Patient patient = await _userServiceProvider.getUser(patientEmail);
+    // _appoitmentServiceProvider = new AppoitmentServiceProvider(documentId: documentId);
+    try {
+      // create new appoitment
+      // String apId = await _appoitmentServiceProvider.createAppoitment(appointment);
+      // get new appoitment with id
+      //return apId;
+      return await _userServiceProvider.addAppointmentToUser(
+          appointment, patient);
+    } catch (e) {
       return null;
+    }
   }
-}
 
 // add medicine to patient
 
-Future addMedicine(Medicine medicine, Patient patient) async{
-  _medicineServiceProvider = new MedicineServiceProvider(documentId: documentId);
-  try {
-    // create new medicine
-    String apId = await _medicineServiceProvider.createMedicine(medicine);
-    // get new medicine with id
-    return apId;
-  } catch (e) {
+  Future addMedicine(Medicine medicine, Patient patient) async {
+    _medicineServiceProvider =
+        new MedicineServiceProvider(documentId: documentId);
+    try {
+      // create new medicine
+      String apId = await _medicineServiceProvider.createMedicine(medicine);
+      // get new medicine with id
+      return apId;
+    } catch (e) {
       return null;
+    }
   }
-}
-
-
-
 
   //logout
   Future signOut() async {

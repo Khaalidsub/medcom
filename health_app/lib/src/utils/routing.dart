@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/src/screens/hospitalScreens/hospital_registration.dart';
+import 'package:health_app/src/screens/hospitalScreens/patient_details.dart';
 import 'package:health_app/src/screens/login.dart';
 import 'package:health_app/src/screens/patientScreens/patient_registration.dart';
 import 'package:health_app/src/screens/welcoming_screen.dart';
@@ -8,7 +9,6 @@ import 'package:health_app/src/screens/patientScreens/settings.dart';
 import 'package:health_app/src/screens/hospitalScreens/add_appointment.dart';
 import 'package:health_app/src/screens/hospitalScreens/add_medicine.dart';
 import 'package:health_app/src/screens/hospitalScreens/edit_profile.dart';
-import 'package:health_app/src/screens/hospitalScreens/patient_appointment_list.dart';
 import 'package:health_app/src/screens/hospitalScreens/patient_list.dart';
 import 'package:health_app/src/screens/hospitalScreens/update_appointment.dart';
 import 'package:health_app/src/screens/hospitalScreens/settings.dart';
@@ -55,7 +55,7 @@ class Routes {
         builder = (BuildContext context) => HospitalNavigation();
 
         break;
-      case '/hospital/patient_appointment_list':
+      case '/hospital/patient_details':
         builder = (BuildContext context) => PatientDetails(settings.arguments);
         break;
       case '/hospital/add_appointment':

@@ -45,6 +45,14 @@ class UserServiceProvider {
     }
   }
 
+  //gets the user document
+  Stream<User> getUserWithDocumentId(String documentId) {
+    return userCollection
+        .document(documentId)
+        .snapshots()
+        .map(_userDataFromSnap);
+  }
+
   ///returns a list of users
   ///for one query snap shot,it returns one document snapshot
   ///hence i am re using our _userdata function
@@ -55,6 +63,7 @@ class UserServiceProvider {
   // user data from snap
   User _userDataFromSnap(DocumentSnapshot snap) {
     User user;
+
     if (snap.data['type'] == 'patient') {
       user = Patient(
         bloodType: snap.data['bloodType'],
@@ -64,7 +73,7 @@ class UserServiceProvider {
         address: snap.data['address'],
         age: snap.data['age'],
         alergese: snap.data['alergese'],
-        appointments: snap.data['appointments'],
+        // appointments: snap.data['appointments']??[],
         familyNumber: snap.data['familyPhone'],
         hospitals: snap.data['hospitals'] ?? [],
         id: documentId ?? snap.documentID,
@@ -136,10 +145,11 @@ class UserServiceProvider {
   }
 
   // add appoitment to patient
-  Future<Appointment> addAppointmentToUser(Appointment appointments, Patient patient) async {
+  Future<Appointment> addAppointmentToUser(
+      Appointment appointments, Patient patient) async {
     try {
       appointments.ownerId.add(patient.id);
-     // await  _patientSetData(appointments);
+      // await  _patientSetData(appointments);
       appointments.patient.add(appointments.id);
       await updatePatientData(patient);
 
@@ -149,7 +159,6 @@ class UserServiceProvider {
       return null;
     }
   }
-
 
   ///call this function whenever you want to change/create user data
   Future _patientSetData(Patient patient) async {
