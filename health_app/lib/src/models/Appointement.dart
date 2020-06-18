@@ -1,8 +1,9 @@
 import 'package:health_app/src/models/medicine.dart';
 import 'package:health_app/src/models/patient.dart';
+import 'package:health_app/src/models/user.dart';
 
 
-class Appointment {
+class Appointment extends User {
   DateTime date;
   String day;
   String description;
