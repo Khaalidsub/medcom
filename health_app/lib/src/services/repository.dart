@@ -1,4 +1,4 @@
-import 'dart:html';
+//import 'dart:html';
 
 import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/doctor.dart';
@@ -127,13 +127,15 @@ class Repository {
 
 // add appoitment
 
-Future addAppoitment(Appointment appointment, Hospital hospital) async{
-  _appoitmentServiceProvider = new AppoitmentServiceProvider(documentId: documentId);
+Future addAppoitment(Appointment appointment, String patientEmail) async{
+  Patient patient = await _userServiceProvider.getUser(patientEmail);
+ // _appoitmentServiceProvider = new AppoitmentServiceProvider(documentId: documentId);
   try {
     // create new appoitment
-    String apId = await _appoitmentServiceProvider.createAppoitment(appointment);
+   // String apId = await _appoitmentServiceProvider.createAppoitment(appointment);
     // get new appoitment with id
-    return apId;
+    //return apId;
+    return await _userServiceProvider.addAppointmentToUser(appointment, patient);
   } catch (e) {
       return null;
   }

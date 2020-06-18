@@ -7,7 +7,7 @@ class Appointment extends User {
   DateTime date;
   String day;
   String description;
-  String ownerId; //storing the owner of this appointment.
+  dynamic ownerId; //storing the owner of this appointment.
   String status; // latest or history
   String diagnosis;
   String doctorName;
@@ -31,6 +31,8 @@ class Appointment extends User {
             ownerId: from.ownerId,
             status: from.status,
             medicines: from.medicines);
+
+  get patient => null;
   void addMedicines(List<Medicine> meds) {
     medicines.addAll(meds);
   }
@@ -42,11 +44,11 @@ class Appointment extends User {
 
     medicines.add(med);
   }
-  /*
+  
   void addPatient(String patientId) {
     ownerId.add(patientId);
   }
-*/
+
 // //usual
 //   get date => this.date;
 //   get description => this.description;

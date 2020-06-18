@@ -135,21 +135,21 @@ class UserServiceProvider {
     }
   }
 
-  /* add appoitment to patient
-Future<Appointment> addAppointmentToUser(Appointment appointment, Patient patient) async {
+  // add appoitment to patient
+  Future<Appointment> addAppointmentToUser(Appointment appointments, Patient patient) async {
     try {
-      appointment.patients.add(patient.id);
-      await _patientSetData(appointment);
-      patient.appointment.add(appointment.id);
+      appointments.ownerId.add(patient.id);
+     // await  _patientSetData(appointments);
+      appointments.patient.add(appointments.id);
       await updatePatientData(patient);
 
-      return hospital;
+      return appointments;
     } catch (e) {
       print(e.toString());
       return null;
     }
   }
-*/
+
 
   ///call this function whenever you want to change/create user data
   Future _patientSetData(Patient patient) async {
