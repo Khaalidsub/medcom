@@ -17,7 +17,7 @@ class PatientList extends StatefulWidget {
 
 class _PatientListState extends State<PatientList> {
   List<Patient> patients;
-  PatientListBlock pListBloc = new PatientListBlock();
+  PatientListBloc pListBloc = new PatientListBloc();
   @override
   void dispose() {
     pListBloc.dispose();
