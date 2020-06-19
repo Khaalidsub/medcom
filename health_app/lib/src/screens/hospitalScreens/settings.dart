@@ -83,7 +83,7 @@ class _HospitalSettingsState extends State<HospitalSettings> {
                                   await _hospitalSettingsBloc.logout();
                                   Navigator.pushNamedAndRemoveUntil(
                                       context,
-                                      '/welcoming_scren',
+                                      '/welcoming_screen',
                                       ModalRoute.withName('/hospital'));
                                 })
                           ],

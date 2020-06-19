@@ -85,7 +85,7 @@ class UserServiceProvider {
           dirName: snap.data['director'],
           phoneNumber: snap.data['phone'],
           id: documentId ?? snap.documentID,
-          patients: snap.data['patient'] ?? [],
+          patients: snap.data['patients'] ?? [],
           doctors: snap.data['doctors'] ?? [],
           name: snap.data['name'],
           email: snap.data['email']);
@@ -98,10 +98,11 @@ class UserServiceProvider {
 
   Future<List<User>> getPatientList(ids) async {
     List<Patient> users = [];
-
+    print('hello $ids');
     for (int i = 0; i < ids.length; i++) {
       DocumentSnapshot snap = await userCollection.document(ids[i]).get();
       users.add(_userDataFromSnap(snap));
+      print(snap.data['name']);
     }
     return users;
   }

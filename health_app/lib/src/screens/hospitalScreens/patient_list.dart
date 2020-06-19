@@ -1,8 +1,7 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:health_app/src/blocs/patient_List_bloc.dart';
-import 'package:health_app/src/models/hospital.dart';
-import 'package:health_app/src/models/user.dart';
 import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/progress_bar.dart';
@@ -17,10 +16,10 @@ class PatientList extends StatefulWidget {
 
 class _PatientListState extends State<PatientList> {
   List<Patient> patients;
-  PatientListBloc pListBloc = new PatientListBloc();
+  PatientListBloc _patientListBloc = BlocProvider.getBloc<PatientListBloc>();
   @override
   void dispose() {
-    pListBloc.dispose();
+    _patientListBloc.dispose();
     super.dispose();
   }
 
@@ -63,12 +62,12 @@ class _PatientListState extends State<PatientList> {
         name: 'Patients',
       ),
       body: StreamBuilder<Object>(
-          stream: pListBloc.pListStream,
-          //initialData: <Patient>[],
+          stream: _patientListBloc.pListStream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               //snapshots, so we make local variable
               patients = snapshot.data;
+              print(patients);
               return Container(
                 padding: EdgeInsets.all(10),
                 child: ListView.builder(
@@ -81,7 +80,7 @@ class _PatientListState extends State<PatientList> {
                               //need to be fixed
                               Navigator.pushNamed(
                                 context,
-                                '/hospital/patient_appointment_list',
+                                '/hospital/patient_details',
                                 arguments: 'QodzpSmCQiQGMY9058zQyBYtZKJ2',
                               );
                             }, //goes to patient full data page
@@ -101,19 +100,16 @@ class _PatientListState extends State<PatientList> {
                       );
                     }),
               );
-            } else {
-              return Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    ProgressBar(
-                      color: Colors.blueAccent,
-                    ),
-                  ],
-                ),
-              );
             }
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                ProgressBar(
+                  color: Colors.blueAccent,
+                ),
+              ],
+            );
           }),
     );
   }

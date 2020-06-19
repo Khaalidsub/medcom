@@ -15,13 +15,15 @@ class PatientListBloc extends StreamUserBloc {
   Stream<List<Patient>> get pListStream =>
       patientListController.stream; // stream getter
 
-  PatientListBlock() {
+  PatientListBloc() {
     _repository.userData.then((value) {
       this.hospital = value;
+      print('hospital ${hospital.patients}');
       //if we have a hospital, then we fetch all the patients registered to it.
-      _repository
-          .getPatientList(hospital)
-          .then((values) => {patientListController.add(values)});
+      _repository.getPatientList(hospital).then((patients) {
+        print('here in list bloc : ${patients}');
+        patientListController.add(patients);
+      });
     });
   }
   //Stream<List<Patient>> get patientListStream {

@@ -5,6 +5,7 @@ import 'package:health_app/src/blocs/hospital_blocs/patient_details_bloc.dart';
 import 'package:health_app/src/blocs/hospital_navigation_bloc.dart';
 import 'package:health_app/src/blocs/hospital_register_bloc.dart';
 import 'package:health_app/src/blocs/login_bloc.dart';
+import 'package:health_app/src/blocs/patient_List_bloc.dart';
 import 'package:health_app/src/blocs/patient_edit_bloc.dart';
 import 'package:health_app/src/blocs/patient_navigation_bloc.dart';
 import 'package:health_app/src/blocs/patient_register_bloc.dart';
@@ -41,6 +42,7 @@ class _AppState extends State<App> {
         Bloc((i) => PatientSettingsBloc()),
         Bloc((i) => HospitalSettingsBloc()),
         Bloc((i) => PatientDetailsBloc()),
+        Bloc((i) => PatientListBloc()),
         Bloc((i) => PatientEditProfileBloc()),
         Bloc((i) => HospitalRegisterBloc()),
         Bloc((i) => AppointmentBloc()),
