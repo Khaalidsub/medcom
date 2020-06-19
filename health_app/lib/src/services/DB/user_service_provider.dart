@@ -7,6 +7,7 @@ import 'package:health_app/src/models/user.dart';
 class UserServiceProvider {
   final CollectionReference userCollection =
       Firestore.instance.collection('User_List');
+
   String documentId;
   UserServiceProvider({this.documentId});
 
@@ -63,7 +64,7 @@ class UserServiceProvider {
         address: snap.data['address'],
         age: snap.data['age'],
         alergese: snap.data['alergese'],
-        appointments: snap.data['appointments'],
+        appointments: [],
         familyNumber: snap.data['familyPhone'],
         id: documentId ?? snap.documentID,
       );
@@ -75,7 +76,7 @@ class UserServiceProvider {
           // doctors: snap.data['doctors'],
           id: documentId ?? snap.documentID,
           name: snap.data['name'],
-          patients: snap.data['patient'] ?? [],
+          patients: snap.data['patients'] ?? [],
           email: snap.data['email']);
     } else
       throw new Error();
@@ -83,6 +84,17 @@ class UserServiceProvider {
 
     return user;
   }
+
+  Future<List<User>> getPatientList(ids) async {
+    List<Patient> users = [];
+  
+    for (int i = 0; i < ids.length; i++) {
+      DocumentSnapshot snap = await userCollection.document(ids[i]).get();
+      users.add(_userDataFromSnap(snap));
+    }
+    return users;
+  }
+
 
   ///function that stores data i.e Reigstration to the firestore db
   Future createPatientData(Patient patient) async {
@@ -106,6 +118,8 @@ class UserServiceProvider {
       return null;
     }
   }
+
+//we make a funcig
 
   ///add patient to hospital
   Future<User> addUserToHospital(Hospital hospital, Patient patient) async {

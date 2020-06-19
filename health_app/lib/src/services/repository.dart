@@ -20,10 +20,20 @@ class Repository {
 
   //get user data from database
   Future<User> get userData async {
-    User userAuth = await user.first;
+    User userAuth =
+        await user.first; //we check if there is already a user session
     if (userAuth != null) {
       _userServiceProvider = new UserServiceProvider(documentId: userAuth.id);
       return _userServiceProvider.userData.first;
+    }
+    return null;
+  }
+
+  //getting the patients List of the hospital
+
+  Future<List<Patient>> getPatientList(Hospital hospital) async {
+    if (hospital != null) {
+      return await _userServiceProvider.getPatientList(hospital.patients);
     }
     return null;
   }

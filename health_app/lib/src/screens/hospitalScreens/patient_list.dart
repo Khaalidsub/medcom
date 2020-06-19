@@ -1,20 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:health_app/src/blocs/patient_List_bloc.dart';
+import 'package:health_app/src/models/hospital.dart';
+import 'package:health_app/src/models/user.dart';
+import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
+import 'package:health_app/src/screens/widgets/progress_bar.dart';
 
 //stateful because of deleting a patient functinality
 class PatientList extends StatefulWidget {
   //class data
-
-  List patientList;
-
-  PatientList(this.patientList);
 
   @override
   _PatientListState createState() => _PatientListState();
 }
 
 class _PatientListState extends State<PatientList> {
+  List<Patient> patients;
+  PatientListBlock pListBloc = new PatientListBlock();
+  @override
+  void dispose() {
+    pListBloc.dispose();
+    super.dispose();
+  }
+
   createAlertDialog(BuildContext context) {
     return showDialog(
         context: context,
@@ -53,36 +62,60 @@ class _PatientListState extends State<PatientList> {
         appBar: AppBar(),
         name: 'Patients',
       ),
-      body: Container(
-        padding: EdgeInsets.all(10),
-        child: ListView.builder(
-            addAutomaticKeepAlives: false,
-            itemCount: widget.patientList.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Card(
-                child: ListTile(
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        '/hospital/patient_appointment_list',
-                        arguments: widget.patientList[index],
+      body: StreamBuilder<Object>(
+          stream: pListBloc.pListStream,
+          //initialData: <Patient>[],
+          builder: (context, snapshot) {
+            
+            if (snapshot.hasData) {
+              //snapshots, so we make local variable
+              patients = snapshot.data;
+              return Container(
+                padding: EdgeInsets.all(10),
+                child: ListView.builder(
+                    addAutomaticKeepAlives: false,
+                    itemCount: patients.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Card(
+                        child: ListTile(
+                            onTap: () {
+                              //need to be fixed
+                              Navigator.pushNamed(
+                                context,
+                                '/hospital/patient_appointment_list',
+                                arguments: patients[index],
+                              );
+                            }, //goes to patient full data page
+                            leading: CircleAvatar(
+                              backgroundColor: Colors.black,
+                              backgroundImage:
+                                  AssetImage('assets/images/ill.png'),
+                            ),
+                            title: Text(patients[index].name),
+                            subtitle: Text(patients[index].age.toString()),
+                            trailing: IconButton(
+                              onPressed: () {
+                                createAlertDialog(context);
+                              }, //some crud operation on the data
+                              icon: Icon(Icons.menu),
+                            )),
                       );
-                    }, //goes to patient full data page
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.black,
-                      backgroundImage: AssetImage('assets/images/ill.png'),
-                    ),
-                    title: Text(widget.patientList[index].name),
-                    subtitle: Text(widget.patientList[index].age.toString()),
-                    trailing: IconButton(
-                      onPressed: () {
-                        createAlertDialog(context);
-                      }, //some crud operation on the data
-                      icon: Icon(Icons.menu),
-                    )),
+                    }),
               );
-            }),
-      ),
+            } else {
+              return Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    ProgressBar(
+                      color: Colors.blueAccent,
+                    ),
+                  ],
+                ),
+              );
+            }
+          }),
     );
   }
 }
