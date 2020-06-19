@@ -17,7 +17,7 @@ class PatientList extends StatefulWidget {
 
 class _PatientListState extends State<PatientList> {
   List<Patient> patients;
-  PatientListBlock pListBloc = new PatientListBlock();
+  PatientListBloc pListBloc = new PatientListBloc();
   @override
   void dispose() {
     pListBloc.dispose();
@@ -66,7 +66,6 @@ class _PatientListState extends State<PatientList> {
           stream: pListBloc.pListStream,
           //initialData: <Patient>[],
           builder: (context, snapshot) {
-            
             if (snapshot.hasData) {
               //snapshots, so we make local variable
               patients = snapshot.data;
