@@ -5,9 +5,9 @@ import 'package:health_app/src/screens/widgets/chart.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PatientHome extends StatefulWidget {
-  // Function changeIndex;
-  // int index;
-  // PatientHome({this.changeIndex, this.index});
+// Function changeIndex;
+// int index;
+// PatientHome({this.changeIndex, this.index});
 
   @override
   _PatientHomeState createState() => _PatientHomeState();

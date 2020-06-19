@@ -35,7 +35,7 @@ class Hospital extends User {
     doctors.remove(doc);
   }
 
-  void addPatient(String patientId) {
-    patients.add(patientId);
-  }
+  //void addPatient(String patientId) {
+  //  patients.add(patientId);
+  //}
 }
