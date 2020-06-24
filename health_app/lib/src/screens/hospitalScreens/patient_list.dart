@@ -1,7 +1,7 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:health_app/src/blocs/patient_List_bloc.dart';
+import 'package:health_app/src/blocs/hospital_blocs/patient_List_bloc.dart';
 import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/progress_bar.dart';

@@ -2,10 +2,9 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:health_app/src/blocs/medicine_block.dart';
+import 'package:health_app/src/blocs/hospital_blocs/medicine_block.dart';
 import 'package:health_app/src/models/medicine.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
-//import 'package:health_app/src/screens/widgets/input_field.dart';
 import 'package:health_app/src/screens/widgets/stream_input_field.dart';
 
 class AddMedicine extends StatefulWidget {
@@ -17,8 +16,7 @@ class AddMedicine extends StatefulWidget {
 }
 
 class _AddMedicineState extends State<AddMedicine> {
-  final MedicineBloc _medicineBloc =
-      BlocProvider.getBloc<MedicineBloc>();
+  final MedicineBloc _medicineBloc = BlocProvider.getBloc<MedicineBloc>();
   // final _formkey = GlobalKey<FormState>();
   DateTime dateStart = DateTime.now();
   DateTime dateEnd = DateTime.now();
@@ -65,11 +63,10 @@ class _AddMedicineState extends State<AddMedicine> {
                   children: <Widget>[
                     Reusablefield(
                       stream: _medicineBloc.name,
-                      onChangeFunction:  _medicineBloc.changename,
+                      onChangeFunction: _medicineBloc.changename,
                       label: "Name",
                       color: Colors.white,
                       icon: Icon(Icons.pages),
-                     
                     ),
                     DatePicker(
                       date: dateStart,
@@ -81,12 +78,11 @@ class _AddMedicineState extends State<AddMedicine> {
                     ),
                     Reusablefield(
                       stream: _medicineBloc.time,
-                      onChangeFunction:  _medicineBloc.changetime,
+                      onChangeFunction: _medicineBloc.changetime,
                       label: "Times Daily",
                       color: Colors.white,
                       icon: Icon(Icons.pages),
                       type: TextInputType.number,
-                      
                     ),
                     buildSubmitButton(context),
                   ],
@@ -101,32 +97,33 @@ class _AddMedicineState extends State<AddMedicine> {
 
   Widget buildSubmitButton(BuildContext context) {
     return StreamBuilder<Object>(
-      stream: _medicineBloc.ifaddedStatus,
-      initialData: _medicineBloc.showifadded(false),
-      builder: (context, snapshot) {
-      //alignment: Alignment.center;
-      return RaisedButton(
-        padding: EdgeInsets.all(15),
-        color: Colors.blueAccent,
-        textColor: Colors.white,
-        elevation: 2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        onPressed: () {
-          _medicineBloc.showifadded(true);
-          Medicine medicine = new Medicine(
-              name: widget.name,
-              daily: widget.timesDaily,
-              dateStart: dateStart,
-              dateEnd: dateEnd);
+        stream: _medicineBloc.ifaddedStatus,
+        initialData: _medicineBloc.showifadded(false),
+        builder: (context, snapshot) {
+          //alignment: Alignment.center;
+          return RaisedButton(
+            padding: EdgeInsets.all(15),
+            color: Colors.blueAccent,
+            textColor: Colors.white,
+            elevation: 2,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            onPressed: () {
+              _medicineBloc.showifadded(true);
+              Medicine medicine = new Medicine(
+                  name: widget.name,
+                  daily: widget.timesDaily,
+                  dateStart: dateStart,
+                  dateEnd: dateEnd);
 
-          return Navigator.pop(context, medicine);
-        },
-        child: Text(
-          'Add new Medication',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-        ),
-      );}
-    );
+              return Navigator.pop(context, medicine);
+            },
+            child: Text(
+              'Add new Medication',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+            ),
+          );
+        });
   }
 }
 

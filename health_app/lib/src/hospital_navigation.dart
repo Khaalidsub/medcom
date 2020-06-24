@@ -1,7 +1,7 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:health_app/src/blocs/hospital_navigation_bloc.dart';
+import 'package:health_app/src/blocs/hospital_blocs/hospital_navigation_bloc.dart';
 import 'package:health_app/src/screens/widgets/hospital_widgets/hospital_bottom_navigation.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/screens/hospitalScreens/add_screen.dart';
