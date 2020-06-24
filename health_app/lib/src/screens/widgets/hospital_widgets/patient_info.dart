@@ -17,7 +17,7 @@ class PatientInfo extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text(
-                'ID: ${user.id}',
+                'ID: ${user.id.substring(0, 10)}',
                 style: TextStyle(fontSize: 15),
               ),
               SizedBox(
@@ -34,7 +34,7 @@ class PatientInfo extends StatelessWidget {
                 width: 12,
               ),
               Text(
-                'Gender: ${user?.gender}',
+                'Gender: ${user.gender}',
                 style: TextStyle(fontSize: 15),
               ),
               SizedBox(
@@ -51,7 +51,7 @@ class PatientInfo extends StatelessWidget {
                 width: 12,
               ),
               Text(
-                'Age: ${user?.age}',
+                'Age: ${user.age ?? null}',
                 style: TextStyle(fontSize: 15),
               ),
             ],
@@ -78,29 +78,7 @@ class PatientInfo extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              user?.bloodType ?? "null",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 15,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              'Alergese',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 15,
-                              ),
-                            ),
-                            Text(
-                              user.alergese ?? "Null",
+                              user.bloodType ?? null,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 15,
@@ -122,7 +100,7 @@ class PatientInfo extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              user?.familyNumber,
+                              user.familyNumber ?? 'null',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 15,
@@ -144,7 +122,7 @@ class PatientInfo extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              user?.phoneNumber,
+                              user.phoneNumber ?? null,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 15,
@@ -166,7 +144,7 @@ class PatientInfo extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              user?.address,
+                              user.address ?? 'null',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 15,

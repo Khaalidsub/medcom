@@ -11,13 +11,13 @@ Medicine med1 = Medicine(
     dateStart: DateTime.now(),
     name: 'panadol');
 Appointment ap1 = Appointment(
-    date: DateTime.now(),
+    date: 'DateTime.now()',
     day: "Sunday",
     description: "General check up",
     ownerId: 'p01',
     status: "latest");
 Appointment ap2 = Appointment(
-    date: DateTime.now(),
+    date: 'DateTime.now()',
     day: "Sunday",
     description: "General checkup",
     ownerId: 'p01',

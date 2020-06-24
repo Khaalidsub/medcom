@@ -1,4 +1,3 @@
-//
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/models/patient.dart';
@@ -62,6 +61,7 @@ class UserServiceProvider {
   }
 
   // user data from snap
+  //! needs refactor
   User _userDataFromSnap(DocumentSnapshot snap) {
     User user;
 
@@ -77,7 +77,7 @@ class UserServiceProvider {
         appointments: [],
         familyNumber: snap.data['familyPhone'],
         hospitals: snap.data['hospitals'] ?? [],
-        id: documentId ?? snap.documentID,
+        id: snap.documentID,
       );
     } else if (snap.data['type'] == 'hospital') {
       user = Hospital(
@@ -164,7 +164,7 @@ class UserServiceProvider {
     try {
       appointments.ownerId.add(patient.id);
       // await  _patientSetData(appointments);
-      appointments.patient.add(appointments.id);
+      // appointments.patient.add(appointments.id);
       await updatePatientData(patient);
 
       return appointments;

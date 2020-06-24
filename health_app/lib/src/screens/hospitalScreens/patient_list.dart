@@ -74,6 +74,7 @@ class _PatientListState extends State<PatientList> {
                     addAutomaticKeepAlives: false,
                     itemCount: patients.length,
                     itemBuilder: (BuildContext context, int index) {
+                      print('in list patient : ${patients[index].id}');
                       return Card(
                         child: ListTile(
                             onTap: () {
@@ -81,7 +82,7 @@ class _PatientListState extends State<PatientList> {
                               Navigator.pushNamed(
                                 context,
                                 '/hospital/patient_details',
-                                arguments: 'QodzpSmCQiQGMY9058zQyBYtZKJ2',
+                                arguments: patients[index].id,
                               );
                             }, //goes to patient full data page
                             leading: CircleAvatar(

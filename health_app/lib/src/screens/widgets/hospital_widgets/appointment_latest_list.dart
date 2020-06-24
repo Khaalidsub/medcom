@@ -14,39 +14,35 @@ class LatestAppointmenContent extends StatefulWidget {
 }
 
 class _LatestAppointmenContentState extends State<LatestAppointmenContent> {
-     createAlertDialog(BuildContext context){
-    return showDialog(context: context,builder:(context){
-      return AlertDialog(
-        
-        title: Text("Appoinment",
-        style: TextStyle(color: Colors.white),
-        textAlign: TextAlign.center),
-        content: Text("General check up",
-        style: TextStyle(color: Colors.white),
-        textAlign: TextAlign.center,),
-        
-
-        actions: [
-          FlatButton(
-            
-            child: Text("Ok",textAlign: TextAlign.center,style: TextStyle(color: Colors.white)),
-            onPressed: (){
-
-              Navigator.of(context).pop();
-            }
-            ,)
-          ,
-        ],
-        elevation: 24.0,
-        backgroundColor: Colors.blueAccent,
-        
-        
-
-      );
-      
-    });
-
+  createAlertDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Appoinment",
+                style: TextStyle(color: Colors.white),
+                textAlign: TextAlign.center),
+            content: Text(
+              "General check up",
+              style: TextStyle(color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+            actions: [
+              FlatButton(
+                child: Text("Ok",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white)),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+            elevation: 24.0,
+            backgroundColor: Colors.blueAccent,
+          );
+        });
   }
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -95,8 +91,9 @@ class _LatestAppointmenContentState extends State<LatestAppointmenContent> {
                   leading: Icon(FontAwesomeIcons.calendarAlt),
                   trailing: IconButton(
                       icon: Icon(Icons.menu),
-                      onPressed:
-                          (){createAlertDialog(context);}), //on press shows a small action dialog, whatsapp for reference
+                      onPressed: () {
+                        createAlertDialog(context);
+                      }), //on press shows a small action dialog, whatsapp for reference
                   title: Row(
                     children: <Widget>[
                       Text(
@@ -104,8 +101,9 @@ class _LatestAppointmenContentState extends State<LatestAppointmenContent> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        formatDate(widget.appointments[index].date,
-                            [dd, '-', mm, '-', yyyy]),
+                        // formatDate(widget.appointments[index].date,
+                        //     [dd, '-', mm, '-', yyyy]),
+                        widget.appointments[index].date,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ],

@@ -21,14 +21,12 @@ class PatientListBloc extends StreamUserBloc {
       print('hospital ${hospital.patients}');
       //if we have a hospital, then we fetch all the patients registered to it.
       _repository.getPatientList(hospital).then((patients) {
-        print('here in list bloc : ${patients}');
+        print('here in list bloc : ${patients[0].id}');
         patientListController.add(patients);
       });
     });
   }
-  //Stream<List<Patient>> get patientListStream {
-  //  return _repository.getPatientList(hospital).asStream();
-  //}
+
   @override
   void dispose() async {
     await patientListController.close();

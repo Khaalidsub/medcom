@@ -16,6 +16,5 @@ abstract class StreamUserBloc extends BlocBase {
   @override
   void dispose() async {
     await streamUserData.drain();
-    super.dispose();
   }
 }
