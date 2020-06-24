@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/user.dart';
 
@@ -12,19 +13,6 @@ class Patient extends User {
   List<dynamic> hospitals;
   //apointment List
   List<Appointment> appointments;
-
-  String listAllData() {
-    return "Name: ${this.name}\n" +
-        "Age: ${this.age}\n" +
-        "${this.appointments}\n" +
-        "Blooad Type: ${this.bloodType}\n" +
-        "Email: ${this.email}\n" +
-        "Family: ${this.familyNumber}\n" +
-        "Gender: ${this.gender}\n" +
-        "Id: ${this.id}\n" +
-        "Phone: ${this.phoneNumber}\n" +
-        "Adress: ${this.address}\n";
-  }
 
   //copy constructor
   Patient.copy(Patient from)
@@ -61,4 +49,47 @@ class Patient extends User {
             name: name,
             type: 'patient',
             password: password);
+
+  Patient.fromFirestore(DocumentSnapshot snap)
+      : this(
+          bloodType: snap.data['bloodType'],
+          gender: snap.data['gender'],
+          name: snap.data['name'],
+          phoneNumber: snap.data['phone'],
+          address: snap.data['address'],
+          age: snap.data['age'],
+          alergese: snap.data['alergese'],
+          appointments: [],
+          familyNumber: snap.data['familyPhone'],
+          hospitals: snap.data['hospitals'] ?? [],
+          id: snap.documentID,
+        );
+
+  toFirestore() {
+    return {
+      'type': this.type,
+      'bloodType': this.bloodType,
+      'name': this.name,
+      'address': this.address,
+      'age': this.age,
+      'phone': this.phoneNumber,
+      'faimilyPhone': this.familyNumber,
+      'gender': this.gender,
+      'appointments': this.appointments,
+      'email': this.email
+    };
+  }
+
+  String listAllData() {
+    return "Name: ${this.name}\n" +
+        "Age: ${this.age}\n" +
+        "${this.appointments}\n" +
+        "Blooad Type: ${this.bloodType}\n" +
+        "Email: ${this.email}\n" +
+        "Family: ${this.familyNumber}\n" +
+        "Gender: ${this.gender}\n" +
+        "Id: ${this.id}\n" +
+        "Phone: ${this.phoneNumber}\n" +
+        "Adress: ${this.address}\n";
+  }
 }

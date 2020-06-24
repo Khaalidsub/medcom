@@ -26,11 +26,7 @@ class DoctorServiceProvider {
 
   ///add doctor to the firestore
   Future createDoctor(Doctor doctor) async {
-    final docRef = await doctorCollection.add({
-      'name': doctor.name,
-      'specialization': doctor.specialization,
-      'hospitalId': hospitalId
-    });
+    final docRef = await doctorCollection.add(doctor.toFirestore(hospitalId));
     return docRef.documentID;
   }
 
@@ -38,12 +34,7 @@ class DoctorServiceProvider {
 
   //map it to an doctor object
   Doctor _doctorDataFromSnap(DocumentSnapshot snap) {
-    Doctor doctor = new Doctor(
-      name: snap['name'],
-      specialization: snap.data['specialization'],
-      hospitalId: snap.data['hospitalId'],
-      documentId: snap.documentID,
-    );
+    Doctor doctor = new Doctor.fromFirestore(snap);
     return doctor;
   }
 
