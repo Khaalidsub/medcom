@@ -97,7 +97,8 @@ class _HospitalProfileState extends State<HospitalProfile> {
                     //  onPressed: () => Navigator.pushNamed(context, '/settings'),
                   ),
                   Text(
-                    'Email: ${widget.user.email}',
+                    'Email: ${widget.user.email.substring(0, 10)}',
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 15),
                   ),
                 ],
@@ -113,11 +114,11 @@ class _HospitalProfileState extends State<HospitalProfile> {
                   // runAlignment: WrapAlignment.spaceBetween,
                   children: <Widget>[
                     DisplayUserField(
-                      info: widget.user.address,
+                      info: widget.user.address.substring(0, 20),
                       label: 'Address',
                     ),
                     DisplayUserField(
-                      info: widget.user.doctors?.length.toString(),
+                      info: widget.user.doctors.length.toString(),
                       label: 'Doctor Count',
                     ),
                     DisplayUserField(

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/user.dart';
 
 class Patient extends User {
@@ -12,7 +11,7 @@ class Patient extends User {
   int age;
   List<dynamic> hospitals;
   //apointment List
-  List<Appointment> appointments;
+  List<dynamic> appointments;
 
   //copy constructor
   Patient.copy(Patient from)
@@ -58,8 +57,7 @@ class Patient extends User {
           phoneNumber: snap.data['phone'],
           address: snap.data['address'],
           age: snap.data['age'],
-          alergese: snap.data['alergese'],
-          appointments: [],
+          appointments: snap.data['appointments'] ?? [],
           familyNumber: snap.data['familyPhone'],
           hospitals: snap.data['hospitals'] ?? [],
           id: snap.documentID,
@@ -76,7 +74,8 @@ class Patient extends User {
       'faimilyPhone': this.familyNumber,
       'gender': this.gender,
       'appointments': this.appointments,
-      'email': this.email
+      'email': this.email,
+      'hospitals': this.hospitals
     };
   }
 

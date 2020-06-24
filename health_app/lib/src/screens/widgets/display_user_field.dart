@@ -18,6 +18,7 @@ class DisplayUserField extends StatelessWidget {
         ),
         Text(
           info,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(
             color: Colors.black,
             fontSize: 18,

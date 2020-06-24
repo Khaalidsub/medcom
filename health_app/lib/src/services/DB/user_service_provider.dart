@@ -64,25 +64,27 @@ class UserServiceProvider {
   User _userDataFromSnap(DocumentSnapshot snap) {
     User user;
 
-    if (snap.data['type'] == 'patient') {
-      user = Patient.fromFirestore(snap);
-    } else if (snap.data['type'] == 'hospital') {
-      user = Hospital.fromFirestore(snap);
-    } else
-      throw new Error();
-    user.type = snap.data['type'];
+    try {
+      if (snap.data['type'] == 'patient') {
+        user = Patient.fromFirestore(snap);
+      } else if (snap.data['type'] == 'hospital') {
+        Hospital hosp = Hospital.fromFirestore(snap);
+        user = hosp;
+      }
+      user.type = snap.data['type'];
 
-    return user;
+      return user;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
   }
 
-  Future<List<User>> getPatientList(ids) async {
-    List<Patient> users = [];
-    for (int i = 0; i < ids.length; i++) {
-      DocumentSnapshot snap = await userCollection.document(ids[i]).get();
-      users.add(_userDataFromSnap(snap));
-      print(snap.data['name']);
-    }
-    return users;
+  Stream<List<User>> getPatientList(ids) {
+    return userCollection
+        .where('hospitals', arrayContains: ids)
+        .snapshots()
+        .map(_userListFromSnap);
   }
 
   ///function that stores data i.e Reigstration to the firestore db

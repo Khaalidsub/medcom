@@ -50,7 +50,7 @@ class _HospitalMainState extends State<HospitalNavigation> {
             if (snapshot.hasData) {
               Hospital hospital = snapshot.data;
 
-              page.add(HospitalHome());
+              page.add(HospitalHome(hospital.id));
               page.add(AddScreen(hospital));
               page.add(HospitalHistory());
               page.add(ScanHospital());

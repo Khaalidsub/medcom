@@ -13,7 +13,7 @@ import 'package:health_app/src/services/auth_service_provider.dart';
 class Repository {
   String documentId;
   AuthServiceProvider _authServiceProvider;
-  UserServiceProvider _userServiceProvider;
+  UserServiceProvider _userServiceProvider = new UserServiceProvider();
   DoctorServiceProvider _doctorServiceProvider;
   AppoitmentServiceProvider _appoitmentServiceProvider;
   MedicineServiceProvider _medicineServiceProvider;
@@ -39,7 +39,7 @@ class Repository {
 
   //method gets the document based on the id given
   Stream<User> get getUserDocument {
-    return _userServiceProvider.getUserWithDocumentId(this.documentId);
+    return _userServiceProvider.getUserWithDocumentId(documentId);
   }
 
   Stream<List<Appointment>> getPatientAppointmentList(String id) {
@@ -48,11 +48,8 @@ class Repository {
   }
 
   //getting the patients List of the hospital
-  Future<List<Patient>> getPatientList(Hospital hospital) async {
-    if (hospital != null) {
-      return await _userServiceProvider.getPatientList(hospital.patients);
-    }
-    return null;
+  Stream<List<User>> getPatientList(String hospitalId) {
+    return _userServiceProvider.getPatientList(hospitalId);
   }
 
   ///edit profile of patient
@@ -126,11 +123,13 @@ class Repository {
 
   //sign in
   Future<User> signIn(String email, String password) {
+    _authServiceProvider = new AuthServiceProvider();
     return _authServiceProvider.signIn(email, password);
   }
 
   //sign up by patient
   Future<Patient> signUpPatient(Patient patient) async {
+    _authServiceProvider = new AuthServiceProvider();
     try {
       //go to authentication provider and return user for the id
       User result =

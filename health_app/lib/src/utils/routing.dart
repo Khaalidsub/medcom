@@ -70,7 +70,7 @@ class Routes {
         break;
       case '/hospital/patientList':
         builder = (BuildContext context) =>
-            PatientList(); //Expecting list of object Patient
+            PatientList(settings.arguments); //Expecting list of object Patient
         break;
       case '/hospital/edit_profile':
         builder =
