@@ -1,21 +1,20 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:health_app/src/blocs/patient_List_bloc.dart';
-import 'package:health_app/src/models/patient.dart';
+import 'package:health_app/src/blocs/hospital_blocs/patient_List_bloc.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/progress_bar.dart';
 
 //stateful because of deleting a patient functinality
 class PatientList extends StatefulWidget {
   //class data
-
+  final String hospitalId;
+  PatientList(this.hospitalId);
   @override
   _PatientListState createState() => _PatientListState();
 }
 
 class _PatientListState extends State<PatientList> {
-  List<Patient> patients;
   PatientListBloc _patientListBloc = BlocProvider.getBloc<PatientListBloc>();
   @override
   void dispose() {
@@ -56,6 +55,7 @@ class _PatientListState extends State<PatientList> {
 
   @override
   Widget build(BuildContext context) {
+    _patientListBloc.hospitalId = widget.hospitalId;
     return Scaffold(
       appBar: AppNav(
         appBar: AppBar(),
@@ -66,39 +66,40 @@ class _PatientListState extends State<PatientList> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               //snapshots, so we make local variable
-              patients = snapshot.data;
-              print(patients);
+              List<dynamic> patients = snapshot.data;
+
               return Container(
                 padding: EdgeInsets.all(10),
                 child: ListView.builder(
-                    addAutomaticKeepAlives: false,
-                    itemCount: patients.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Card(
-                        child: ListTile(
-                            onTap: () {
-                              //need to be fixed
-                              Navigator.pushNamed(
-                                context,
-                                '/hospital/patient_details',
-                                arguments: 'QodzpSmCQiQGMY9058zQyBYtZKJ2',
-                              );
-                            }, //goes to patient full data page
-                            leading: CircleAvatar(
-                              backgroundColor: Colors.black,
-                              backgroundImage:
-                                  AssetImage('assets/images/ill.png'),
-                            ),
-                            title: Text(patients[index].name),
-                            subtitle: Text(patients[index].age.toString()),
-                            trailing: IconButton(
-                              onPressed: () {
-                                createAlertDialog(context);
-                              }, //some crud operation on the data
-                              icon: Icon(Icons.menu),
-                            )),
-                      );
-                    }),
+                  addAutomaticKeepAlives: false,
+                  itemCount: patients.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                      child: ListTile(
+                          onTap: () {
+                            //need to be fixed
+                            Navigator.pushNamed(
+                              context,
+                              '/hospital/patient_details',
+                              arguments: patients[index].id,
+                            );
+                          }, //goes to patient full data page
+                          leading: CircleAvatar(
+                            backgroundColor: Colors.black,
+                            backgroundImage:
+                                AssetImage('assets/images/ill.png'),
+                          ),
+                          title: Text(patients[index].name),
+                          subtitle: Text(patients[index].age.toString()),
+                          trailing: IconButton(
+                            onPressed: () {
+                              createAlertDialog(context);
+                            }, //some crud operation on the data
+                            icon: Icon(Icons.menu),
+                          )),
+                    );
+                  },
+                ),
               );
             }
             return Column(

@@ -1,10 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:health_app/src/models/medicine.dart';
 import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/models/user.dart';
 
-
 class Appointment extends User {
-  DateTime date;
+  String date;
   String day;
   String description;
   dynamic ownerId; //storing the owner of this appointment.
@@ -20,7 +20,10 @@ class Appointment extends User {
       this.status,
       this.medicines,
       this.diagnosis,
-      this.doctorName, doctorID, ownerID, String documentId});
+      this.doctorName,
+      doctorID,
+      ownerID,
+      String documentId});
 
 //copy constructor
   Appointment.copy(Appointment from)
@@ -31,10 +34,28 @@ class Appointment extends User {
             ownerId: from.ownerId,
             status: from.status,
             medicines: from.medicines);
+  Appointment.fromFireStore(DocumentSnapshot snap)
+      : this(
+          date: snap.data['date'],
+          day: snap.data['day'],
+          description: snap.data['description'],
+          diagnosis: snap.data['diagnosis'],
+          doctorID: snap.data['doctorID'],
+          ownerID: snap.data['ownerID'],
+          status: snap.data['status'],
+          documentId: snap.documentID,
+        );
 
-  get patient => null;
-  void addMedicines(List<Medicine> meds) {
-    medicines.addAll(meds);
+  toFireStore(doctorId) {
+    return {
+      'date': this.date,
+      'day': this.day,
+      'description': this.description,
+      'diagnosis': this.diagnosis,
+      'doctorID': doctorId,
+      'ownerID ': this.ownerId,
+      'status': this.status
+    };
   }
 
   void addMedicine(Medicine med) {
@@ -43,10 +64,6 @@ class Appointment extends User {
     }
 
     medicines.add(med);
-  }
-  
-  void addPatient(String patientId) {
-    ownerId.add(patientId);
   }
 
 // //usual

@@ -3,11 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/blocs/hospital_blocs/patient_details_bloc.dart';
+import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/patient.dart';
-import 'package:health_app/src/screens/hospitalScreens/patient_info.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/hospital_widgets/appointment_history_list.dart';
 import 'package:health_app/src/screens/widgets/hospital_widgets/appointment_latest_list.dart';
+import 'package:health_app/src/screens/widgets/hospital_widgets/patient_info.dart';
 import 'package:health_app/src/screens/widgets/progress_bar.dart';
 
 class PatientDetails extends StatefulWidget {
@@ -22,11 +23,6 @@ class _PatientDetailsState extends State<PatientDetails>
   final PatientDetailsBloc _patientDetailsBloc =
       BlocProvider.getBloc<PatientDetailsBloc>();
   TabController _controller;
-  // void updateData(Patient p) {
-  //   setState(() {
-  //     widget.patient = p;
-  //   });
-  // }
 
   @override
   void initState() {
@@ -58,7 +54,6 @@ class _PatientDetailsState extends State<PatientDetails>
   Widget build(BuildContext context) {
     _patientDetailsBloc.id = widget.patientId;
     MediaQueryData queryData = MediaQuery.of(context);
-    // double width = queryData.size.width;
     double height = queryData.size.height;
     return Scaffold(
       appBar: AppNav(
@@ -71,7 +66,6 @@ class _PatientDetailsState extends State<PatientDetails>
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               Patient patient = snapshot.data;
-              print('herein patient details : ${patient.name}');
               return Column(
                 children: <Widget>[
                   Container(
@@ -93,107 +87,153 @@ class _PatientDetailsState extends State<PatientDetails>
                       ),
                     ),
                   ),
-                  Hero(
-                    tag: 'appointment',
-                    child: RaisedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          '/hospital/add_appointment',
-                          arguments: Patient.copy(patient),
-                        );
-                      }, //add appointment Functionality goes here!
-                      color: Colors.blue[600],
-                      child: FittedBox(
-                        child: Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.add,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              'Add Appointment',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(30),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(color: Colors.white),
-                    child: TabBar(
-                      indicatorColor: Colors.blueAccent,
-                      labelColor: Colors.black,
-                      controller: _controller,
-                      tabs: [
-                        Tab(
-                          icon: const Icon(
-                            FontAwesomeIcons.calendarCheck,
-                            color: Colors.blueAccent,
-                          ),
-                          text: "Latest Appointments",
-                        ),
-                        Tab(
-                          icon: const Icon(
-                            FontAwesomeIcons.history,
-                            color: Colors.blueAccent,
-                          ),
-                          text: 'History',
-                        ),
-                        Tab(
-                          icon: const Icon(
-                            FontAwesomeIcons.user,
-                            color: Colors.blueAccent,
-                          ),
-                          text: 'Info',
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: height * 0.5,
-                    child: TabBarView(
-                      controller:
-                          _controller, //to control the sync of tabs and views
-                      children: <Widget>[
-                        //separate widgets that holds contents respectively for both tabs
-                        LatestAppointmenContent(
-                            appointments: patient.appointments
-                                .where((test) => test.status == "latest")
-                                .toList(),
-                            updateAppointment: () => null),
+                  buildAddButton(context, patient),
+                  buildTabInfo(),
+                  StreamBuilder<Object>(
+                    stream: _patientDetailsBloc.appointmentList,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        List<Appointment> appointments = snapshot.data;
 
-                        AppointmenContent((patient.appointments
-                            .where((test) => test.status == "history")
-                            .toList())),
-
-                        PatientInfo(patient)
-                      ],
-                    ),
+                        return buildFetchedAppointment(
+                            height, appointments, patient);
+                      }
+                      return buildLoadingAppointment(height, patient);
+                    },
                   ),
                 ],
               );
             }
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                ProgressBar(
-                  color: Colors.blueAccent,
-                )
-              ],
-            );
+            return buildLoadingPatientData();
           },
         ),
+      ),
+    );
+  }
+
+  Column buildLoadingPatientData() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        ProgressBar(
+          color: Colors.blueAccent,
+        )
+      ],
+    );
+  }
+
+  Container buildLoadingAppointment(double height, Patient patient) {
+    return Container(
+      height: height * 0.5,
+      child: TabBarView(
+        controller: _controller, //to control the sync of tabs and views
+        children: <Widget>[
+          //separate widgets that holds contents respectively for both tabs
+          ProgressBar(
+            color: Colors.blueAccent,
+          ),
+          ProgressBar(
+            color: Colors.blueAccent,
+          ),
+          PatientInfo(patient)
+        ],
+      ),
+    );
+  }
+
+  Hero buildAddButton(BuildContext context, Patient patient) {
+    return Hero(
+      tag: 'appointment',
+      child: RaisedButton(
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/hospital/add_appointment',
+            arguments: Patient.copy(patient),
+          );
+        }, //add appointment Functionality goes here!
+        color: Colors.blue[600],
+        child: FittedBox(
+          child: Row(
+            children: <Widget>[
+              Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+              Text(
+                'Add Appointment',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
+              )
+            ],
+          ),
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(30),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container buildTabInfo() {
+    return Container(
+      decoration: BoxDecoration(color: Colors.white),
+      child: TabBar(
+        indicatorColor: Colors.blueAccent,
+        labelColor: Colors.black,
+        controller: _controller,
+        tabs: [
+          Tab(
+            icon: Icon(
+              FontAwesomeIcons.calendarCheck,
+              color: Colors.blueAccent,
+            ),
+            text: "Latest Appointments",
+          ),
+          Tab(
+            icon: Icon(
+              FontAwesomeIcons.history,
+              color: Colors.blueAccent,
+            ),
+            text: 'History',
+          ),
+          Tab(
+            icon: Icon(
+              FontAwesomeIcons.user,
+              color: Colors.blueAccent,
+            ),
+            text: 'Info',
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container buildFetchedAppointment(
+      double height, List<Appointment> appointments, Patient patient) {
+    return Container(
+      height: height * 0.5,
+      child: TabBarView(
+        controller: _controller, //to control the sync of tabs and views
+        children: <Widget>[
+          //separate widgets that holds contents respectively for both tabs
+          LatestAppointmenContent(
+              appointments: appointments
+                  .where((test) => test.status == "latest")
+                  .toList(),
+              updateAppointment: () => null),
+
+          AppointmenContent((appointments
+              .where((test) => test.status == "history")
+              .toList())),
+
+          PatientInfo(patient)
+        ],
       ),
     );
   }

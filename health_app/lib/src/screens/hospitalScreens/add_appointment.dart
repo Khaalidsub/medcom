@@ -1,10 +1,9 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:date_format/date_format.dart';
+import 'package:health_app/src/blocs/hospital_blocs/appointment_block.dart';
 import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/patient.dart';
-import 'package:health_app/src/blocs/appointment_block.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/input_field.dart';
@@ -99,66 +98,67 @@ class _AddAppointmentState extends State<AddAppointment> {
       stream: _appointmentBloc.ifaddedStatus,
       initialData: _appointmentBloc.showifadded(false),
       builder: (context, snapshot) {
-      //margin: EdgeInsets.only(bottom: 15, left: 40, right: 40),
-      return FloatingActionButton(
-        heroTag: 'appointment',
-        onPressed: () {
-          _appointmentBloc.showifadded(true);
-          Appointment newApp = new Appointment(
-            date: newDate,
-            day: widget.day ?? DateFormat('EEEE').format(newDate),
-            description: widget.description,
-            ownerId: widget.patient.id,
-            status: "latest",
-          );
-          widget.patient.appointments.add(newApp);
-          return Navigator.pop(context, widget.patient);
-        },
-        isExtended: true,
-        child: Text(
-          'Add Appointment',
-          style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
-        ),
-      );},
-      );
-    }
+        //margin: EdgeInsets.only(bottom: 15, left: 40, right: 40),
+        return FloatingActionButton(
+          heroTag: 'appointment',
+          onPressed: () {
+            _appointmentBloc.showifadded(true);
+            Appointment newApp = new Appointment(
+              date: '',
+              day: widget.day ?? DateFormat('EEEE').format(newDate),
+              description: widget.description,
+              ownerId: widget.patient.id,
+              status: "latest",
+            );
+            widget.patient.appointments.add(newApp);
+            return Navigator.pop(context, widget.patient);
+          },
+          isExtended: true,
+          child: Text(
+            'Add Appointment',
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+        );
+      },
+    );
   }
+}
 
-  Widget buildDay() {
-    return TextFormField(
-      readOnly: true,
-      enabled: false,
-      decoration: InputDecoration(
-       // labelText: widget.day ?? DateFormat('EEEE').format(_appointmentBloc.day),
+Widget buildDay() {
+  return TextFormField(
+    readOnly: true,
+    enabled: false,
+    decoration: InputDecoration(
+      // labelText: widget.day ?? DateFormat('EEEE').format(_appointmentBloc.day),
+      labelStyle: TextStyle(color: Colors.black),
+      border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(width: 0, style: BorderStyle.none)),
+      suffixIcon: Icon(FontAwesomeIcons.calendarDay),
+    ),
+  );
+}
+
+Widget buildDatePicker(BuildContext context) {
+  return TextFormField(
+    readOnly: true,
+    onChanged: (val) {
+      /*  setState(() {
+          newDate = DateTime.parse(val);
+        });*/
+    },
+    decoration: InputDecoration(
+        // labelText: formatDate(this.newDate, [dd, '-', mm, '-', yyyy]),
         labelStyle: TextStyle(color: Colors.black),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(width: 0, style: BorderStyle.none)),
-        suffixIcon: Icon(FontAwesomeIcons.calendarDay),
-      ),
-    );
-  }
-
-  Widget buildDatePicker(BuildContext context) {
-    return TextFormField(
-      readOnly: true,
-      onChanged: (val) {
-      /*  setState(() {
-          newDate = DateTime.parse(val);
-        });*/
-      },
-      decoration: InputDecoration(
-         // labelText: formatDate(this.newDate, [dd, '-', mm, '-', yyyy]),
-          labelStyle: TextStyle(color: Colors.black),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(width: 0, style: BorderStyle.none)),
-          suffixIcon: IconButton(
-              icon: Icon(FontAwesomeIcons.calendarWeek),
-              onPressed: () {
-               // selectDate(context);
-              })),
-    );
-  }
+        suffixIcon: IconButton(
+            icon: Icon(FontAwesomeIcons.calendarWeek),
+            onPressed: () {
+              // selectDate(context);
+            })),
+  );
+}
 //}

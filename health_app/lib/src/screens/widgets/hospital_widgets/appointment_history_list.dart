@@ -1,4 +1,3 @@
-import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -98,8 +97,9 @@ class _AppointmenContentState extends State<AppointmenContent> {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      formatDate(
-                          widget.data[index].date, [dd, '-', mm, '-', yyyy]),
+                      // formatDate(
+                      //     widget.data[index].date, [dd, '-', mm, '-', yyyy]),
+                      widget.data[index].date,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],

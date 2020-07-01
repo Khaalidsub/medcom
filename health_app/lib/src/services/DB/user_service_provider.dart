@@ -1,4 +1,3 @@
-//
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/models/patient.dart';
@@ -65,46 +64,27 @@ class UserServiceProvider {
   User _userDataFromSnap(DocumentSnapshot snap) {
     User user;
 
-    if (snap.data['type'] == 'patient') {
-      user = Patient(
-        bloodType: snap.data['bloodType'],
-        gender: snap.data['gender'],
-        name: snap.data['name'],
-        phoneNumber: snap.data['phone'],
-        address: snap.data['address'],
-        age: snap.data['age'],
-        alergese: snap.data['alergese'],
-        appointments: [],
-        familyNumber: snap.data['familyPhone'],
-        hospitals: snap.data['hospitals'] ?? [],
-        id: documentId ?? snap.documentID,
-      );
-    } else if (snap.data['type'] == 'hospital') {
-      user = Hospital(
-          address: snap.data['address'],
-          dirName: snap.data['director'],
-          phoneNumber: snap.data['phone'],
-          id: documentId ?? snap.documentID,
-          patients: snap.data['patients'] ?? [],
-          doctors: snap.data['doctors'] ?? [],
-          name: snap.data['name'],
-          email: snap.data['email']);
-    } else
-      throw new Error();
-    user.type = snap.data['type'];
+    try {
+      if (snap.data['type'] == 'patient') {
+        user = Patient.fromFirestore(snap);
+      } else if (snap.data['type'] == 'hospital') {
+        Hospital hosp = Hospital.fromFirestore(snap);
+        user = hosp;
+      }
+      user.type = snap.data['type'];
 
-    return user;
+      return user;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
   }
 
-  Future<List<User>> getPatientList(ids) async {
-    List<Patient> users = [];
-    print('hello $ids');
-    for (int i = 0; i < ids.length; i++) {
-      DocumentSnapshot snap = await userCollection.document(ids[i]).get();
-      users.add(_userDataFromSnap(snap));
-      print(snap.data['name']);
-    }
-    return users;
+  Stream<List<User>> getPatientList(ids) {
+    return userCollection
+        .where('hospitals', arrayContains: ids)
+        .snapshots()
+        .map(_userListFromSnap);
   }
 
   ///function that stores data i.e Reigstration to the firestore db
@@ -164,7 +144,7 @@ class UserServiceProvider {
     try {
       appointments.ownerId.add(patient.id);
       // await  _patientSetData(appointments);
-      appointments.patient.add(appointments.id);
+      // appointments.patient.add(appointments.id);
       await updatePatientData(patient);
 
       return appointments;
@@ -176,30 +156,10 @@ class UserServiceProvider {
 
   ///call this function whenever you want to change/create user data
   Future _patientSetData(Patient patient) async {
-    await userCollection.document(patient.id).setData({
-      'type': patient.type,
-      'bloodType': patient.bloodType,
-      'name': patient.name,
-      'address': patient.address,
-      'age': patient.age,
-      'phone': patient.phoneNumber,
-      'faimilyPhone': patient.familyNumber,
-      'gender': patient.gender,
-      'appointments': patient.appointments,
-      'email': patient.email
-    });
+    await userCollection.document(patient.id).setData(patient.toFirestore());
   }
 
   Future _hospitalSetData(Hospital hospital) async {
-    await userCollection.document(hospital.id).setData({
-      'name': hospital.name,
-      'type': hospital.type,
-      'phone': hospital.phoneNumber,
-      'address': hospital.address,
-      'director': hospital.dirName,
-      'doctors': hospital.doctors,
-      'patients': hospital.patients,
-      'email': hospital.email,
-    });
+    await userCollection.document(hospital.id).setData(hospital.toFirestore());
   }
 }

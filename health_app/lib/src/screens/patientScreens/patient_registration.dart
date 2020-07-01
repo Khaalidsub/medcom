@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:health_app/src/blocs/patient_register_bloc.dart';
+import 'package:health_app/src/blocs/patient_blocs/patient_register_bloc.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/error_message.dart';
 import 'package:health_app/src/screens/widgets/progress_bar.dart';

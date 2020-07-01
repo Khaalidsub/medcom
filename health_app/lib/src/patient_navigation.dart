@@ -1,6 +1,6 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
-import 'package:health_app/src/blocs/patient_navigation_bloc.dart';
+import 'package:health_app/src/blocs/patient_blocs/patient_navigation_bloc.dart';
 import 'package:health_app/src/screens/widgets/patient_widgets/patient_bottom_navigation.dart';
 import 'models/patient.dart';
 import 'package:health_app/src/screens/patientScreens/history.dart';

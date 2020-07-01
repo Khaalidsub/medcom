@@ -7,11 +7,9 @@ class AppoitmentServiceProvider {
   String documentId;
   String doctorId;
   String patientId;
- AppoitmentServiceProvider ({this.documentId, this.doctorId, this.patientId});
+  AppoitmentServiceProvider({this.documentId, this.doctorId, this.patientId});
 
-
-
- ///get the appoitment
+  ///get the appoitment
   Stream<Appointment> get appointment {
     return appointmentsCollection
         .document(documentId)
@@ -19,7 +17,13 @@ class AppoitmentServiceProvider {
         .map(_appointmentDataFromSnap);
   }
 
-  
+  Stream<List<Appointment>> get appointmentList {
+    return appointmentsCollection
+        .where('ownerID', isEqualTo: patientId)
+        .snapshots()
+        .map(_appointmentList);
+  }
+
   ///get the doctors for a specific appoitments
   Stream<List<Appointment>> get doctors {
     return appointmentsCollection
@@ -28,52 +32,27 @@ class AppoitmentServiceProvider {
         .map(_doctorListFromSnap);
   }
 
-///get the patients for a specific appoitments
-  Stream<List<Appointment>> get patient {
-    return appointmentsCollection
-        .where('patientId', isEqualTo: patientId)
-        .snapshots()
-        .map(_patientListFromSnap);
-  }
-
-///add appoitment to the firestore
+  ///add appoitment to the firestore
   Future createAppoitment(Appointment appointment) async {
-    final appRef = await appointmentsCollection.add({
-      'date': appointment.date,
-      'day': appointment.day,
-      'description' : appointment.description,
-      'diagnosis' : appointment.diagnosis,
-      'doctorID' : doctorId,
-      'ownerID ' : appointment.ownerId,
-      'status' : appointment.status
-    });
+    final appRef =
+        await appointmentsCollection.add(appointment.toFireStore(doctorId));
     return appRef.documentID;
   }
 
-  ///
- //map it to an appoitment object
+  //map it to an appoitment object
   Appointment _appointmentDataFromSnap(DocumentSnapshot snap) {
-    Appointment appointment = new Appointment (
-      date : snap.data['date'],
-      day : snap.data['day'],
-      description :snap.data['description'],
-      diagnosis : snap.data['diagnosis'],
-      doctorID : snap.data['doctorID'],
-      ownerID : snap.data['ownerID'],
-      status : snap.data['status'],
-      documentId: snap.documentID,
-    );
-    return appointment ;
+    Appointment appointment = new Appointment.fromFireStore(snap);
+
+    return appointment;
   }
 
   ///map a list of doctors
   List<Appointment> _doctorListFromSnap(QuerySnapshot snapshots) {
     return snapshots.documents.map(_appointmentDataFromSnap).toList();
   }
+
   ///map a list of patient
-  List<Appointment> _patientListFromSnap(QuerySnapshot snapshots) {
+  List<Appointment> _appointmentList(QuerySnapshot snapshots) {
     return snapshots.documents.map(_appointmentDataFromSnap).toList();
   }
-
-
 }

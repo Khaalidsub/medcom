@@ -1,5 +1,4 @@
-import 'package:health_app/src/models/doctor.dart';
-import 'package:health_app/src/models/patient.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:health_app/src/models/user.dart';
 
 class Hospital extends User {
@@ -27,15 +26,27 @@ class Hospital extends User {
             type: 'hospital',
             password: password);
 
-  void addDoctor(String doc) {
-    doctors.add(doc);
+  Hospital.fromFirestore(DocumentSnapshot snap)
+      : this(
+          address: snap.data['address'],
+          dirName: snap.data['director'],
+          phoneNumber: snap.data['phone'],
+          id: snap.documentID,
+          patients: snap.data['patients'] ?? [],
+          doctors: snap.data['doctors'] ?? [],
+          name: snap.data['name'],
+          email: snap.data['email'],
+        );
+  toFirestore() {
+    return {
+      'name': this.name,
+      'type': this.type,
+      'phone': this.phoneNumber,
+      'address': this.address,
+      'director': this.dirName,
+      'doctors': this.doctors,
+      'patients': this.patients,
+      'email': this.email,
+    };
   }
-
-  void deleteDoctor(Doctor doc) {
-    doctors.remove(doc);
-  }
-
-  //void addPatient(String patientId) {
-  //  patients.add(patientId);
-  //}
 }

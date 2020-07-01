@@ -6,9 +6,9 @@ import 'package:health_app/src/screens/widgets/chart.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HospitalHome extends StatefulWidget {
-  final Widget child;
+  final String hospitalId;
 
-  HospitalHome({Key key, this.child}) : super(key: key);
+  HospitalHome(this.hospitalId);
 
   @override
   _HomeState createState() => _HomeState();
@@ -82,9 +82,7 @@ class _HomeState extends State<HospitalHome> {
                   GestureDetector(
                     onTap: () => Navigator.pushNamed(
                         context, '/hospital/patientList',
-                        arguments: mockData
-                            .where((user) => user.type == 'patient')
-                            .toList()),
+                        arguments: widget.hospitalId),
                     child: Container(
                       height: 120,
                       width: width * 0.29,
@@ -112,12 +110,8 @@ class _HomeState extends State<HospitalHome> {
                   ),
                   GestureDetector(
                     onTap: () => Navigator.pushNamed(
-                      context,
-                      '/hospital/patientList',
-                      arguments: mockData
-                          .where((user) => user.type == 'patient')
-                          .toList(),
-                    ),
+                        context, '/hospital/patientList',
+                        arguments: widget.hospitalId),
                     child: Container(
                       height: 120,
                       width: width * 0.29,
