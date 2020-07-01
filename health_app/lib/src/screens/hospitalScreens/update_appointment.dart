@@ -1,13 +1,16 @@
+
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:health_app/src/blocs/hospital_blocs/update_appointment_block.dart';
 import 'package:health_app/src/models/Appointement.dart';
-
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/models/medicine.dart';
 import 'package:health_app/src/models/mockdata.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/input_field.dart';
+import 'package:health_app/src/models/patient.dart';
 
 class UpdateAppointment extends StatefulWidget {
   final Appointment appointment;
@@ -17,6 +20,8 @@ class UpdateAppointment extends StatefulWidget {
 }
 
 class _UpdateAppointmentState extends State<UpdateAppointment> {
+  final AppointementEditeBloc _appointmenteditBloc =
+      BlocProvider.getBloc<AppointementEditeBloc>();
   List<Medicine> medicines = new List();
   Hospital hosp = mockData[1];
   String doctor;
@@ -51,10 +56,15 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
         appBar: AppBar(),
         name: 'Update Appointment',
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
+     body: StreamBuilder<Object>(
+        stream: _appointmenteditBloc.streamUserData,
+        // ignore: missing_return
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+          return SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
             Container(
               height: 150,
               child: Icon(
@@ -106,27 +116,15 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
             ),
           ],
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        );
+      //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // ignore: dead_code
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
+          buildFloatingActionButton(context),
           Container(
             width: 175,
-            child: FloatingActionButton(
-              backgroundColor: Colors.blueAccent,
-              heroTag: 'update',
-              elevation: 2,
-              onPressed: () => updateAppointment(),
-              isExtended: true,
-              child: Text(
-                'Update',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
-              ),
-            ),
           ),
           Container(
             width: 175,
@@ -146,7 +144,43 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
             ),
           ),
         ],
-      ),
+         );
+      }
+      }
+      )
+      );
+}
+
+  Widget buildFloatingActionButton(BuildContext context) {
+     return StreamBuilder<Object>(
+      stream: _appointmenteditBloc.showeditStatus(false),
+      builder: (context, snapshot) {
+        return FloatingActionButton(
+            backgroundColor: Colors.blueAccent,
+            heroTag: 'update',
+            elevation: 2,
+            onPressed: () {
+            _appointmenteditBloc.showeditStatus(true);
+            Appointment newApp = new Appointment(
+              date: '',
+            //  day: widget.day ?? DateFormat('EEEE').format(newDate),
+            //  description: widget.,
+            //  ownerId: widget.patient.id,
+              status: "latest",
+            );
+          //  widget.appointment.add(newApp);
+            return Navigator.pop(context, widget.appointment);
+          },
+            isExtended: true,
+            child: Text(
+              'Update',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20),
+            ),
+          );
+      }
     );
   }
 

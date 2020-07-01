@@ -3,8 +3,9 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/services/repository.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:health_app/src/blocs/stream_user_bloc.dart';
 
-class AppointmentBloc extends BlocBase {
+class AppointmentBloc extends StreamUserBloc {
   Repository _repository = new Repository();
 
   //sink and streams object
@@ -27,7 +28,9 @@ class AppointmentBloc extends BlocBase {
   Stream<bool> get ifaddedStatus => _isAdded.stream;
 
   //add appoinmte
+  // ignore: missing_return
   Future<Appointment> addAppointment() {
+    // ignore: unused_local_variable
     Appointment appointment = new Appointment(
       day: _day.value,
       date: _date.value.toString(),

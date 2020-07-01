@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:health_app/src/models/doctor.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/models/user.dart';
@@ -154,6 +155,17 @@ class UserServiceProvider {
     }
   }
 
+  Future updateAppointment(Appointment appointment) async {
+    try {
+      await _appointmentSetData(appointment);
+      return appointment;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+
   ///call this function whenever you want to change/create user data
   Future _patientSetData(Patient patient) async {
     await userCollection.document(patient.id).setData(patient.toFirestore());
@@ -162,4 +174,8 @@ class UserServiceProvider {
   Future _hospitalSetData(Hospital hospital) async {
     await userCollection.document(hospital.id).setData(hospital.toFirestore());
   }
+  Future _appointmentSetData(Appointment appointment) async {
+    await userCollection.document(appointment.id).setData(appointment.toFireStore(Doctor));
+  }
+
 }
