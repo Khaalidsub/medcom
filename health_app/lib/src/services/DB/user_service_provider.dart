@@ -110,6 +110,16 @@ class UserServiceProvider {
     }
   }
 
+  Future updateHospitalData(Hospital hospital) async {
+    try {
+      await _hospitalSetData(hospital);
+      return hospital;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
 //we make a funcig
 
   ///add patient to hospital

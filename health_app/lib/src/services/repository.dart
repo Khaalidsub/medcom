@@ -64,6 +64,17 @@ class Repository {
     }
   }
 
+  Future<Hospital> editHospital(Hospital hospital) async {
+    try {
+      hospital = await _userServiceProvider.updateHospitalData(hospital);
+
+      return hospital;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
   ///add a patient to the hospital
   Future addPatient(Hospital hospital, String patientEmail) async {
     //get the user with the email

@@ -73,8 +73,7 @@ class Routes {
             PatientList(settings.arguments); //Expecting list of object Patient
         break;
       case '/hospital/edit_profile':
-        builder =
-            (BuildContext context) => HospitalEditProfile(settings.arguments);
+        builder = (BuildContext context) => HospitalEditProfile();
         break;
       case '/hospital/settings':
         builder =
