@@ -50,18 +50,18 @@ class Patient extends User {
             password: password);
 
   Patient.fromFirestore(DocumentSnapshot snap)
-      : this(
-          bloodType: snap.data['bloodType'],
-          gender: snap.data['gender'],
-          name: snap.data['name'],
-          phoneNumber: snap.data['phone'],
-          address: snap.data['address'],
-          age: snap.data['age'],
-          appointments: snap.data['appointments'] ?? [],
-          familyNumber: snap.data['familyPhone'],
-          hospitals: snap.data['hospitals'] ?? [],
-          id: snap.documentID,
-        );
+      : super(email: snap.data['email'], type: snap.data['type']) {
+    bloodType = snap.data['bloodType'];
+    gender = snap.data['gender'];
+    name = snap.data['name'];
+    phoneNumber = snap.data['phone'];
+    address = snap.data['address'];
+    age = snap.data['age'];
+    appointments = snap.data['appointments'];
+    familyNumber = snap.data['familyPhone'];
+    hospitals = snap.data['hospitals'] ?? [];
+    id = snap.documentID;
+  }
 
   toFirestore() {
     return {
@@ -74,7 +74,7 @@ class Patient extends User {
       'faimilyPhone': this.familyNumber,
       'gender': this.gender,
       'appointments': this.appointments,
-      'email': this.email,
+      'email': super.email,
       'hospitals': this.hospitals
     };
   }

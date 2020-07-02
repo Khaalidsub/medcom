@@ -111,11 +111,17 @@ class Repository {
   Future addAppoitment(Appointment appointment, String patientEmail) async {
     Patient patient = await _userServiceProvider.getUser(patientEmail);
     try {
+      appointment.ownerId = patient.id;
+      _appoitmentServiceProvider = new AppoitmentServiceProvider();
       //add appointment to firestore
+      String appointmentId =
+          await _appoitmentServiceProvider.createAppoitment(appointment);
+      patient.appointments.add(appointmentId);
       //get the document id and store it to patient
-      return await _userServiceProvider.addAppointmentToUser(
-          appointment, patient);
+      await _userServiceProvider.addAppointmentToUser(patient);
+      return appointment;
     } catch (e) {
+      print(e.toString());
       return null;
     }
   }

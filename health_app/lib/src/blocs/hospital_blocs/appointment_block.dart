@@ -28,14 +28,14 @@ class AppointmentBloc extends StreamUserBloc {
 
   //add appoinmte
   // ignore: missing_return
-  Future<Appointment> addAppointment(String patientEmail) {
+  Future<dynamic> addAppointment(String patientEmail) {
     // ignore: unused_local_variable
     Appointment appointment = new Appointment(
       day: _day.value,
       date: _date.value.toString(),
       description: _description.value,
     );
-    _repository.addAppoitment(appointment, patientEmail);
+    return _repository.addAppoitment(appointment, patientEmail);
   }
 
   @override

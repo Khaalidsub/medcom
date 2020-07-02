@@ -33,10 +33,8 @@ class _AddAppointmentState extends State<AddAppointment> {
         firstDate: DateTime(2000),
         lastDate: DateTime(3000));
 
-    if (selectedDate != null && selectedDate != newDate) {
-      _appointmentBloc.changedate(selectedDate);
-      _appointmentBloc.changeday(DateFormat('EEEE').format(selectedDate));
-    }
+    _appointmentBloc.changedate(selectedDate);
+    _appointmentBloc.changeday(DateFormat('EEEE').format(selectedDate));
   }
 
   @override
@@ -47,6 +45,7 @@ class _AddAppointmentState extends State<AddAppointment> {
 
   @override
   Widget build(BuildContext context) {
+    print('email is ${widget.email}');
     return Scaffold(
       appBar: AppNav(
         appBar: AppBar(),

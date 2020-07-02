@@ -34,8 +34,8 @@ class AppoitmentServiceProvider {
 
   ///add appoitment to the firestore
   Future createAppoitment(Appointment appointment) async {
-    final appRef =
-        await appointmentsCollection.add(appointment.toFireStore(doctorId));
+    appointment.status = 'latest';
+    final appRef = await appointmentsCollection.add(appointment.toFireStore());
     return appRef.documentID;
   }
 

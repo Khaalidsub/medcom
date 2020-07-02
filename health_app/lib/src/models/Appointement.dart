@@ -45,7 +45,7 @@ class Appointment extends User {
           status: snap.data['status'],
           documentId: snap.documentID,
         );
-  toFireStore(doctorId) {
+  toFireStore({doctorId = null}) {
     return {
       'date': this.date,
       'day': this.day,
