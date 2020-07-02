@@ -87,7 +87,7 @@ class _PatientDetailsState extends State<PatientDetails>
                       ),
                     ),
                   ),
-                  buildAddButton(context, patient),
+                  buildAddButton(context, patient.email),
                   buildTabInfo(),
                   StreamBuilder<Object>(
                     stream: _patientDetailsBloc.appointmentList,
@@ -142,7 +142,7 @@ class _PatientDetailsState extends State<PatientDetails>
     );
   }
 
-  Hero buildAddButton(BuildContext context, Patient patient) {
+  Hero buildAddButton(BuildContext context, String email) {
     return Hero(
       tag: 'appointment',
       child: RaisedButton(
@@ -150,7 +150,7 @@ class _PatientDetailsState extends State<PatientDetails>
           Navigator.pushNamed(
             context,
             '/hospital/add_appointment',
-            arguments: Patient.copy(patient),
+            arguments: email,
           );
         }, //add appointment Functionality goes here!
         color: Colors.blue[600],
