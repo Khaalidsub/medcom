@@ -117,6 +117,18 @@ class Repository {
       return null;
     }
   }
+  ///edit profile of patient
+  Future<Appointment> editappointement(Appointment appointment) async {
+    try {
+      appointment = await _userServiceProvider.updateAppointment(appointment);
+
+      return appointment;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
 
   // add medicine to patient
   Future addMedicine(Medicine medicine, Patient patient) async {

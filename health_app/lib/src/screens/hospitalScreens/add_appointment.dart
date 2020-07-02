@@ -9,6 +9,7 @@ import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/input_field.dart';
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class AddAppointment extends StatefulWidget {
   //class data
   String day, description;
@@ -36,6 +37,7 @@ class _AddAppointmentState extends State<AddAppointment> {
 
   Future selectDate(context) async {
     DateTime selectedDate = await showDatePicker(
+      initialDate: null,
         context: context,
         //initialDate: _appointmentBloc.date,
         firstDate: DateTime(2000),
@@ -56,7 +58,11 @@ class _AddAppointmentState extends State<AddAppointment> {
           appBar: AppBar(),
           name: 'Profile',
         ),
-        body: SingleChildScrollView(
+        body: StreamBuilder<Object>(
+        stream: _appointmentBloc.streamUserData,
+        // ignore: missing_return
+        builder: (context, snapshot) {
+         return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
@@ -90,7 +96,10 @@ class _AddAppointmentState extends State<AddAppointment> {
               buildSubmitButton(context)
             ],
           ),
-        ));
+        );
+        }
+        ),
+    );
   }
 
   Widget buildSubmitButton(BuildContext context) {
