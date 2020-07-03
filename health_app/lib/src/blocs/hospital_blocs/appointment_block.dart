@@ -32,7 +32,7 @@ class AppointmentBloc extends StreamUserBloc {
     // ignore: unused_local_variable
     Appointment appointment = new Appointment(
       day: _day.value,
-      date: _date.value.toString(),
+      date: _date.value.toString().substring(0, 10),
       description: _description.value,
     );
     return _repository.addAppoitment(appointment, patientEmail);

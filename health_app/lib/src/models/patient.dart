@@ -57,7 +57,7 @@ class Patient extends User {
     phoneNumber = snap.data['phone'];
     address = snap.data['address'];
     age = snap.data['age'];
-    appointments = snap.data['appointments'];
+    appointments = snap.data['appointments'] ?? [];
     familyNumber = snap.data['familyPhone'];
     hospitals = snap.data['hospitals'] ?? [];
     id = snap.documentID;

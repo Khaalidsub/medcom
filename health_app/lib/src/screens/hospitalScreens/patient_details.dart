@@ -46,8 +46,8 @@ class _PatientDetailsState extends State<PatientDetails>
   // }
   @override
   void dispose() {
-    _patientDetailsBloc.dispose();
     super.dispose();
+    _patientDetailsBloc.dispose();
   }
 
   @override
@@ -66,6 +66,7 @@ class _PatientDetailsState extends State<PatientDetails>
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               Patient patient = snapshot.data;
+              _patientDetailsBloc.appointmentIds = patient.appointments;
               return Column(
                 children: <Widget>[
                   Container(

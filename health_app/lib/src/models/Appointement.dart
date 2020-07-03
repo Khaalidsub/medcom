@@ -11,6 +11,7 @@ class Appointment extends User {
   String status; // latest or history
   String diagnosis;
   String doctorName;
+  String id;
   List<Medicine> medicines = new List();
   Appointment(
       {this.date,
@@ -21,6 +22,7 @@ class Appointment extends User {
       this.medicines,
       this.diagnosis,
       this.doctorName,
+      this.id,
       doctorID,
       ownerID,
       String documentId});
@@ -36,17 +38,18 @@ class Appointment extends User {
             medicines: from.medicines);
   Appointment.fromFireStore(DocumentSnapshot snap)
       : this(
+          id: snap.documentID,
           date: snap.data['date'],
           day: snap.data['day'],
           description: snap.data['description'],
-          diagnosis: snap.data['diagnosis'],
-          doctorID: snap.data['doctorID'],
+          diagnosis: snap.data['diagnosis'] ?? '',
+          doctorID: snap.data['doctorID'] ?? '',
           ownerID: snap.data['ownerID'],
           status: snap.data['status'],
-          documentId: snap.documentID,
         );
   toFireStore({doctorId = null}) {
     return {
+      'id': this.id,
       'date': this.date,
       'day': this.day,
       'description': this.description,

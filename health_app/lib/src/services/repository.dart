@@ -42,8 +42,8 @@ class Repository {
     return _userServiceProvider.getUserWithDocumentId(documentId);
   }
 
-  Stream<List<Appointment>> getPatientAppointmentList(String id) {
-    _appoitmentServiceProvider = AppoitmentServiceProvider(patientId: id);
+  Stream<List<Appointment>> getPatientAppointmentList(List<dynamic> ids) {
+    _appoitmentServiceProvider = AppoitmentServiceProvider(appointmentIds: ids);
     return _appoitmentServiceProvider.appointmentList;
   }
 

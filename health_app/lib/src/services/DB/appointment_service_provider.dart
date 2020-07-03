@@ -7,7 +7,9 @@ class AppoitmentServiceProvider {
   String documentId;
   String doctorId;
   String patientId;
-  AppoitmentServiceProvider({this.documentId, this.doctorId, this.patientId});
+  List<dynamic> appointmentIds;
+  AppoitmentServiceProvider(
+      {this.documentId, this.doctorId, this.patientId, this.appointmentIds});
 
   ///get the appoitment
   Stream<Appointment> get appointment {
@@ -19,7 +21,7 @@ class AppoitmentServiceProvider {
 
   Stream<List<Appointment>> get appointmentList {
     return appointmentsCollection
-        .where('ownerID', isEqualTo: patientId)
+        .where('id', whereIn: appointmentIds)
         .snapshots()
         .map(_appointmentList);
   }
@@ -35,7 +37,12 @@ class AppoitmentServiceProvider {
   ///add appoitment to the firestore
   Future createAppoitment(Appointment appointment) async {
     appointment.status = 'latest';
+
     final appRef = await appointmentsCollection.add(appointment.toFireStore());
+    appointment.id = appRef.documentID;
+    await appointmentsCollection
+        .document(appRef.documentID)
+        .setData(appointment.toFireStore());
     return appRef.documentID;
   }
 
