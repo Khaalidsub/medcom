@@ -1,30 +1,36 @@
-import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:health_app/src/blocs/stream_user_bloc.dart';
+import 'package:health_app/src/models/doctor.dart';
+import 'package:health_app/src/models/medicine.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/models/Appointement.dart';
-import 'package:health_app/src/models/user.dart';
 import 'package:health_app/src/services/repository.dart';
 
-class AppointementEditeBloc extends BlocBase {
+class AppointementEditeBloc extends StreamUserBloc {
+  String hospitalId;
+  String appointmentId;
   Repository _repository = new Repository();
-  //stream user
-  Stream<User> get streamUserData => _repository.userData.asStream();
-  //sink add objects
-  final _day = BehaviorSubject<String>();
-  final _date = BehaviorSubject<DateTime>();
-  final _description = BehaviorSubject<String>();
-  final _isedit = BehaviorSubject<bool>();
-  //onChange
-  Function(String) get changeday => _day.sink.add;
-  Function(DateTime) get changedate => _date.sink.add;
-  Function(String) get changedescription => _description.sink.add;
-  Function(bool) get showeditStatus => _isedit.sink.add;
-  //streams
-  Stream<String> get day => _day.stream;
-  Stream<DateTime> get date => _date.stream;
-  Stream<String> get description => _description.stream;
-  Stream<bool> get editStatus => _isedit.stream;
+  //stream appointment
 
+  Stream<List<Doctor>> get streamDoctors =>
+      _repository.getHospitalDoctorList(hospitalId);
+
+  //sink stream
+  final _diagnosis = BehaviorSubject<String>();
+  final _doctor = BehaviorSubject<Doctor>();
+  final _isedit = BehaviorSubject<bool>();
+  final _medicines = BehaviorSubject<List<Medicine>>();
+
+  //onChange
+  Function(String) get changeDiagnosis => _diagnosis.sink.add;
+  Function(List) get changeMedicine => _medicines.sink.add;
+  Function(Doctor) get changeDoctor => _doctor.sink.add;
+  Function(bool) get showeditStatus => _isedit.sink.add;
+
+  //streams
+  Stream<String> get diagnosis => _diagnosis.stream;
+  Stream<bool> get editStatus => _isedit.stream;
+  Stream<List<Medicine>> get medicines => _medicines.stream;
+  Doctor get doctor => _doctor.value;
   //validators
   // bool validateFields() {
   //   if (_name.value.isNotEmpty ||
@@ -35,22 +41,27 @@ class AppointementEditeBloc extends BlocBase {
   // }
 
   //edit function
-  Future<Appointment> editProfile(Appointment appointment) async {
-    appointment.day = _day.value ?? appointment.day;
-    appointment.description = _description.value ?? appointment.description;
-    appointment.date = _date.value ?? appointment.date;
-    
+  Future<Appointment> editAppointment() async {
+    Appointment appointment =
+        await _repository.getAppointment(appointmentId).first
+          ..medicines = _medicines.value
+          ..diagnosis = _diagnosis.value
+          ..doctor = _doctor.value
+          ..status = 'history';
+
     return await _repository.editappointement(appointment);
   }
 
   @override
   void dispose() async {
-    await _day.drain();
-    _day.close();
-    await _description.drain();
-    _description.close();
-    await _date.drain();
-    _date.close();
+    await _medicines.drain();
+    _medicines.close();
+    await _diagnosis.drain();
+    _diagnosis.close();
+    await _isedit.drain();
+    _isedit.close();
+    await _doctor.drain();
+    _doctor.close();
     super.dispose();
   }
 }

@@ -1,20 +1,19 @@
-
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/blocs/hospital_blocs/update_appointment_block.dart';
 import 'package:health_app/src/models/Appointement.dart';
+import 'package:health_app/src/models/doctor.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/models/medicine.dart';
-import 'package:health_app/src/models/mockdata.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
-import 'package:health_app/src/screens/widgets/input_field.dart';
-import 'package:health_app/src/models/patient.dart';
+import 'package:health_app/src/screens/widgets/progress_bar.dart';
+import 'package:health_app/src/screens/widgets/stream_input_field.dart';
 
 class UpdateAppointment extends StatefulWidget {
-  final Appointment appointment;
-  UpdateAppointment(this.appointment);
+  final String appointmentId;
+  UpdateAppointment(this.appointmentId);
   @override
   _UpdateAppointmentState createState() => _UpdateAppointmentState();
 }
@@ -22,31 +21,14 @@ class UpdateAppointment extends StatefulWidget {
 class _UpdateAppointmentState extends State<UpdateAppointment> {
   final AppointementEditeBloc _appointmenteditBloc =
       BlocProvider.getBloc<AppointementEditeBloc>();
-  List<Medicine> medicines = new List();
-  Hospital hosp = mockData[1];
+  List<Doctor> doctors;
+  Hospital _hospital;
+  List<Medicine> medicines = [];
+
   String doctor;
   void updateMedicine(Medicine med) {
-    setState(() {
-      medicines.add(med);
-      widget.appointment.addMedicine(med);
-    });
-    print(medicines.length);
-  }
-
-  updateAppointment() {
-    setState(() {
-      widget.appointment.status = 'history';
-      widget.appointment.doctorName = doctor;
-    });
-
-    return Navigator.pop(context, widget.appointment);
-  }
-
-  void updateDiagnosis(String diag) {
-    print('hello ${Navigator.canPop(context)}');
-    setState(() {
-      widget.appointment.diagnosis = diag;
-    });
+    medicines.add(med);
+    _appointmenteditBloc.changeMedicine(medicines);
   }
 
   @override
@@ -56,121 +38,139 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
         appBar: AppBar(),
         name: 'Update Appointment',
       ),
-     body: StreamBuilder<Object>(
+      body: StreamBuilder<Object>(
         stream: _appointmenteditBloc.streamUserData,
-        // ignore: missing_return
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-          return SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-            Container(
-              height: 150,
-              child: Icon(
-                FontAwesomeIcons.diagnoses,
-                size: 100,
-                color: Colors.blueAccent,
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Wrap(
-                // crossAxisAlignment: CrossAxisAlignment.stretch,
-                runSpacing: 15,
-                // mainAxisAlignment: MainAxisAlignment.start,
+            _hospital = snapshot.data;
+            _appointmenteditBloc.hospitalId = _hospital.id;
+            _appointmenteditBloc.appointmentId = widget.appointmentId;
+            return SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Medications :',
-                      style: TextStyle(fontSize: 25),
+                  Container(
+                    height: 150,
+                    child: Icon(
+                      FontAwesomeIcons.diagnoses,
+                      size: 100,
+                      color: Colors.blueAccent,
                     ),
                   ),
-                  buildMedicineList(),
-                  buildAddMedicine(context),
-                  Reusablefield(
-                    label: "Diagnosis",
-                    color: Colors.white,
-                    icon: Icon(Icons.pages),
-                    callback: this.updateDiagnosis,
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Wrap(
+                      // crossAxisAlignment: CrossAxisAlignment.stretch,
+                      runSpacing: 15,
+                      // mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Medications :',
+                            style: TextStyle(fontSize: 25),
+                          ),
+                        ),
+                        buildMedicineList(),
+                        buildAddMedicine(context),
+                        Reusablefield(
+                          onChangeFunction:
+                              _appointmenteditBloc.changeDiagnosis,
+                          stream: _appointmenteditBloc.diagnosis,
+                          label: "Diagnosis",
+                          color: Colors.white,
+                          icon: Icon(Icons.pages),
+                        ),
+                        buildDoctorDropDown(),
+                      ],
+                    ),
                   ),
-                  DropDownFormField(
-                    titleText: 'Doctor',
-                    hintText: 'Please choose one',
-                    required: true,
-                    value: doctor,
-                    onChanged: (value) {
-                      setState(() {
-                        doctor = value;
-                      });
-                    },
-                    dataSource: [
-                      {"display": d1.name, "value": d1.name}
-                    ],
-                    textField: 'display',
-                    valueField: 'value',
-                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 35),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Container(
+                          width: 175,
+                          child: buildFloatingActionButton(context),
+                        ),
+                        Container(
+                          width: 175,
+                          child: FloatingActionButton(
+                            backgroundColor: Colors.blueGrey,
+                            heroTag: 'cacnel',
+                            elevation: 2,
+                            onPressed: () => Navigator.pop(null),
+                            isExtended: true,
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
-            ),
-          ],
-        ),
-        );
-      //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      // ignore: dead_code
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          buildFloatingActionButton(context),
-          Container(
-            width: 175,
-          ),
-          Container(
-            width: 175,
-            child: FloatingActionButton(
-              backgroundColor: Colors.blueGrey,
-              heroTag: 'cacnel',
-              elevation: 2,
-              onPressed: () => Navigator.pop(null),
-              isExtended: true,
-              child: Text(
-                'Cancel',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
-              ),
-            ),
-          ),
-        ],
-         );
-      }
-      }
-      )
-      );
-}
+            );
+          }
+          return ProgressBar();
+        },
+      ),
+    );
+  }
+
+  StreamBuilder<Object> buildDoctorDropDown() {
+    return StreamBuilder<Object>(
+        stream: _appointmenteditBloc.streamDoctors,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            doctors = snapshot.data;
+
+            if (doctors.length != 0) {
+              return DropDownFormField(
+                titleText: 'Doctor',
+                hintText: 'Please choose one',
+                required: true,
+                value: _appointmenteditBloc.doctor?.name,
+                onChanged: (value) {
+                  setState(() {});
+                  return _appointmenteditBloc.changeDoctor(
+                      doctors.firstWhere((doctor) => doctor.name == value));
+                },
+                dataSource: [
+                  // ignore: sdk_version_ui_as_code
+                  ...doctors.map((doctor) =>
+                      {"display": doctor.name, "value": doctor.name})
+                  // {"display": d1.name, "value": d1.name}
+                ],
+                textField: 'display',
+                valueField: 'value',
+              );
+            }
+          }
+          return ProgressBar();
+        });
+  }
 
   Widget buildFloatingActionButton(BuildContext context) {
-     return StreamBuilder<Object>(
-      stream: _appointmenteditBloc.showeditStatus(false),
-      builder: (context, snapshot) {
-        return FloatingActionButton(
+    return StreamBuilder<Object>(
+        stream: _appointmenteditBloc.showeditStatus(false),
+        builder: (context, snapshot) {
+          return FloatingActionButton(
             backgroundColor: Colors.blueAccent,
             heroTag: 'update',
             elevation: 2,
-            onPressed: () {
-            _appointmenteditBloc.showeditStatus(true);
-            Appointment newApp = new Appointment(
-              date: '',
-            //  day: widget.day ?? DateFormat('EEEE').format(newDate),
-            //  description: widget.,
-            //  ownerId: widget.patient.id,
-              status: "latest",
-            );
-          //  widget.appointment.add(newApp);
-            return Navigator.pop(context, widget.appointment);
-          },
+            onPressed: () async {
+              _appointmenteditBloc.showeditStatus(true);
+              await _appointmenteditBloc.editAppointment();
+              //  widget.appointment.add(newApp);
+              // return Navigator.pop(context);
+            },
             isExtended: true,
             child: Text(
               'Update',
@@ -180,23 +180,31 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                   fontSize: 20),
             ),
           );
-      }
-    );
+        });
   }
 
   Widget buildMedicineList() {
     return Card(
-      child: ListView.builder(
-        itemCount: medicines.length,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-              medicines[index].name,
-              style: TextStyle(fontSize: 18),
-            ),
-          );
+      child: StreamBuilder<Object>(
+        stream: _appointmenteditBloc.medicines,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<Medicine> medics = snapshot.data;
+            return ListView.builder(
+              itemCount: medics.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    medics[index].name,
+                    style: TextStyle(fontSize: 18),
+                  ),
+                );
+              },
+            );
+          }
+          return Text('');
         },
       ),
     );
@@ -221,31 +229,6 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
             Icon(Icons.add),
             Text('Add new Medication'),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class SubmitButton extends StatelessWidget {
-  final Function submit;
-  final String label;
-  final Color color;
-  SubmitButton({this.submit, this.label, this.color});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 175,
-      child: FloatingActionButton(
-        backgroundColor: color,
-        heroTag: 'appointment',
-        elevation: 2,
-        onPressed: () => submit,
-        isExtended: true,
-        child: Text(
-          label,
-          style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
         ),
       ),
     );

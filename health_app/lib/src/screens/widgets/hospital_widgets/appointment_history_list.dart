@@ -106,7 +106,7 @@ class _AppointmenContentState extends State<AppointmenContent> {
                 ),
                 subtitle: Row(
                   children: <Widget>[
-                    Text('Doctor: ' + widget.data[index].doctorName + '   '),
+                    Text('Doctor: ' + widget.data[index].doctor.name + '   '),
                     Text(widget.data[index].diagnosis),
                   ],
                 ),

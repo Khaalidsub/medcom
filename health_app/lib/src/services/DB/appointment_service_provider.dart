@@ -26,14 +26,6 @@ class AppoitmentServiceProvider {
         .map(_appointmentList);
   }
 
-  ///get the doctors for a specific appoitments
-  Stream<List<Appointment>> get doctors {
-    return appointmentsCollection
-        .where('doctorId', isEqualTo: doctorId)
-        .snapshots()
-        .map(_doctorListFromSnap);
-  }
-
   ///add appoitment to the firestore
   Future createAppoitment(Appointment appointment) async {
     appointment.status = 'latest';
@@ -53,9 +45,20 @@ class AppoitmentServiceProvider {
     return appointment;
   }
 
-  ///map a list of doctors
-  List<Appointment> _doctorListFromSnap(QuerySnapshot snapshots) {
-    return snapshots.documents.map(_appointmentDataFromSnap).toList();
+  Future updateAppointment(Appointment appointment) async {
+    try {
+      await _appointmentSetData(appointment);
+      return appointment;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  Future _appointmentSetData(Appointment appointment) async {
+    await appointmentsCollection
+        .document(appointment.id)
+        .setData(appointment.toFireStore());
   }
 
   ///map a list of patient

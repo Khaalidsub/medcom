@@ -25,6 +25,7 @@ class _PatientDetailsState extends State<PatientDetails>
   TabController _controller;
 
   List<Appointment> appointments;
+  Patient patient;
   @override
   void initState() {
     super.initState();
@@ -42,7 +43,6 @@ class _PatientDetailsState extends State<PatientDetails>
       setState(() {
         appointments[index] = data;
       });
-      print(appointments[index].doctorName);
     }
   }
 
@@ -67,7 +67,7 @@ class _PatientDetailsState extends State<PatientDetails>
           stream: _patientDetailsBloc.patient,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              Patient patient = snapshot.data;
+              patient = snapshot.data;
               _patientDetailsBloc.appointmentIds = patient.appointments;
               return Column(
                 children: <Widget>[
@@ -229,7 +229,7 @@ class _PatientDetailsState extends State<PatientDetails>
               appointments: appointments
                   .where((test) => test.status == "latest")
                   .toList(),
-              updateAppointment: () => null),
+              updateAppointment: updateAppointment),
 
           AppointmenContent((appointments
               .where((test) => test.status == "history")

@@ -14,16 +14,16 @@ Appointment ap1 = Appointment(
     date: 'DateTime.now()',
     day: "Sunday",
     description: "General check up",
-    ownerId: 'p01',
+    // ownerId: 'p01',
     status: "latest");
 Appointment ap2 = Appointment(
     date: 'DateTime.now()',
     day: "Sunday",
     description: "General checkup",
-    ownerId: 'p01',
+    // ownerId: 'p01',
     diagnosis: 'Slight Migraine',
     status: "history",
-    doctorName: 'adeen',
+    // doctor: 'adeen',
     medicines: [med1]);
 
 Patient p1 = Patient(

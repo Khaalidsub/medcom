@@ -42,9 +42,20 @@ class Repository {
     return _userServiceProvider.getUserWithDocumentId(documentId);
   }
 
+  Stream<List<Doctor>> getHospitalDoctorList(String hospitalId) {
+    _doctorServiceProvider = DoctorServiceProvider(hospitalId: hospitalId);
+    return _doctorServiceProvider.doctorList;
+  }
+
   Stream<List<Appointment>> getPatientAppointmentList(List<dynamic> ids) {
     _appoitmentServiceProvider = AppoitmentServiceProvider(appointmentIds: ids);
     return _appoitmentServiceProvider.appointmentList;
+  }
+
+  Stream<Appointment> getAppointment(String appointmentId) {
+    _appoitmentServiceProvider =
+        AppoitmentServiceProvider(documentId: appointmentId);
+    return _appoitmentServiceProvider.appointment;
   }
 
   //getting the patients List of the hospital
@@ -111,7 +122,7 @@ class Repository {
   Future addAppoitment(Appointment appointment, String patientEmail) async {
     Patient patient = await _userServiceProvider.getUser(patientEmail);
     try {
-      appointment.ownerId = patient.id;
+      appointment.ownerID = patient.id;
       _appoitmentServiceProvider = new AppoitmentServiceProvider();
       //add appointment to firestore
       String appointmentId =
@@ -129,7 +140,10 @@ class Repository {
   ///edit profile of patient
   Future<Appointment> editappointement(Appointment appointment) async {
     try {
-      appointment = await _userServiceProvider.updateAppointment(appointment);
+      print(appointment.doctor.specialization);
+      _appoitmentServiceProvider = AppoitmentServiceProvider();
+      appointment =
+          await _appoitmentServiceProvider.updateAppointment(appointment);
 
       return appointment;
     } catch (e) {

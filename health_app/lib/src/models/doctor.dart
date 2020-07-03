@@ -14,11 +14,11 @@ class Doctor {
           hospitalId: snap.data['hospitalId'],
           documentId: snap.documentID,
         );
-  toFirestore(String hospitalId) {
+  toFirestore([String hospitalId = null]) {
     return {
       'name': this.name,
       'specialization': this.specialization,
-      'hospitalId': hospitalId
+      'hospitalId': this.hospitalId
     };
   }
 }
