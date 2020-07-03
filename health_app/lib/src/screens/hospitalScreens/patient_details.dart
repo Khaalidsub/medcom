@@ -24,26 +24,28 @@ class _PatientDetailsState extends State<PatientDetails>
       BlocProvider.getBloc<PatientDetailsBloc>();
   TabController _controller;
 
+  List<Appointment> appointments;
   @override
   void initState() {
     super.initState();
     _controller = new TabController(length: 3, vsync: this);
   }
 
-  // void updateAppointment(int index) async {
-  //   final data = await Navigator.pushNamed(
-  //     context,
-  //     '/hospital/update_appointment',
-  //     arguments: widget.patient.appointments[index],
-  //   );
-  //   print(data);
-  //   if (data != null) {
-  //     setState(() {
-  //       widget.patient.appointments[index] = data;
-  //     });
-  //     print(widget.patient.appointments[index].doctorName);
-  //   }
-  // }
+  void updateAppointment(int index) async {
+    final data = await Navigator.pushNamed(
+      context,
+      '/hospital/update_appointment',
+      arguments: appointments[index].id,
+    );
+    print(data);
+    if (data != null) {
+      setState(() {
+        appointments[index] = data;
+      });
+      print(appointments[index].doctorName);
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -94,7 +96,7 @@ class _PatientDetailsState extends State<PatientDetails>
                     stream: _patientDetailsBloc.appointmentList,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        List<Appointment> appointments = snapshot.data;
+                        appointments = snapshot.data;
 
                         return buildFetchedAppointment(
                             height, appointments, patient);

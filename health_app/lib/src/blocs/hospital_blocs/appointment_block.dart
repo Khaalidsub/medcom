@@ -23,8 +23,30 @@ class AppointmentBloc extends StreamUserBloc {
   //stream functions
   Stream<String> get day => _day.stream;
   Stream<DateTime> get date => _date.stream;
-  Stream<String> get description => _description.stream;
+  Stream<String> get description =>
+      _description.stream.transform(_validateDescription);
   Stream<bool> get ifaddedStatus => _isAdded.stream;
+
+  //validators
+  final _validateDescription = StreamTransformer<String, String>.fromHandlers(
+      handleData: (description, sink) {
+    if (description.length > 1) {
+      sink.add(description.trim());
+    } else
+      sink.addError("Description should be written!");
+  });
+
+  bool validateFields() {
+    if (_date.value != null &&
+        _date.hasValue &&
+        _day.value != null &&
+        _day.hasValue &&
+        _description.value != null &&
+        _description.hasValue) {
+      return true;
+    } else
+      return false;
+  }
 
   //add appoinmte
   // ignore: missing_return

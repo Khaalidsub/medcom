@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:health_app/src/blocs/hospital_blocs/appointment_block.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
+import 'package:health_app/src/screens/widgets/error_message.dart';
 import 'package:health_app/src/screens/widgets/input_field.dart';
 import 'package:health_app/src/screens/widgets/progress_bar.dart';
 import 'package:intl/intl.dart';
@@ -41,6 +42,13 @@ class _AddAppointmentState extends State<AddAppointment> {
   void dispose() {
     _appointmentBloc.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    _appointmentBloc.changedate(newDate);
+    _appointmentBloc.changeday(DateFormat('EEEE').format(newDate));
+    super.initState();
   }
 
   @override
@@ -99,25 +107,38 @@ class _AddAppointmentState extends State<AddAppointment> {
       stream: _appointmentBloc.ifaddedStatus,
       initialData: _appointmentBloc.showIfAdded(false),
       builder: (context, snapshot) {
-        return Container(
-          margin: EdgeInsets.only(bottom: 15, left: 40, right: 40),
-          child: FloatingActionButton(
-            heroTag: 'appointment',
-            onPressed: () {
-              _appointmentBloc.showIfAdded(true);
-              _appointmentBloc.addAppointment(widget.email);
-              return Navigator.pop(context);
-            },
-            isExtended: true,
-            child: Text(
-              'Add Appointment',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20),
+        if (snapshot.hasData) {
+          if (snapshot.data) {
+            return ProgressBar();
+          }
+          return Container(
+            margin: EdgeInsets.only(bottom: 15, left: 40, right: 40),
+            child: FloatingActionButton(
+              heroTag: 'appointment',
+              onPressed: () {
+                _appointmentBloc.showIfAdded(true);
+                if (_appointmentBloc.validateFields()) {
+                  _appointmentBloc.showIfAdded(false);
+                  _appointmentBloc.addAppointment(widget.email);
+                  return Navigator.pop(context);
+                } else {
+                  _appointmentBloc.showIfAdded(false);
+                  ErrorMessage(context: context, input: 'wrong user fields')
+                      .showErrorMessage();
+                }
+              },
+              isExtended: true,
+              child: Text(
+                'Add Appointment',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              ),
             ),
-          ),
-        );
+          );
+        }
+        return ProgressBar();
       },
     );
   }
