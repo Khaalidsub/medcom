@@ -1,12 +1,10 @@
 import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/doctor.dart';
 import 'package:health_app/src/models/hospital.dart';
-import 'package:health_app/src/models/medicine.dart';
 import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/models/user.dart';
 import 'package:health_app/src/services/DB/doctor_service_provider.dart';
 import 'package:health_app/src/services/DB/appointment_service_provider.dart';
-import 'package:health_app/src/services/DB/medicine_service_provider.dart';
 import 'package:health_app/src/services/DB/user_service_provider.dart';
 import 'package:health_app/src/services/auth_service_provider.dart';
 
@@ -16,7 +14,6 @@ class Repository {
   UserServiceProvider _userServiceProvider = new UserServiceProvider();
   DoctorServiceProvider _doctorServiceProvider;
   AppoitmentServiceProvider _appoitmentServiceProvider;
-  MedicineServiceProvider _medicineServiceProvider;
 
   Repository({this.documentId});
 
@@ -86,6 +83,20 @@ class Repository {
     }
   }
 
+  ///edit profile of patient
+  Future<Appointment> editappointement(Appointment appointment) async {
+    try {
+      _appoitmentServiceProvider = AppoitmentServiceProvider();
+      appointment =
+          await _appoitmentServiceProvider.updateAppointment(appointment);
+
+      return appointment;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
   ///add a patient to the hospital
   Future addPatient(Hospital hospital, String patientEmail) async {
     //get the user with the email
@@ -133,34 +144,6 @@ class Repository {
       return appointment;
     } catch (e) {
       print(e.toString());
-      return null;
-    }
-  }
-
-  ///edit profile of patient
-  Future<Appointment> editappointement(Appointment appointment) async {
-    try {
-      _appoitmentServiceProvider = AppoitmentServiceProvider();
-      appointment =
-          await _appoitmentServiceProvider.updateAppointment(appointment);
-
-      return appointment;
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
-  }
-
-  // add medicine to patient
-  Future addMedicine(Medicine medicine, Patient patient) async {
-    _medicineServiceProvider =
-        new MedicineServiceProvider(documentId: documentId);
-    try {
-      // create new medicine
-      String apId = await _medicineServiceProvider.createMedicine(medicine);
-      // get new medicine with id
-      return apId;
-    } catch (e) {
       return null;
     }
   }

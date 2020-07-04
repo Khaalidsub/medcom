@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:health_app/src/blocs/stream_user_bloc.dart';
 import 'package:health_app/src/models/doctor.dart';
 import 'package:health_app/src/models/medicine.dart';
@@ -27,18 +29,26 @@ class AppointementEditeBloc extends StreamUserBloc {
   Function(bool) get showeditStatus => _isedit.sink.add;
 
   //streams
-  Stream<String> get diagnosis => _diagnosis.stream;
+  Stream<String> get diagnosis =>
+      _diagnosis.stream.transform(_validateDiagnosis);
   Stream<bool> get editStatus => _isedit.stream;
   Stream<List<Medicine>> get medicines => _medicines.stream;
   Doctor get doctor => _doctor.value;
   //validators
-  // bool validateFields() {
-  //   if (_name.value.isNotEmpty ||
-  //       _phoneNumber.value.isNotEmpty ||
-  //       _address.value.isNotEmpty ||
-  //       _familyNumber.value.isNotEmpty) return true;
-  //   return false;
-  // }
+
+  final _validateDiagnosis =
+      StreamTransformer<String, String>.fromHandlers(handleData: (data, sink) {
+    if (data.length > 5) {
+      sink.add(data.trim());
+    } else
+      sink.addError('Not enough description');
+  });
+
+  bool validateFields() {
+    if (_diagnosis.value.isNotEmpty || _doctor.value.name.isNotEmpty)
+      return true;
+    return false;
+  }
 
   //edit function
   Future<Appointment> editAppointment() async {

@@ -7,6 +7,7 @@ import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/models/medicine.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
+import 'package:health_app/src/screens/widgets/error_message.dart';
 import 'package:health_app/src/screens/widgets/progress_bar.dart';
 import 'package:health_app/src/screens/widgets/stream_input_field.dart';
 
@@ -28,6 +29,12 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
   void updateMedicine(Medicine med) {
     medicines.add(med);
     _appointmenteditBloc.changeMedicine(medicines);
+  }
+
+  @override
+  void dispose() {
+    _appointmenteditBloc.dispose();
+    super.dispose();
   }
 
   @override
@@ -166,9 +173,17 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
             elevation: 2,
             onPressed: () async {
               _appointmenteditBloc.showeditStatus(true);
-              await _appointmenteditBloc.editAppointment();
+              if (_appointmenteditBloc.validateFields()) {
+                _appointmenteditBloc.showeditStatus(false);
+                await _appointmenteditBloc.editAppointment();
+                return Navigator.pop(context);
+              } else {
+                _appointmenteditBloc.showeditStatus(false);
+                ErrorMessage(context: context, input: 'Something is Missing!')
+                    .showErrorMessage();
+              }
+
               //  widget.appointment.add(newApp);
-              // return Navigator.pop(context);
             },
             isExtended: true,
             child: Text(
