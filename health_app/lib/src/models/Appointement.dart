@@ -36,7 +36,10 @@ class Appointment extends User {
             medicines: from.medicines);
   Appointment.fromFireStore(DocumentSnapshot snap)
       : this(
-          doctor: snap.data['doctor'] ?? null,
+          doctor: new Doctor(
+              hospitalId: snap.data['doctor']['hospitalId'],
+              name: snap.data['doctor']['name'],
+              specialization: snap.data['doctor']['specialization']),
           id: snap.documentID,
           date: snap.data['date'],
           day: snap.data['day'],

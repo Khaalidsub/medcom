@@ -21,7 +21,7 @@ class AppoitmentServiceProvider {
 
   Stream<List<Appointment>> get appointmentList {
     return appointmentsCollection
-        .where('id', whereIn: appointmentIds)
+        .where('ownerID', isEqualTo: patientId)
         .snapshots()
         .map(_appointmentList);
   }
@@ -41,7 +41,7 @@ class AppoitmentServiceProvider {
   //map it to an appoitment object
   Appointment _appointmentDataFromSnap(DocumentSnapshot snap) {
     Appointment appointment = new Appointment.fromFireStore(snap);
-
+    print(appointment.name);
     return appointment;
   }
 

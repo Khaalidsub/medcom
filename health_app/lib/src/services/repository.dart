@@ -47,8 +47,8 @@ class Repository {
     return _doctorServiceProvider.doctorList;
   }
 
-  Stream<List<Appointment>> getPatientAppointmentList(List<dynamic> ids) {
-    _appoitmentServiceProvider = AppoitmentServiceProvider(appointmentIds: ids);
+  Stream<List<Appointment>> getPatientAppointmentList(String id) {
+    _appoitmentServiceProvider = AppoitmentServiceProvider(patientId: id);
     return _appoitmentServiceProvider.appointmentList;
   }
 

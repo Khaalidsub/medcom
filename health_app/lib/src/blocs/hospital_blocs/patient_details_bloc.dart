@@ -13,10 +13,10 @@ class PatientDetailsBloc extends BlocBase {
   }
 
   Stream<List<Appointment>> get appointmentList {
-    if (appointmentIds.length != 0) {
-      return _repository.getPatientAppointmentList(appointmentIds);
-    }
-    return null;
+    // if (appointmentIds.length != 0) {
+    return _repository.getPatientAppointmentList(id);
+    // }
+    // return null;
   }
 
   @override

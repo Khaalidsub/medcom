@@ -231,9 +231,9 @@ class _PatientDetailsState extends State<PatientDetails>
                   .toList(),
               updateAppointment: updateAppointment),
 
-          AppointmenContent((appointments
-              .where((test) => test.status == "history")
-              .toList())),
+          AppointmenContent(
+            (appointments.where((test) => test.status == "history").toList()),
+          ),
 
           PatientInfo(patient)
         ],

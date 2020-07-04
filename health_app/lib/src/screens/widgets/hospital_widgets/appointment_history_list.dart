@@ -4,8 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/models/Appointement.dart';
 
 class AppointmenContent extends StatefulWidget {
-  final List<Appointment> data;
-  AppointmenContent(this.data);
+  final List<Appointment> appointment;
+  AppointmenContent(this.appointment);
 
   @override
   _AppointmenContentState createState() => _AppointmenContentState();
@@ -44,75 +44,79 @@ class _AppointmenContentState extends State<AppointmenContent> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: widget.data.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Dismissible(
-            direction: DismissDirection.endToStart,
-            confirmDismiss: null,
-            key: UniqueKey(), //unique shit
-            background: Container(
-              padding: EdgeInsets.only(right: 10),
-              color: Colors.red[800],
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  "Delete Record",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18),
-                ),
+      itemCount: widget.appointment.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Dismissible(
+          direction: DismissDirection.endToStart,
+          confirmDismiss: null,
+          key: UniqueKey(), //unique shit
+          background: Container(
+            padding: EdgeInsets.only(right: 10),
+            color: Colors.red[800],
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                "Delete Record",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
               ),
             ),
-            onDismissed: (direction) {
-              // items.removeAt(index);
-              //remove the items
-              //also from the back end
+          ),
+          onDismissed: (direction) {
+            // items.removeAt(index);
+            //remove the items
+            //also from the back end
 
-              Scaffold.of(context).showSnackBar(
-                SnackBar(
-                  content: Row(
-                    children: <Widget>[
-                      Text("Record Deleted"),
-                      IconButton(icon: Icon(Icons.undo), onPressed: null)
-                    ],
-                  ),
-                ),
-              );
-            },
-            child: Card(
-              elevation: 10,
-              color: Colors.white,
-              child: ListTile(
-                leading: Icon(FontAwesomeIcons.calendarAlt),
-                trailing: IconButton(
-                    icon: Icon(Icons.menu),
-                    onPressed: () {
-                      createAlertDialog(context);
-                    }), //on press shows a small action dialog, whatsapp for reference
-                title: Row(
+            Scaffold.of(context).showSnackBar(
+              SnackBar(
+                content: Row(
                   children: <Widget>[
-                    Text(
-                      widget.data[index].day + "  ",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      // formatDate(
-                      //     widget.data[index].date, [dd, '-', mm, '-', yyyy]),
-                      widget.data[index].date,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                subtitle: Row(
-                  children: <Widget>[
-                    Text('Doctor: ' + widget.data[index].doctor.name + '   '),
-                    Text(widget.data[index].diagnosis),
+                    Text("Record Deleted"),
+                    IconButton(icon: Icon(Icons.undo), onPressed: null)
                   ],
                 ),
               ),
+            );
+          },
+          child: Card(
+            elevation: 10,
+            color: Colors.white,
+            child: ListTile(
+              leading: Icon(FontAwesomeIcons.calendarAlt),
+              trailing: IconButton(
+                  icon: Icon(Icons.menu),
+                  onPressed: () {
+                    createAlertDialog(context);
+                  }), //on press shows a small action dialog, whatsapp for reference
+              title: Row(
+                children: <Widget>[
+                  Text(
+                    widget.appointment[index].day + "  ",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    // formatDate(
+                    //     widget.data[index].date, [dd, '-', mm, '-', yyyy]),
+                    widget.appointment[index].date,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              subtitle: Row(
+                children: <Widget>[
+                  // Text('Doctor: ' +
+                  //     widget.appointment[index].doctor.name +
+                  //     '   '),
+                  Text('${widget.appointment[index].doctor.name}' + '     '),
+                  Text(widget.appointment[index].diagnosis),
+                ],
+              ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }
