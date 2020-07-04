@@ -37,6 +37,7 @@ class Appointment extends User {
   Appointment.fromFireStore(DocumentSnapshot snap)
       : this(
           doctor: Doctor.fromAppointment(snap),
+          medicines: Medicine().fromFirestore(snap),
           id: snap.documentID,
           date: snap.data['date'],
           day: snap.data['day'],
@@ -51,10 +52,29 @@ class Appointment extends User {
       'date': this.date,
       'day': this.day,
       'description': this.description,
+      'diagnosis': null,
+      'doctor': null,
+      'ownerID': this.ownerID,
+      'status': this.status,
+      'medicines': []
+    };
+  }
+
+  toUpdateFirestore() {
+    return {
+      'id': this.id,
+      'date': this.date,
+      'day': this.day,
+      'description': this.description,
       'diagnosis': this.diagnosis,
       'doctor': this.doctor?.toFirestore() ?? null,
       'ownerID': this.ownerID,
-      'status': this.status
+      'status': this.status,
+      'medicines': [
+            // ignore: sdk_version_ui_as_code
+            ...this.medicines?.map(((medicines) => medicines.toFirestore()))
+          ] ??
+          []
     };
   }
 

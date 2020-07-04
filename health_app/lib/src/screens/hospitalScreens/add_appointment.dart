@@ -53,7 +53,6 @@ class _AddAppointmentState extends State<AddAppointment> {
 
   @override
   Widget build(BuildContext context) {
-    print('email is ${widget.email}');
     return Scaffold(
       appBar: AppNav(
         appBar: AppBar(),

@@ -41,7 +41,7 @@ class AppoitmentServiceProvider {
   //map it to an appoitment object
   Appointment _appointmentDataFromSnap(DocumentSnapshot snap) {
     Appointment appointment = new Appointment.fromFireStore(snap);
-    print(appointment.name);
+
     return appointment;
   }
 
@@ -58,7 +58,7 @@ class AppoitmentServiceProvider {
   Future _appointmentSetData(Appointment appointment) async {
     await appointmentsCollection
         .document(appointment.id)
-        .setData(appointment.toFireStore());
+        .setData(appointment.toUpdateFirestore());
   }
 
   ///map a list of patient
