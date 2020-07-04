@@ -140,7 +140,6 @@ class Repository {
   ///edit profile of patient
   Future<Appointment> editappointement(Appointment appointment) async {
     try {
-      print(appointment.doctor.specialization);
       _appoitmentServiceProvider = AppoitmentServiceProvider();
       appointment =
           await _appoitmentServiceProvider.updateAppointment(appointment);

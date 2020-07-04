@@ -3,35 +3,33 @@ import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/blocs/hospital_blocs/medicine_block.dart';
-import 'package:health_app/src/models/medicine.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
+import 'package:health_app/src/screens/widgets/error_message.dart';
+import 'package:health_app/src/screens/widgets/progress_bar.dart';
 import 'package:health_app/src/screens/widgets/stream_input_field.dart';
 
 class AddMedicine extends StatefulWidget {
-  String name;
-  String timesDaily;
-
   @override
   _AddMedicineState createState() => _AddMedicineState();
 }
 
 class _AddMedicineState extends State<AddMedicine> {
   final MedicineBloc _medicineBloc = BlocProvider.getBloc<MedicineBloc>();
-  // final _formkey = GlobalKey<FormState>();
+
   DateTime dateStart = DateTime.now();
   DateTime dateEnd = DateTime.now();
 
-  void updateName(String name) {
-    setState(() {
-      widget.name = name;
-    });
+  @override
+  void initState() {
+    _medicineBloc.changedatestart(dateStart);
+    _medicineBloc.changedateend(dateEnd);
+    super.initState();
   }
 
-  void updateTimesDaily(String daily) {
-    print(daily);
-    setState(() {
-      widget.timesDaily = daily;
-    });
+  @override
+  void dispose() {
+    _medicineBloc.dispose();
+    super.dispose();
   }
 
   @override
@@ -69,12 +67,16 @@ class _AddMedicineState extends State<AddMedicine> {
                       icon: Icon(Icons.pages),
                     ),
                     DatePicker(
-                      date: dateStart,
-                      label: 'Date Start :',
+                      dateStart,
+                      'Date Start :',
+                      _medicineBloc.start,
+                      _medicineBloc.changedatestart,
                     ),
                     DatePicker(
-                      date: dateEnd,
-                      label: 'Date End :',
+                      dateEnd,
+                      'Date End :',
+                      _medicineBloc.end,
+                      _medicineBloc.changedateend,
                     ),
                     Reusablefield(
                       stream: _medicineBloc.time,
@@ -100,27 +102,30 @@ class _AddMedicineState extends State<AddMedicine> {
         stream: _medicineBloc.ifaddedStatus,
         initialData: _medicineBloc.showifadded(false),
         builder: (context, snapshot) {
-          //alignment: Alignment.center;
-          return RaisedButton(
-            padding: EdgeInsets.all(15),
-            color: Colors.blueAccent,
-            textColor: Colors.white,
-            elevation: 2,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            onPressed: () {
-              _medicineBloc.showifadded(true);
-              Medicine medicine = new Medicine(
-                  name: widget.name,
-                  daily: widget.timesDaily,
-                  dateStart: dateStart,
-                  dateEnd: dateEnd);
-
-              return Navigator.pop(context, medicine);
-            },
-            child: Text(
-              'Add new Medication',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+          return Container(
+            alignment: Alignment.center,
+            child: RaisedButton(
+              padding: EdgeInsets.all(15),
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30)),
+              onPressed: () {
+                _medicineBloc.showifadded(true);
+                if (_medicineBloc.validateFields()) {
+                  _medicineBloc.showifadded(false);
+                  return Navigator.pop(context, _medicineBloc.addMedicine());
+                } else {
+                  _medicineBloc.showifadded(false);
+                  ErrorMessage(context: context, input: 'Empty fields!')
+                      .showErrorMessage();
+                }
+              },
+              child: Text(
+                'Add new Medication',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+              ),
             ),
           );
         });
@@ -128,9 +133,11 @@ class _AddMedicineState extends State<AddMedicine> {
 }
 
 class DatePicker extends StatefulWidget {
+  final Stream stream;
+  final Function change;
   DateTime date;
   final String label;
-  DatePicker({this.date, this.label});
+  DatePicker([this.date, this.label, this.stream, this.change]);
 
   @override
   _DatePickerState createState() => _DatePickerState();
@@ -144,13 +151,7 @@ class _DatePickerState extends State<DatePicker> {
         firstDate: DateTime(2000),
         lastDate: DateTime(3000));
 
-    if (selectedDate != null && selectedDate != widget.date) {
-      setState(() {
-        widget.date = selectedDate;
-        // widget.day = DateFormat('EEEE').format(selectedDate);
-      });
-      // print('hellloo ${Navigator.canPop(context)}');
-    }
+    widget.change(selectedDate);
   }
 
   @override
@@ -159,22 +160,32 @@ class _DatePickerState extends State<DatePicker> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(widget.label),
-        TextFormField(
-          readOnly: true,
-          keyboardType: TextInputType.datetime,
-          decoration: InputDecoration(
-            labelText: formatDate(this.widget.date, [dd, '-', mm, '-', yyyy]),
-            labelStyle: TextStyle(color: Colors.black),
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(width: 0, style: BorderStyle.none)),
-            suffixIcon: IconButton(
-              icon: Icon(FontAwesomeIcons.calendarWeek),
-              onPressed: () {
-                selectDate(context);
-              },
-            ),
-          ),
+        StreamBuilder<Object>(
+          stream: widget.stream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return TextFormField(
+                readOnly: true,
+                keyboardType: TextInputType.datetime,
+                decoration: InputDecoration(
+                  labelText:
+                      formatDate(snapshot.data, [dd, '-', mm, '-', yyyy]),
+                  labelStyle: TextStyle(color: Colors.black),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide:
+                          BorderSide(width: 0, style: BorderStyle.none)),
+                  suffixIcon: IconButton(
+                    icon: Icon(FontAwesomeIcons.calendarWeek),
+                    onPressed: () {
+                      selectDate(context);
+                    },
+                  ),
+                ),
+              );
+            }
+            return ProgressBar();
+          },
         ),
       ],
     );

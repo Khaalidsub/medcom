@@ -21,4 +21,12 @@ class Doctor {
       'hospitalId': this.hospitalId
     };
   }
+
+  Doctor.fromAppointment(DocumentSnapshot snap) {
+    if (snap.data['doctor'] != null) {
+      this.hospitalId = snap.data['doctor']['hospitalId'];
+      this.name = snap.data['doctor']['name'];
+      this.specialization = snap.data['doctor']['specialization'];
+    }
+  }
 }
