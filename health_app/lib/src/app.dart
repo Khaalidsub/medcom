@@ -17,6 +17,8 @@ import 'package:health_app/src/blocs/patient_blocs/patient_settings_bloc.dart';
 import 'package:health_app/src/blocs/welcoming_screen_bloc.dart';
 import 'package:health_app/src/utils/routing.dart';
 
+import 'blocs/patient_blocs/appointment_details_bloc.dart';
+
 
 // import 'package:health_app/src/screens/splash_screen.dart';
 
@@ -51,6 +53,7 @@ class _AppState extends State<App> {
         Bloc((i) => MedicineBloc()),
         Bloc((i) => AppointementEditeBloc()),
         Bloc((i) => AppointementListBloc()),
+        Bloc((i) => AppointmentDetailsBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

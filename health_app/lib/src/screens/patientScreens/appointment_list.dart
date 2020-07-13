@@ -76,7 +76,11 @@ class _AppointementListState extends State<AppointementList> {
                   itemBuilder: (BuildContext context, int index) {
                     return Card(
                       child: ListTile(
-                          onTap: () {}, //goes to appointment details if needed 
+                          onTap: () { Navigator.pushNamed(
+                              context,
+                              '/patient/appointemnts_details',
+                              arguments: appointemnts[index].id,
+                            );}, //goes to appointment details if needed 
                           leading: CircleAvatar(
                             backgroundColor: Colors.black,
                             backgroundImage:
