@@ -8,6 +8,9 @@ class PatientHome extends StatefulWidget {
 // Function changeIndex;
 // int index;
 // PatientHome({this.changeIndex, this.index});
+  final String patientId;
+
+  PatientHome(this.patientId);
 
   @override
   _PatientHomeState createState() => _PatientHomeState();
@@ -51,7 +54,9 @@ class _PatientHomeState extends State<PatientHome> {
                     // alignment: Alignment.centerRight,
 
                     child: GestureDetector(
-                      onTap: () => {},
+                       onTap: () => Navigator.pushNamed(
+                        context, '/patient/appointementList',
+                        arguments: widget.patientId),
                       child: Card(
                         elevation: 10,
                         color: Color(0xff3D73DD),

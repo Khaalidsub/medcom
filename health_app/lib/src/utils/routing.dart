@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_app/src/screens/hospitalScreens/hospital_registration.dart';
 import 'package:health_app/src/screens/hospitalScreens/patient_details.dart';
 import 'package:health_app/src/screens/login.dart';
+import 'package:health_app/src/screens/patientScreens/appointment_list.dart';
 import 'package:health_app/src/screens/patientScreens/patient_registration.dart';
 import 'package:health_app/src/screens/welcoming_screen.dart';
 import 'package:health_app/src/screens/patientScreens/edit_profile.dart';
@@ -49,7 +50,9 @@ class Routes {
       case '/patient/settings':
         builder = (BuildContext context) => PatientSettings();
         break;
-
+      case '/patient/appointementList':
+        builder = (BuildContext context) => AppointementList(settings.arguments);
+        break;
       //hospital routings
       case '/hospital':
         builder = (BuildContext context) => HospitalNavigation();

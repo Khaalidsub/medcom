@@ -47,7 +47,7 @@ class _MainScreenState extends State<PatientNavigation> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               Patient patient = snapshot.data;
-              page.add(PatientHome());
+              page.add(PatientHome(patient.id));
               page.add(PatientHistory());
               page.add(Scan(patient));
               page.add(PatientProfile(patient));
