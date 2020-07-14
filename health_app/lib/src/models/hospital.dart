@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:health_app/src/models/user.dart';
-
+final randomImage = 'https://firebasestorage.googleapis.com/v0/b/utm-market.appspot.com/o/weirdo.jpg?alt=media&token=45473e1d-68a5-48b4-8262-a357d0c2f92d';
 class Hospital extends User {
   String phoneNumber;
   String address;
@@ -30,7 +30,7 @@ class Hospital extends User {
       : super(
             email: snap.data['email'],
             type: snap.data['type'],
-            imageUrl: snap.data['image']) {
+            imageUrl: snap.data['image']??randomImage) {
     address = snap.data['address'];
     dirName = snap.data['director'];
     phoneNumber = snap.data['phone'];

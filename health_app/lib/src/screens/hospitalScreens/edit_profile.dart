@@ -23,14 +23,13 @@ class _EditProfileState extends State<HospitalEditProfile> {
   final hospitalEditBloc = HospitalEditBloc();
   Hospital hospital;
   File imageFile;
-  String imageURL = 'https://firebasestorage.googleapis.com/v0/b/utm-market.appspot.com/o/weirdo.jpg?alt=media&token=45473e1d-68a5-48b4-8262-a357d0c2f92d';
+  
 
    Future getImage(BuildContext context, ImageSource source) async{
      ImagePicker picker = ImagePicker();
     final pickedFile =await picker.getImage(source: source);
-    setState(() {
-      imageFile = File(pickedFile.path);
-    });
+    await hospitalEditBloc.changeImage(File(pickedFile.path));
+  
     Navigator.pop(context);
   }
   @override
@@ -45,6 +44,7 @@ class _EditProfileState extends State<HospitalEditProfile> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               this.hospital = snapshot.data;
+           
               return SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
@@ -57,9 +57,20 @@ class _EditProfileState extends State<HospitalEditProfile> {
                         child: ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(100),
-                                        child: Image.network(
-                                          imageURL,
-                                          fit: BoxFit.cover,
+                                        child: StreamBuilder<Object>(
+                                          stream: hospitalEditBloc.imageFile,
+                                          builder: (context, snapshot) {
+                                            if (snapshot.hasData) {
+                                               return Image.file(
+                                              snapshot.data,
+                                              fit: BoxFit.cover,
+                                            );
+                                            }
+                                            return Image.network(
+                                              hospital.imageUrl,
+                                              fit: BoxFit.cover,
+                                            );
+                                          }
                                         ),
                                       ),
                                     ),

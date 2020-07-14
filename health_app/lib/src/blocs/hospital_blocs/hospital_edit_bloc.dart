@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/models/user.dart';
@@ -13,6 +15,7 @@ class HospitalEditBloc extends BlocBase {
   final _numOfBeds = BehaviorSubject<String>();
   final _email = BehaviorSubject<String>();
   final _isSubmit = BehaviorSubject<bool>.seeded(false);
+   final _imageFile = BehaviorSubject<File>();
   //onChange
   Function(String) get changeName => _name.sink.add;
   Function(String) get changePhoneNumber => _phoneNumber.sink.add;
@@ -20,6 +23,7 @@ class HospitalEditBloc extends BlocBase {
   Function(String) get changeAddress => _address.sink.add;
   Function(String) get changeEmail => _email.sink.add;
   Function(bool) get showProgressBar => _isSubmit.sink.add;
+  Function(File) get changeImage => _imageFile.sink.add;
   //streams
   Stream<String> get name => _name.stream;
   Stream<String> get phoneNumber => _phoneNumber.stream;
@@ -27,14 +31,20 @@ class HospitalEditBloc extends BlocBase {
   Stream<String> get address => _address.stream;
   Stream<String> get email => _email.stream;
   Stream<bool> get submitStatus => _isSubmit.stream;
+ Stream<File> get imageFile => _imageFile.stream;
 
   Future<Hospital> editHospital(Hospital hospital) async {
+    String image;
+    if (_imageFile.hasValue) {
+      image = await _repository.uploadImage(_imageFile.value);
+    }
     //do wonders here
     hospital.name = _name.value ?? hospital.name;
     hospital.phoneNumber = _phoneNumber.value ?? hospital.phoneNumber;
     hospital.address = _address.value ?? hospital.address;
     hospital.email = _email.value ?? hospital.email;
     hospital.numOfBeds = _numOfBeds.value ?? hospital.numOfBeds;
+    hospital.imageUrl = image ?? hospital.imageUrl;
     return await _repository.editHospital(hospital);
   }
 
@@ -52,6 +62,8 @@ class HospitalEditBloc extends BlocBase {
     _phoneNumber.close();
     await _name.drain();
     _name.close();
+     await _imageFile.drain();
+    _imageFile.close();
     super.dispose();
   }
 }
