@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/blocs/hospital_blocs/hospital_edit_bloc.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
+import 'package:health_app/src/screens/widgets/dialogues.dart';
 import 'package:health_app/src/screens/widgets/error_message.dart';
 import 'package:health_app/src/screens/widgets/progress_bar.dart';
 import 'package:health_app/src/screens/widgets/stream_input_field.dart';
+import 'package:image_picker/image_picker.dart';
 
 class HospitalEditProfile extends StatefulWidget {
 //instantiating bloc
@@ -18,6 +22,17 @@ class HospitalEditProfile extends StatefulWidget {
 class _EditProfileState extends State<HospitalEditProfile> {
   final hospitalEditBloc = HospitalEditBloc();
   Hospital hospital;
+  File imageFile;
+  String imageURL = 'https://firebasestorage.googleapis.com/v0/b/utm-market.appspot.com/o/weirdo.jpg?alt=media&token=45473e1d-68a5-48b4-8262-a357d0c2f92d';
+
+   Future getImage(BuildContext context, ImageSource source) async{
+     ImagePicker picker = ImagePicker();
+    final pickedFile =await picker.getImage(source: source);
+    setState(() {
+      imageFile = File(pickedFile.path);
+    });
+    Navigator.pop(context);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,15 +48,21 @@ class _EditProfileState extends State<HospitalEditProfile> {
               return SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.all(30),
-                      height: 200,
-                      child: Hero(
-                        tag: 'logo',
-                        child: Image.asset(
-                          "assets/images/buildingIcon.png",
-                        ),
-                      ),
+                    GestureDetector(
+                      onTap: ()=>openImagePicker(context,getImage),
+                                          child: Container(
+                        padding: EdgeInsets.all(30),
+                        height: 200,
+                        width: 200,
+                        child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        child: Image.network(
+                                          imageURL,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(25, 5, 25, 25),
