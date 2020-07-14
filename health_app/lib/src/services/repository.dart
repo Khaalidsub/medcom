@@ -44,6 +44,11 @@ class Repository {
     return _doctorServiceProvider.doctorList;
   }
 
+  Stream<List<Appointment>> getAppointmentsByDay(String date) {
+    _appoitmentServiceProvider = AppoitmentServiceProvider(date: date);
+    return _appoitmentServiceProvider.appointmentsByDay;
+  }
+
   Stream<List<Appointment>> getPatientAppointmentList(String id) {
     _appoitmentServiceProvider = AppoitmentServiceProvider(patientId: id);
     return _appoitmentServiceProvider.appointmentList;

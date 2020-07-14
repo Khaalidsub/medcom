@@ -7,9 +7,14 @@ class AppoitmentServiceProvider {
   String documentId;
   String doctorId;
   String patientId;
+  String date;
   List<dynamic> appointmentIds;
   AppoitmentServiceProvider(
-      {this.documentId, this.doctorId, this.patientId, this.appointmentIds});
+      {this.documentId,
+      this.doctorId,
+      this.patientId,
+      this.appointmentIds,
+      this.date});
 
   ///get the appoitment
   Stream<Appointment> get appointment {
@@ -22,6 +27,13 @@ class AppoitmentServiceProvider {
   Stream<List<Appointment>> get appointmentList {
     return appointmentsCollection
         .where('ownerID', isEqualTo: patientId)
+        .snapshots()
+        .map(_appointmentList);
+  }
+
+  Stream<List<Appointment>> get appointmentsByDay {
+    return appointmentsCollection
+        .where('date', isEqualTo: this.date)
         .snapshots()
         .map(_appointmentList);
   }
