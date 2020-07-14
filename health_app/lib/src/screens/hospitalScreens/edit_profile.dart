@@ -49,6 +49,7 @@ class _EditProfileState extends State<HospitalEditProfile> {
                         runSpacing: 20,
                         children: <Widget>[
                           Reusablefield(
+                            label: "Name",
                             initialValue: hospital.name,
                             stream: hospitalEditBloc.name,
                             onChangeFunction: hospitalEditBloc.changeName,
@@ -58,6 +59,7 @@ class _EditProfileState extends State<HospitalEditProfile> {
                             hint: 'e.g James Smith',
                           ),
                           Reusablefield(
+                            label: "Phone Number",
                             initialValue: hospital.phoneNumber,
                             stream: hospitalEditBloc.phoneNumber,
                             onChangeFunction:
@@ -68,6 +70,7 @@ class _EditProfileState extends State<HospitalEditProfile> {
                             hint: 'e.g +6011616178',
                           ),
                           Reusablefield(
+                            label: "Email",
                             initialValue: hospital.email,
                             stream: hospitalEditBloc.email,
                             onChangeFunction: hospitalEditBloc.changeEmail,
@@ -77,6 +80,7 @@ class _EditProfileState extends State<HospitalEditProfile> {
                             hint: 'e.g user@gmail.com',
                           ),
                           Reusablefield(
+                            label: "Bed Count",
                             initialValue: hospital.numOfBeds.toString(),
                             stream: hospitalEditBloc.numOfBeds,
                             onChangeFunction: hospitalEditBloc.changeEmail,
@@ -86,6 +90,7 @@ class _EditProfileState extends State<HospitalEditProfile> {
                             hint: 'e.g 30',
                           ),
                           Reusablefield(
+                            label: "Address",
                             initialValue: hospital.address,
                             stream: hospitalEditBloc.address,
                             onChangeFunction: hospitalEditBloc.changeAddress,

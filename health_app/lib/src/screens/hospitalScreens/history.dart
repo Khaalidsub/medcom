@@ -33,6 +33,7 @@ class HospitalHistory extends StatelessWidget {
                   child: ListView.builder(
                       itemCount: 6,
                       scrollDirection: Axis.horizontal,
+                      
                       itemBuilder: (context, index) {
                         return Container(
                           height: 100,
