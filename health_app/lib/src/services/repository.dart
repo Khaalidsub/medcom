@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/doctor.dart';
 import 'package:health_app/src/models/hospital.dart';
@@ -7,6 +9,7 @@ import 'package:health_app/src/services/DB/doctor_service_provider.dart';
 import 'package:health_app/src/services/DB/appointment_service_provider.dart';
 import 'package:health_app/src/services/DB/user_service_provider.dart';
 import 'package:health_app/src/services/auth_service_provider.dart';
+import 'package:health_app/src/services/storage_service_provider.dart';
 
 class Repository {
   String documentId;
@@ -71,9 +74,13 @@ class Repository {
       return null;
     }
   }
+  Future<String> uploadImage(File image)async{
+    return await StorgageService().uploadFile(image);
+  }
 
   Future<Hospital> editHospital(Hospital hospital) async {
     try {
+     
       hospital = await _userServiceProvider.updateHospitalData(hospital);
 
       return hospital;

@@ -6,7 +6,8 @@ class User {
   String password;
   String email;
   String type;
-  User({this.id, this.email, this.name, this.type, this.password});
+  String imageUrl;
+  User({this.id, this.email, this.name, this.type, this.password,this.imageUrl});
   User.fromFirebase(FirebaseUser user)
       : this(
           id: user.uid,

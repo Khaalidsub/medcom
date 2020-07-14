@@ -27,16 +27,19 @@ class Hospital extends User {
             password: password);
 
   Hospital.fromFirestore(DocumentSnapshot snap)
-      : this(
-          address: snap.data['address'],
-          dirName: snap.data['director'],
-          phoneNumber: snap.data['phone'],
-          id: snap.documentID,
-          patients: snap.data['patients'] ?? [],
-          doctors: snap.data['doctors'] ?? [],
-          name: snap.data['name'],
-          email: snap.data['email'],
-        );
+      : super(
+            email: snap.data['email'],
+            type: snap.data['type'],
+            imageUrl: snap.data['image']) {
+    address = snap.data['address'];
+    dirName = snap.data['director'];
+    phoneNumber = snap.data['phone'];
+    id = snap.documentID;
+    patients = snap.data['patients'] ?? [];
+    doctors = snap.data['doctors'] ?? [];
+    name = snap.data['name'];
+    email = snap.data['email'];
+  }
   toFirestore() {
     return {
       'name': this.name,
@@ -47,6 +50,7 @@ class Hospital extends User {
       'doctors': this.doctors,
       'patients': this.patients,
       'email': this.email,
+      'image': this.imageUrl
     };
   }
 }
