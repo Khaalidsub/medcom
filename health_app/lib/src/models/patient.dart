@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:health_app/src/models/user.dart';
-
+final randomImage = 'https://firebasestorage.googleapis.com/v0/b/utm-market.appspot.com/o/weirdo.jpg?alt=media&token=45473e1d-68a5-48b4-8262-a357d0c2f92d';
 class Patient extends User {
   String bloodType;
   String familyNumber;
@@ -50,7 +50,7 @@ class Patient extends User {
             password: password);
 
   Patient.fromFirestore(DocumentSnapshot snap)
-      : super(email: snap.data['email'], type: snap.data['type'],imageUrl:snap.data['image']) {
+      : super(email: snap.data['email'], type: snap.data['type'],imageUrl:snap.data['image']??randomImage) {
     bloodType = snap.data['bloodType'];
     gender = snap.data['gender'];
     name = snap.data['name'];

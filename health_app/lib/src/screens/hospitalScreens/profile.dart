@@ -42,7 +42,7 @@ class _HospitalProfileState extends State<HospitalProfile> {
                 child: CircleAvatar(
                   maxRadius: 50,
                   backgroundColor: Colors.black,
-                  backgroundImage: AssetImage('assets/images/buildingIcon.png'),
+                  backgroundImage: NetworkImage(widget.user.imageUrl),
                 ),
               ),
               Text(
