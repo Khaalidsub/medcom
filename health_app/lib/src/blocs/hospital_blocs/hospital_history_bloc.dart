@@ -8,6 +8,7 @@ import 'package:health_app/src/services/repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class HospitalHistoryBloc extends BlocBase {
+  String hospitalId;
   final repository = Repository();
   final monthSubject = BehaviorSubject<int>();
   final daySubject = BehaviorSubject<int>();
@@ -30,7 +31,8 @@ class HospitalHistoryBloc extends BlocBase {
   }
 
   Stream<List<Appointment>> fetchAppointments() {
-    final date = "$year-$month-$day";
-    return this.repository.getAppointmentsByDay(date);
+    final date =
+        "2020-$month-$day"; //If you found the year, please know that i was tired.
+    return this.repository.getAppointmentsByDay(this.hospitalId, date);
   }
 }

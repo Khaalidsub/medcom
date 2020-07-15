@@ -8,13 +8,15 @@ class AppoitmentServiceProvider {
   String doctorId;
   String patientId;
   String date;
+  String hospId;
   List<dynamic> appointmentIds;
   AppoitmentServiceProvider(
       {this.documentId,
       this.doctorId,
       this.patientId,
       this.appointmentIds,
-      this.date});
+      this.date,
+      this.hospId});
 
   ///get the appoitment
   Stream<Appointment> get appointment {
@@ -34,6 +36,7 @@ class AppoitmentServiceProvider {
   Stream<List<Appointment>> get appointmentsByDay {
     return appointmentsCollection
         .where('date', isEqualTo: this.date)
+        .where('hospital', isEqualTo: '${this.hospId}')
         .snapshots()
         .map(_appointmentList);
   }
@@ -53,7 +56,6 @@ class AppoitmentServiceProvider {
   //map it to an appoitment object
   Appointment _appointmentDataFromSnap(DocumentSnapshot snap) {
     Appointment appointment = new Appointment.fromFireStore(snap);
-
     return appointment;
   }
 

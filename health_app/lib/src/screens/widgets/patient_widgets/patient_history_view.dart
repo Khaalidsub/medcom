@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:health_app/src/models/Appointement.dart';
 
 class PatientHistoryView extends StatelessWidget {
+  final Appointment data;
+
+  PatientHistoryView(this.data);
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
@@ -39,7 +43,7 @@ class PatientHistoryView extends StatelessWidget {
                     height: 15,
                   ),
                   Text(
-                    'Diagnosis',
+                    'Diagnosis: ${data.diagnosis}',
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -70,7 +74,7 @@ class PatientHistoryView extends StatelessWidget {
                       Icon(FontAwesomeIcons.userMd,
                           size: 35, color: Colors.white),
                       Text(
-                        'Name',
+                        '${data.doctor.name}',
                         style: TextStyle(color: Colors.white),
                       ),
                     ],

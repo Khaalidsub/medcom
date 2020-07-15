@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/src/blocs/hospital_blocs/hospital_history_bloc.dart';
+import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/chart.dart';
 import 'package:health_app/src/screens/widgets/patient_widgets/patient_history_view.dart';
 
 class HospitalHistory extends StatefulWidget {
+  final String hospitalId;
+  HospitalHistory(this.hospitalId);
   @override
   _HospitalHistoryState createState() => _HospitalHistoryState();
 }
 
 class _HospitalHistoryState extends State<HospitalHistory> {
   final historyBloc = HospitalHistoryBloc();
+  static int days;
+  List<bool> _selected = List.generate(12, (i) => false);
+  List<bool> _daySelected = List.generate(days, (i) => false);
   DateTime _date = DateTime.now();
-  int days;
+
   // String month;
   void getDays([int month]) {
     if (month == 2) {
@@ -75,6 +81,7 @@ class _HospitalHistoryState extends State<HospitalHistory> {
 
   @override
   Widget build(BuildContext context) {
+    historyBloc.hospitalId = widget.hospitalId;
     MediaQueryData queryData = MediaQuery.of(context);
     double width = queryData.size.width;
     return Scaffold(
@@ -97,7 +104,6 @@ class _HospitalHistoryState extends State<HospitalHistory> {
                       'Dates',
                       style: TextStyle(fontSize: 25),
                     ),
-
                     Container(
                       height: 50,
                       width: width * 1,
@@ -111,6 +117,11 @@ class _HospitalHistoryState extends State<HospitalHistory> {
                             width: 50,
                             child: GestureDetector(
                               onTap: () {
+                                for (int i = 0; i < _selected.length; i++) {
+                                  index == i
+                                      ? _selected[i] = true
+                                      : _selected[i] = false;
+                                }
                                 setState(() {
                                   getDays(index + 1);
                                 });
@@ -121,7 +132,9 @@ class _HospitalHistoryState extends State<HospitalHistory> {
                                 elevation: 3,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20)),
-                                color: Color(0xff3D73DD),
+                                color: _selected[index]
+                                    ? Colors.lightBlueAccent
+                                    : Color(0xff3D73DD),
                                 child: Center(
                                     child: Text(
                                   getMonth(index + 1),
@@ -133,18 +146,6 @@ class _HospitalHistoryState extends State<HospitalHistory> {
                         },
                       ),
                     ),
-
-                    //       Wrap(
-                    //         spacing: 10,
-                    //         direction: Axis.horizontal,
-                    //         children: <Widget>[
-                    //           GestureDetector(
-                    //               onTap: () => getDate(DateTime.may),
-                    //               child: Text('May')),
-                    //           GestureDetector(onTap: () {}, child: Text('June')),
-                    //           GestureDetector(onTap: () {}, child: Text('July')),
-                    //         ],
-                    //       ),
                   ],
                 ),
               ),
@@ -161,15 +162,22 @@ class _HospitalHistoryState extends State<HospitalHistory> {
                       width: 100,
                       child: GestureDetector(
                         onTap: () {
-                          historyBloc.daySink.add(index + 1);
-                          //once day is chosen, initiate the fetching of Appointments
-                          historyBloc.fetchAppointments();
+                          setState(() {
+                            historyBloc.daySink.add(index + 1);
+                            for (int i = 0; i < _daySelected.length; i++) {
+                              index == i
+                                  ? _daySelected[i] = true
+                                  : _daySelected[i] = false;
+                            }
+                          });
                         },
                         child: Card(
                           elevation: 3,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20)),
-                          color: Color(0xff3D73DD),
+                          color: _daySelected[index]
+                              ? Colors.lightBlueAccent
+                              : Color(0xff3D73DD),
                           child: Center(
                               child: Text(
                             '${index + 1}',
@@ -211,19 +219,41 @@ class _HospitalHistoryState extends State<HospitalHistory> {
               SizedBox(
                 height: 10,
               ),
-              Container(
-                height: 250,
-                child: PageView(
-                  children: <Widget>[
-                    PatientHistoryView(), //send here
-                    PatientHistoryView(),
-                  ],
-                ),
-              ),
+              buildPatientHistoryScreen(),
             ],
           ),
         ),
       ),
     );
+  }
+
+  buildPatientHistoryScreen() {
+    return StreamBuilder<List<Appointment>>(
+        stream: historyBloc.fetchAppointments(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data.length != 0) {
+              print(snapshot.data.length);
+              return Container(
+                height: 250,
+                child: PageView(
+                  children: getList(snapshot.data),
+                ),
+              );
+            } else {
+              return Text("There are no appointments for chosen dates.");
+            }
+          } else {
+            return CircularProgressIndicator();
+          }
+        });
+  }
+
+  getList(List appointments) {
+    List list = <Widget>[];
+    for (var item in appointments) {
+      list.add(PatientHistoryView(item));
+    }
+    return list;
   }
 }
