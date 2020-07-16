@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/src/blocs/hospital_blocs/hospital_history_bloc.dart';
 import 'package:health_app/src/models/Appointement.dart';
+import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/chart.dart';
 import 'package:health_app/src/screens/widgets/patient_widgets/patient_history_view.dart';
 
 class HospitalHistory extends StatefulWidget {
-  final String hospitalId;
-  HospitalHistory(this.hospitalId);
+  final Hospital hospital;
+  HospitalHistory(this.hospital);
   @override
   _HospitalHistoryState createState() => _HospitalHistoryState();
 }
 
 class _HospitalHistoryState extends State<HospitalHistory> {
   final historyBloc = HospitalHistoryBloc();
-  static int days;
-  List<bool> _selected = List.generate(12, (i) => false);
+  static int days = 31;
+  List<bool> _monthSelected = List.generate(12, (i) => false);
   List<bool> _daySelected = List.generate(days, (i) => false);
   DateTime _date = DateTime.now();
 
@@ -81,7 +82,7 @@ class _HospitalHistoryState extends State<HospitalHistory> {
 
   @override
   Widget build(BuildContext context) {
-    historyBloc.hospitalId = widget.hospitalId;
+    historyBloc.hospitalId = widget.hospital.id;
     MediaQueryData queryData = MediaQuery.of(context);
     double width = queryData.size.width;
     return Scaffold(
@@ -117,22 +118,24 @@ class _HospitalHistoryState extends State<HospitalHistory> {
                             width: 50,
                             child: GestureDetector(
                               onTap: () {
-                                for (int i = 0; i < _selected.length; i++) {
+                                for (int i = 0;
+                                    i < _monthSelected.length;
+                                    i++) {
                                   index == i
-                                      ? _selected[i] = true
-                                      : _selected[i] = false;
+                                      ? _monthSelected[i] = true
+                                      : _monthSelected[i] = false;
                                 }
+                                historyBloc.monthSink.add(index + 1);
                                 setState(() {
                                   getDays(index + 1);
                                 });
                                 //sink the id
-                                historyBloc.monthSink.add(index + 1);
                               },
                               child: Card(
                                 elevation: 3,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20)),
-                                color: _selected[index]
+                                color: _monthSelected[index]
                                     ? Colors.lightBlueAccent
                                     : Color(0xff3D73DD),
                                 child: Center(
@@ -206,7 +209,10 @@ class _HospitalHistoryState extends State<HospitalHistory> {
                   color: Colors.transparent,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  child: Charts(),
+                  child: Charts(
+                    numPatients: widget.hospital.patients.length,
+                    numDoctors: widget.hospital.doctors.length,
+                  ),
                 ),
               ),
               SizedBox(

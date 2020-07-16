@@ -52,7 +52,7 @@ class _HospitalMainState extends State<HospitalNavigation> {
 
               page.add(HospitalHome(hospital.id));
               page.add(AddScreen(hospital));
-              page.add(HospitalHistory(hospital.id));
+              page.add(HospitalHistory(hospital));
               page.add(ScanHospital());
               page.add(HospitalProfile(hospital));
 
