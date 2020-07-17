@@ -36,7 +36,7 @@ class _AddScreenState extends State<AddScreen> {
   }
 
   Widget buildDoctor() {
-    print(widget.hospital.id);
+    
     return Scaffold(
         appBar: AppNav(
           appBar: AppBar(),

@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class Charts extends StatefulWidget {
+  int numPatients;
+  int numDoctors;
+//Kindly send appropriate initializers for your screens. Other wise it takes 0 and 0 as patient and doctors
+  Charts({this.numPatients = 0, this.numDoctors = 0});
   @override
   _ChartsState createState() => _ChartsState();
 }
@@ -12,35 +16,22 @@ class _ChartsState extends State<Charts> {
 
   _generateData() {
     var data1 = [
-      new Pollution(1980, '', 30),
-      new Pollution(1980, '', 40),
-      new Pollution(1980, '', 10),
+      new Pollution(1980, '', widget.numDoctors),
     ];
     var data2 = [
-      new Pollution(1985, '', 100),
-      new Pollution(1980, '', 150),
-      new Pollution(1985, '', 80),
-    ];
-    var data3 = [
-      new Pollution(1985, '', 200),
-      new Pollution(1980, '', 300),
-      new Pollution(1985, '', 180),
+      new Pollution(1985, '', widget.numPatients),
     ];
 
     var piedata = [
-      new Task('Work', 35.8, Color(0xff3366cc)),
-      new Task('Eat', 8.3, Color(0xff990099)),
-      new Task('Commute', 10.8, Color(0xff109618)),
-      new Task('TV', 15.6, Color(0xfffdbe19)),
-      new Task('Sleep', 19.2, Color(0xffff9900)),
-      new Task('Other', 10.3, Color(0xffdc3912)),
+      new Task('Patients', widget.numPatients.toDouble(), Color(0xff3366cc)),
+      new Task('Doctors', widget.numDoctors.toDouble(), Color(0xff990099)),
     ];
 
     _seriesData.add(
       charts.Series(
         domainFn: (Pollution pollution, _) => pollution.place,
         measureFn: (Pollution pollution, _) => pollution.quantity,
-        id: '2017',
+        id: 'doctors',
         data: data1,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
         fillColorFn: (Pollution pollution, _) =>
@@ -52,23 +43,11 @@ class _ChartsState extends State<Charts> {
       charts.Series(
         domainFn: (Pollution pollution, _) => pollution.place,
         measureFn: (Pollution pollution, _) => pollution.quantity,
-        id: '2018',
+        id: 'patients',
         data: data2,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
         fillColorFn: (Pollution pollution, _) =>
             charts.ColorUtil.fromDartColor(Color(0xff9EDAFE)),
-      ),
-    );
-
-    _seriesData.add(
-      charts.Series(
-        domainFn: (Pollution pollution, _) => pollution.place,
-        measureFn: (Pollution pollution, _) => pollution.quantity,
-        id: '2019',
-        data: data3,
-        fillPatternFn: (_, __) => charts.FillPatternType.solid,
-        fillColorFn: (Pollution pollution, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xfffCDCCFD)),
       ),
     );
 
