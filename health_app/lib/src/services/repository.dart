@@ -53,12 +53,12 @@ class Repository {
     return _appoitmentServiceProvider.appointmentsByDay;
   }
 
-  Stream<List<Appointment>> getAppointmentsByDayForPatient(String id, String date) {
+  Stream<List<Appointment>> getAppointmentsByDayForPatient(
+      String id, String date) {
     _appoitmentServiceProvider =
         AppoitmentServiceProvider(patientId: id, date: date);
     return _appoitmentServiceProvider.appointmentsByDay;
   }
-
 
   Stream<List<Appointment>> getPatientAppointmentList(String id) {
     _appoitmentServiceProvider = AppoitmentServiceProvider(patientId: id);
@@ -87,13 +87,13 @@ class Repository {
       return null;
     }
   }
-  Future<String> uploadImage(File image)async{
+
+  Future<String> uploadImage(File image) async {
     return await StorgageService().uploadFile(image);
   }
 
   Future<Hospital> editHospital(Hospital hospital) async {
     try {
-     
       hospital = await _userServiceProvider.updateHospitalData(hospital);
 
       return hospital;
@@ -156,6 +156,7 @@ class Repository {
       appointment.ownerID = patient.id;
       _appoitmentServiceProvider = new AppoitmentServiceProvider();
       //add appointment to firestore
+
       String appointmentId =
           await _appoitmentServiceProvider.createAppoitment(appointment);
       patient.appointments.add(appointmentId);

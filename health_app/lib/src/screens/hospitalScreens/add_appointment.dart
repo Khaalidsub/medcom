@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:health_app/src/blocs/hospital_blocs/appointment_block.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/error_message.dart';
 import 'package:health_app/src/screens/widgets/input_field.dart';
@@ -20,6 +21,7 @@ class AddAppointment extends StatefulWidget {
 }
 
 class _AddAppointmentState extends State<AddAppointment> {
+  Hospital hospital;
   final AppointmentBloc _appointmentBloc =
       BlocProvider.getBloc<AppointmentBloc>();
 
@@ -62,6 +64,7 @@ class _AddAppointmentState extends State<AddAppointment> {
           stream: _appointmentBloc.streamUserData,
           // ignore: missing_return
           builder: (context, snapshot) {
+            hospital = snapshot.data;
             return SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -118,7 +121,7 @@ class _AddAppointmentState extends State<AddAppointment> {
                 _appointmentBloc.showIfAdded(true);
                 if (_appointmentBloc.validateFields()) {
                   _appointmentBloc.showIfAdded(false);
-                  _appointmentBloc.addAppointment(widget.email);
+                  _appointmentBloc.addAppointment(widget.email, hospital.id);
                   return Navigator.pop(context);
                 } else {
                   _appointmentBloc.showIfAdded(false);

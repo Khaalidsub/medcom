@@ -12,9 +12,6 @@ class HospitalHistoryBloc extends BlocBase {
   final repository = Repository();
   final monthSubject = BehaviorSubject<int>();
   final daySubject = BehaviorSubject<int>();
-  int month = DateTime.now().month;
-  int day = DateTime.now().day;
-  int year = DateTime.now().year;
 
   //expose the sink and stream of this controller.
 
@@ -25,14 +22,25 @@ class HospitalHistoryBloc extends BlocBase {
   StreamSink<int> get monthSink => monthSubject.sink;
   StreamSink<int> get daySink => daySubject.sink;
 
-  HospitalHistoryBloc() {
-    monthSubject.stream.listen((streamValue) => {this.month = streamValue});
-    daySubject.stream.listen((streamvalue) => {this.day = streamvalue});
+  Stream<List<Appointment>> fetchAppointments() {
+    String m = monthSubject.value.toString();
+    String d = daySubject.value.toString();
+    if (monthSubject.hasValue && monthSubject.value < 10)
+      m = monthSubject.value.toString().padLeft(2, '0');
+    if (daySubject.hasValue && daySubject.value < 10)
+      d = daySubject.value.toString().padLeft(2, '0');
+    final date =
+        "2020-$m-$d"; //If you found the year, please know that i was tired.
+
+    return this.repository.getAppointmentsByDay(this.hospitalId, date);
   }
 
-  Stream<List<Appointment>> fetchAppointments() {
-    final date =
-        "2020-$month-$day"; //If you found the year, please know that i was tired.
-    return this.repository.getAppointmentsByDay(this.hospitalId, date);
+  @override
+  void dispose() async {
+    await monthSubject.drain();
+    monthSubject.close();
+    await daySubject.drain();
+    daySubject.close();
+    super.dispose();
   }
 }

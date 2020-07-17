@@ -12,6 +12,7 @@ class Appointment extends User {
   String diagnosis;
   Doctor doctor;
   String id;
+  String hospitalId;
   List<Medicine> medicines = new List();
   Appointment(
       {this.date,
@@ -23,7 +24,8 @@ class Appointment extends User {
       this.diagnosis,
       this.doctor,
       this.id,
-      String documentId});
+      String documentId,
+      this.hospitalId});
 
 //copy constructor
   Appointment.copy(Appointment from)
@@ -39,6 +41,7 @@ class Appointment extends User {
           doctor: Doctor.fromAppointment(snap),
           medicines: Medicine().fromFirestore(snap),
           id: snap.documentID,
+          hospitalId: snap.data['hospital'],
           date: snap.data['date'],
           day: snap.data['day'],
           description: snap.data['description'],
@@ -54,6 +57,7 @@ class Appointment extends User {
       'description': this.description,
       'diagnosis': null,
       'doctor': null,
+      'hospital': this.hospitalId,
       'ownerID': this.ownerID,
       'status': this.status,
       'medicines': []
