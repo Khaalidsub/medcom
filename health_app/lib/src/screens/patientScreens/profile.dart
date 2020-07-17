@@ -45,7 +45,7 @@ class _PatientProfileState extends State<PatientProfile> {
                 width: 130,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('assets/images/ill.png'),
+                        image: NetworkImage(widget.user.imageUrl),
                         fit: BoxFit.fill),
                     borderRadius: BorderRadius.circular(100),
                     border: Border.all(
@@ -67,7 +67,7 @@ class _PatientProfileState extends State<PatientProfile> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Text(
-                    'ID: ${widget.user.id}'.substring(0, 15).toUpperCase(),
+                    'ID: ${widget.user.id}'.substring(0, 10).toUpperCase(),
                     style: TextStyle(fontSize: 15),
                   ),
                   Container(
