@@ -3,18 +3,17 @@ import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/services/repository.dart';
 
 class AppointmentDetailsBloc extends BlocBase {
-  String patientId;
+  String appointmentId;
 
   Repository _repository = Repository();
-  
- Stream<List<Appointment>> get aListStream =>
-      _repository.getPatientAppointmentList(this.patientId);
-    // return null;
-  
+
+  Stream<Appointment> get appointmentStream =>
+      _repository.getAppointment(appointmentId);
+  // return null;
 
   @override
- void dispose() async {
-    await aListStream.drain();
+  void dispose() async {
+    await appointmentStream.drain();
     super.dispose();
   }
 }

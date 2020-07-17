@@ -15,7 +15,8 @@ class AppointementList extends StatefulWidget {
 }
 
 class _AppointementListState extends State<AppointementList> {
-  AppointementListBloc _appointementListBloc = BlocProvider.getBloc<AppointementListBloc>();
+  AppointementListBloc _appointementListBloc =
+      BlocProvider.getBloc<AppointementListBloc>();
   @override
   void dispose() {
     _appointementListBloc.dispose();
@@ -76,16 +77,14 @@ class _AppointementListState extends State<AppointementList> {
                   itemBuilder: (BuildContext context, int index) {
                     return Card(
                       child: ListTile(
-                          onTap: () { Navigator.pushNamed(
+                          onTap: () {
+                            Navigator.pushNamed(
                               context,
                               '/patient/appointemnts_details',
                               arguments: appointemnts[index].id,
-                            );}, //goes to appointment details if needed 
-                          leading: CircleAvatar(
-                            backgroundColor: Colors.black,
-                            backgroundImage:
-                                AssetImage('assets/images/ill.png'),
-                          ),
+                            );
+                          }, //goes to appointment details if needed
+
                           title: Text(appointemnts[index].description),
                           subtitle: Text(appointemnts[index].date.toString()),
                           trailing: IconButton(

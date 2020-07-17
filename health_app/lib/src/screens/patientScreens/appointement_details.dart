@@ -28,8 +28,8 @@ class _AppointmentDetailsState extends State<AppointmentDetails>
   }
 
   @override
-  Widget build(BuildContext context ) {
-    _appointmentDetailsBloc.patientId = widget.appointmentId;
+  Widget build(BuildContext context) {
+    _appointmentDetailsBloc.appointmentId = widget.appointmentId;
     MediaQueryData queryData = MediaQuery.of(context);
     double height = queryData.size.height;
     return Scaffold(
@@ -39,10 +39,10 @@ class _AppointmentDetailsState extends State<AppointmentDetails>
       ),
       body: SingleChildScrollView(
         child: StreamBuilder<Object>(
-          stream: _appointmentDetailsBloc.aListStream,
+          stream: _appointmentDetailsBloc.appointmentStream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-                appointments = snapshot.data;
+              Appointment appointment = snapshot.data;
               return Column(
                 children: <Widget>[
                   Container(
@@ -55,40 +55,23 @@ class _AppointmentDetailsState extends State<AppointmentDetails>
                       ),
                     ),
                   ),
-                  
-                  StreamBuilder<Object>(
-                    stream: _appointmentDetailsBloc.aListStream,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        appointments = snapshot.data;
-                        var index = 1;              // here it should be the index of appointment provided after clicking on it
-                        return buildFetchedAppointment(height,appointments, index);
-                      }
-                      return buildLoadingAppointment(height);
-                    },
-                  ),
+                  buildFetchedAppointment(height, appointment)
                 ],
               );
             }
             return buildLoadingAppointment(height);
           },
-          
         ),
       ),
     );
   }
 
-  
-
   Container buildLoadingAppointment(double height) {
     return Container(
-       //to control the sync of tabs and views
-       child: Wrap(  
+      //to control the sync of tabs and views
+      child: Wrap(
         children: <Widget>[
           //separate widgets that holds contents respectively for both tabs
-          ProgressBar(
-            color: Colors.blueAccent,
-          ),
           ProgressBar(
             color: Colors.blueAccent,
           ),
@@ -97,35 +80,31 @@ class _AppointmentDetailsState extends State<AppointmentDetails>
     );
   }
 
-
-
-
-  Container buildFetchedAppointment(
-      double height, List<Appointment> appointments, int index) {
+  Container buildFetchedAppointment(double height, Appointment appointment) {
     return Container(
       height: height * 0.5,
-                margin: EdgeInsets.only(top: 10),
-                child: Wrap(  
-                  runSpacing: 30,
-                  children: <Widget>[
-                    DisplayUserField(
-                      info: appointments[index].date,
-                      label: 'Date',
-                    ),
-                    DisplayUserField(
-                      info: appointments[index].day,
-                      label: 'Day',
-                    ),
-                    DisplayUserField(
-                      info: appointments[index].diagnosis,
-                      label: 'Diagnosis',
-                    ),
-                    DisplayUserField(
-                      info: appointments[index].doctor.toString(),
-                      label: 'Doctor',
-                    ),
-                  ],
-              ),
-     );
+      margin: EdgeInsets.only(top: 10),
+      child: Wrap(
+        runSpacing: 30,
+        children: <Widget>[
+          DisplayUserField(
+            info: appointment.date,
+            label: 'Date',
+          ),
+          DisplayUserField(
+            info: appointment.day,
+            label: 'Day',
+          ),
+          DisplayUserField(
+            info: appointment.diagnosis,
+            label: 'Diagnosis',
+          ),
+          DisplayUserField(
+            info: appointment.doctor.toString(),
+            label: 'Doctor',
+          ),
+        ],
+      ),
+    );
   }
 }
