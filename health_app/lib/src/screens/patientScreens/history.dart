@@ -1,13 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/hospital_widgets/hospital_history_view.dart';
+import 'package:health_app/src/blocs/patient_blocs/patient_history_bloc.dart';
+import 'package:health_app/src/models/Appointement.dart';
 
-class PatientHistory extends StatelessWidget {
-  // Function changeIndex;
-  // int index;
-  // PatientHistory({this.changeIndex, this.index});
+import 'package:health_app/src/models/patient.dart';
+
+class PatientHistory extends StatefulWidget {
+  
+  final Patient patient;
+  PatientHistory(this.patient);
+  @override
+  _PatientHistoryState createState() => _PatientHistoryState();
+}
+
+class _PatientHistoryState extends State<PatientHistory> {
+  final patientBloc = PatientHistoryBloc();
+  static int days = 31;
+  List<bool> _daySelected = List.generate(days, (i) => false);
+  DateTime _date = DateTime.now();
+
+ // String month;
+  void getDays([int month]) {
+    if (month == 2) {
+      days = 28;
+    } else if (month % 2 == 0) {
+      days = 30;
+    } else
+      days = 31;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    getDays(_date.month);
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    patientBloc.patientId = widget.patient.id;
     MediaQueryData queryData = MediaQuery.of(context);
     double width = queryData.size.width;
     return Scaffold(
@@ -37,21 +70,45 @@ class PatientHistory extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return Container(
-                          height: 100,
-                          width: 100,
-                          child: Card(
-                            elevation: 3,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            color: Color(0xff3D73DD),
-                            child: Center(
+                height: 120,
+                width: width * 1,
+                margin: EdgeInsets.only(bottom: 20),
+                child: ListView.builder(
+                  itemCount: days,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      height: 100,
+                      width: 100,
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            patientBloc.daySink.add(index + 1);
+                            for (int i = 0; i < _daySelected.length; i++) {
+                              index == i
+                                  ? _daySelected[i] = true
+                                  : _daySelected[i] = false;
+                            }
+                          });
+                        },
+                        child: Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          color: _daySelected[index]
+                              ? Colors.lightBlueAccent
+                              : Color(0xff3D73DD),
+                          child: Center(
                               child: Text(
-                                '$index',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        );
+                            '${index + 1}',
+                            style: TextStyle(color: Colors.white),
+                          )),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              );
                       })),
               Container(
                 child: Text(
@@ -75,7 +132,7 @@ class PatientHistory extends StatelessWidget {
                         children: <Widget>[
                           Icon(Icons.gesture),
                           Text(
-                            'data',
+                            '',
                             style: TextStyle(color: Colors.white),
                           ),
                         ],
@@ -85,7 +142,7 @@ class PatientHistory extends StatelessWidget {
                         children: <Widget>[
                           Image.asset('assets/images/heart.png'),
                           Text(
-                            'data',
+                            '',
                             style: TextStyle(color: Colors.white),
                           ),
                         ],
@@ -95,7 +152,7 @@ class PatientHistory extends StatelessWidget {
                         children: <Widget>[
                           Image.asset('assets/images/pressure.png'),
                           Text(
-                            'data',
+                            '',
                             style: TextStyle(color: Colors.white),
                           ),
                         ],
@@ -105,7 +162,7 @@ class PatientHistory extends StatelessWidget {
                         children: <Widget>[
                           Image.asset('assets/images/temp.png'),
                           Text(
-                            'data',
+                            '',
                             style: TextStyle(color: Colors.white),
                           ),
                         ],
@@ -129,8 +186,7 @@ class PatientHistory extends StatelessWidget {
                 height: 250,
                 child: PageView(
                   children: <Widget>[
-                    HospitalHistoryView(),
-                    HospitalHistoryView(),
+                    buildPatientHistoryScreen(),
                   ],
                 ),
               ),
@@ -140,4 +196,46 @@ class PatientHistory extends StatelessWidget {
       ),
     );
   }
+
+
+  buildPatientHistoryScreen() {
+    return StreamBuilder<List<Appointment>>(
+        stream: patientBloc.fetchAppointments(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data.length != 0) {
+              print(snapshot.data.length);
+              return Container(
+                height: 250,
+                child: PageView(
+                  children: getList(snapshot.data),
+                ),
+              );
+            } else {
+              return Text("There are no appointments for chosen dates.");
+            }
+          } else {
+            return CircularProgressIndicator();
+          }
+        });
+  }
+
+  getList(List appointments) {
+    List list = <Widget>[];
+    for (var item in appointments) {
+      list.add(HospitalHistoryView(item));
+      list.add(HospitalHistoryView(item));
+    }
+    return list;
+  }
+
+  // or maybe we should write one appointment as not a list, idk, now everything works, but its not updates to display info
+  /*
+  getAppointment(Appointment appointment) {
+    Appointment app = <Widget>[];
+    app.add(HospitalHistoryView(1));
+    return app;
+  }
+  */
+
 }

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:health_app/src/models/Appointement.dart';
+
 
 class HospitalHistoryView extends StatelessWidget {
+  final Appointment data;
+  HospitalHistoryView(this.data);
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
@@ -25,9 +29,9 @@ class HospitalHistoryView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Image.asset('assets/images/clin.png'),
+                      Image.asset(data.imageUrl),
                       Text(
-                        'Hospital',
+                        '${data.name}',
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -39,7 +43,7 @@ class HospitalHistoryView extends StatelessWidget {
                     height: 15,
                   ),
                   Text(
-                    'Diagnosis',
+                    '${data.diagnosis}',
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -73,7 +77,7 @@ class HospitalHistoryView extends StatelessWidget {
                         color: Colors.white,
                       ),
                       Text(
-                        'Name',
+                        '${data.doctor.name}',
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -93,7 +97,7 @@ class HospitalHistoryView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20)),
                   child: Center(
                     child: Text(
-                      'info',
+                      '${data.diagnosis}',
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

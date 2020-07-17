@@ -53,6 +53,13 @@ class Repository {
     return _appoitmentServiceProvider.appointmentsByDay;
   }
 
+  Stream<List<Appointment>> getAppointmentsByDayForPatient(String id, String date) {
+    _appoitmentServiceProvider =
+        AppoitmentServiceProvider(patientId: id, date: date);
+    return _appoitmentServiceProvider.appointmentsByDay;
+  }
+
+
   Stream<List<Appointment>> getPatientAppointmentList(String id) {
     _appoitmentServiceProvider = AppoitmentServiceProvider(patientId: id);
     return _appoitmentServiceProvider.appointmentList;

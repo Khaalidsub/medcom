@@ -11,6 +11,7 @@ import 'package:health_app/src/blocs/hospital_blocs/update_appointment_block.dar
 import 'package:health_app/src/blocs/login_bloc.dart';
 import 'package:health_app/src/blocs/patient_blocs/patient_appointment_list_bloc.dart';
 import 'package:health_app/src/blocs/patient_blocs/patient_edit_bloc.dart';
+import 'package:health_app/src/blocs/patient_blocs/patient_history_bloc.dart';
 import 'package:health_app/src/blocs/patient_blocs/patient_navigation_bloc.dart';
 import 'package:health_app/src/blocs/patient_blocs/patient_register_bloc.dart';
 import 'package:health_app/src/blocs/patient_blocs/patient_settings_bloc.dart';
@@ -54,6 +55,7 @@ class _AppState extends State<App> {
         Bloc((i) => AppointementEditeBloc()),
         Bloc((i) => AppointementListBloc()),
         Bloc((i) => AppointmentDetailsBloc()),
+        Bloc((i) => PatientHistoryBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
