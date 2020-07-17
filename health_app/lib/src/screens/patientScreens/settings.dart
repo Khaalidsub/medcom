@@ -44,8 +44,7 @@ class _PatientSettingsState extends State<PatientSettings> {
                           onTap: () => {}, //goes to patient full data page
                           leading: CircleAvatar(
                             backgroundColor: Colors.black,
-                            backgroundImage:
-                                AssetImage('assets/images/ill.png'),
+                            backgroundImage: NetworkImage(patient.imageUrl),
                           ),
                           title: Text(patient.name),
                           subtitle: Text(patient.id.substring(0, 15)),

@@ -15,11 +15,11 @@ import 'package:health_app/src/blocs/patient_blocs/patient_history_bloc.dart';
 import 'package:health_app/src/blocs/patient_blocs/patient_navigation_bloc.dart';
 import 'package:health_app/src/blocs/patient_blocs/patient_register_bloc.dart';
 import 'package:health_app/src/blocs/patient_blocs/patient_settings_bloc.dart';
+import 'package:health_app/src/blocs/scan_patient_profile_bloc.dart';
 import 'package:health_app/src/blocs/welcoming_screen_bloc.dart';
 import 'package:health_app/src/utils/routing.dart';
 
 import 'blocs/patient_blocs/appointment_details_bloc.dart';
-
 
 // import 'package:health_app/src/screens/splash_screen.dart';
 
@@ -47,6 +47,7 @@ class _AppState extends State<App> {
         Bloc((i) => PatientSettingsBloc()),
         Bloc((i) => HospitalSettingsBloc()),
         Bloc((i) => PatientDetailsBloc()),
+        Bloc((i) => ScanPatientProfileBloc()),
         Bloc((i) => PatientListBloc()),
         Bloc((i) => PatientEditProfileBloc()),
         Bloc((i) => HospitalRegisterBloc()),

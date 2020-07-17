@@ -1,9 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:health_app/src/models/hospital.dart';
+import 'package:health_app/src/screens/scan_patient_profile.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 
 class ScanHospital extends StatelessWidget {
+  final Hospital _hospital;
+  ScanHospital(this._hospital);
+  void _neverSatisfied(String details, context) async {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ScanPatientProfile(details, _hospital)));
+  }
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
@@ -31,7 +42,7 @@ class ScanHospital extends StatelessWidget {
                   width: width * 0.6,
                   height: 250,
                   decoration: new BoxDecoration(
-                    color: Colors.lightBlue,
+                    color: Colors.blueGrey[50],
                     borderRadius: new BorderRadius.circular(40.0),
                   ),
                   child: RaisedButton(
@@ -47,9 +58,7 @@ class ScanHospital extends StatelessWidget {
                       child: Icon(Icons.camera),
                     ),
                     onPressed: () async {
-                      String cameraScanResult = await scanner.scan();
-                      print(
-                          cameraScanResult); //Use this string to do wonders...
+                      _neverSatisfied(await scanner.scan(), context);
                     },
                   )),
             ],

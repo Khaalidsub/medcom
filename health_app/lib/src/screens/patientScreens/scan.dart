@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:health_app/src/models/patient.dart';
+import 'package:health_app/src/screens/scan_patient_profile.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:qr_flutter/qr_flutter.dart';
@@ -10,30 +11,8 @@ class Scan extends StatelessWidget {
   Scan(this.user);
 
   void _neverSatisfied(String details, context) async {
-    return showDialog(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Patient Details'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text(details),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('Okay'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>ScanPatientProfile(details,user)));
+  
   }
 
   @override
@@ -64,8 +43,8 @@ class Scan extends StatelessWidget {
                 height: 300,
                 color: Colors.white,
                 child: QrImage(
-                  data: user
-                      .listAllData(), //put here the User specific code to generate QR for each user.
+                  data: user.id
+                      , //put here the User specific code to generate QR for each user.
                   version: QrVersions.auto,
                   size: 300.0,
                 ),

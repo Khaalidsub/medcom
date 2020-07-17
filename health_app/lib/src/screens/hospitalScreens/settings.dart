@@ -50,8 +50,7 @@ class _HospitalSettingsState extends State<HospitalSettings> {
                           onTap: () => {}, //goes to patient full data page
                           leading: CircleAvatar(
                             backgroundColor: Colors.black,
-                            backgroundImage:
-                                AssetImage('assets/images/clin.png'),
+                            backgroundImage: NetworkImage(hospital.imageUrl),
                           ),
                           title: Text(hospital.name),
                         ),

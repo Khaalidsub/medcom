@@ -92,4 +92,5 @@ class Patient extends User {
         "Phone: ${this.phoneNumber}\n" +
         "Adress: ${this.address}\n";
   }
+  
 }
