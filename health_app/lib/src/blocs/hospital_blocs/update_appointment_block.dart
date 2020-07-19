@@ -54,9 +54,10 @@ class AppointementEditeBloc extends StreamUserBloc {
   Future<Appointment> editAppointment() async {
     Appointment appointment =
         await _repository.getAppointment(appointmentId).first
-          ..medicines = _medicines.value
+          ..medicines = _medicines.value ?? []
           ..diagnosis = _diagnosis.value
           ..doctor = _doctor.value
+          ..hospitalId = this.hospitalId
           ..status = 'history';
 
     return await _repository.editappointement(appointment);

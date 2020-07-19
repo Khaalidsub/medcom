@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:health_app/src/models/doctor.dart';
 import 'package:health_app/src/models/medicine.dart';
 
-class Appointment  {
+class Appointment {
   String date;
   String day;
   String description;
@@ -59,6 +59,7 @@ class Appointment  {
       'id': this.id,
       'date': this.date,
       'day': this.day,
+      'hopsital': this.hospitalId,
       'description': this.description,
       'diagnosis': this.diagnosis,
       'doctor': this.doctor?.toFirestore() ?? null,
@@ -71,6 +72,4 @@ class Appointment  {
           []
     };
   }
-
- 
 }

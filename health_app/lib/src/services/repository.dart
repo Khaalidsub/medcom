@@ -136,9 +136,11 @@ class Repository {
 
   ///add a doctor to the hospital
   Future addDoctor(Doctor doctor, Hospital hospital) async {
-    _doctorServiceProvider = new DoctorServiceProvider(hospitalId: hospital.id);
+    _doctorServiceProvider = new DoctorServiceProvider();
     try {
       //create a new doctor
+      doctor.hospitalId = hospital.id;
+      print(doctor.hospitalId);
       String docId = await _doctorServiceProvider.createDoctor(doctor);
       //get new doctor with the id;
 

@@ -87,7 +87,7 @@ class _PatientListState extends State<PatientList> {
                           leading: CircleAvatar(
                             backgroundColor: Colors.black,
                             backgroundImage:
-                                AssetImage('assets/images/ill.png'),
+                                NetworkImage(patients[index].imageUrl),
                           ),
                           title: Text(patients[index].name),
                           subtitle: Text(patients[index].age.toString()),

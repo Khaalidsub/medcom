@@ -33,7 +33,7 @@ class HospitalNavigationBloc extends StreamUserBloc {
     return Repository().addPatient(hospital, _email.value);
   }
 
-  Future addDoctor(Hospital hospital) {
+  Future addDoctor(Hospital hospital) async {
     Doctor doctor = new Doctor(
         name: _doctorName.value, specialization: _doctorSpecialization.value);
     _doctorName.drain();

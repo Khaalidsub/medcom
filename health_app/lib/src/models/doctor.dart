@@ -14,7 +14,7 @@ class Doctor {
           hospitalId: snap.data['hospitalId'],
           documentId: snap.documentID,
         );
-  toFirestore([String hospitalId = null]) {
+  toFirestore() {
     return {
       'name': this.name,
       'specialization': this.specialization,

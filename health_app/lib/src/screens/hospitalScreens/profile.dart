@@ -114,7 +114,8 @@ class _HospitalProfileState extends State<HospitalProfile> {
                   // runAlignment: WrapAlignment.spaceBetween,
                   children: <Widget>[
                     DisplayUserField(
-                      info: widget.user.address.substring(0, 20),
+                      info: widget.user.address
+                          .substring(0, widget.user.address.length ~/ 2),
                       label: 'Address',
                     ),
                     DisplayUserField(

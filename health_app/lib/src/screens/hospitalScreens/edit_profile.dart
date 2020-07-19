@@ -23,15 +23,15 @@ class _EditProfileState extends State<HospitalEditProfile> {
   final hospitalEditBloc = HospitalEditBloc();
   Hospital hospital;
   File imageFile;
-  
 
-   Future getImage(BuildContext context, ImageSource source) async{
-     ImagePicker picker = ImagePicker();
-    final pickedFile =await picker.getImage(source: source);
+  Future getImage(BuildContext context, ImageSource source) async {
+    ImagePicker picker = ImagePicker();
+    final pickedFile = await picker.getImage(source: source);
     await hospitalEditBloc.changeImage(File(pickedFile.path));
-  
+
     Navigator.pop(context);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,36 +44,34 @@ class _EditProfileState extends State<HospitalEditProfile> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               this.hospital = snapshot.data;
-           
+
               return SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
                     GestureDetector(
-                      onTap: ()=>openImagePicker(context,getImage),
-                                          child: Container(
+                      onTap: () => openImagePicker(context, getImage),
+                      child: Container(
                         padding: EdgeInsets.all(30),
                         height: 200,
                         width: 200,
                         child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        child: StreamBuilder<Object>(
-                                          stream: hospitalEditBloc.imageFile,
-                                          builder: (context, snapshot) {
-                                            if (snapshot.hasData) {
-                                               return Image.file(
-                                              snapshot.data,
-                                              fit: BoxFit.cover,
-                                            );
-                                            }
-                                            return Image.network(
-                                              hospital.imageUrl,
-                                              fit: BoxFit.cover,
-                                            );
-                                          }
-                                        ),
-                                      ),
-                                    ),
+                          borderRadius: BorderRadius.circular(100),
+                          child: StreamBuilder<Object>(
+                              stream: hospitalEditBloc.imageFile,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return Image.file(
+                                    snapshot.data,
+                                    fit: BoxFit.cover,
+                                  );
+                                }
+                                return Image.network(
+                                  hospital.imageUrl,
+                                  fit: BoxFit.cover,
+                                );
+                              }),
+                        ),
+                      ),
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(25, 5, 25, 25),
@@ -110,16 +108,6 @@ class _EditProfileState extends State<HospitalEditProfile> {
                             icon: Icon(Icons.mail),
                             type: TextInputType.emailAddress,
                             hint: 'e.g user@gmail.com',
-                          ),
-                          Reusablefield(
-                            label: "Bed Count",
-                            initialValue: hospital.numOfBeds.toString(),
-                            stream: hospitalEditBloc.numOfBeds,
-                            onChangeFunction: hospitalEditBloc.changeEmail,
-                            color: Colors.white,
-                            icon: Icon(FontAwesomeIcons.bed),
-                            type: TextInputType.number,
-                            hint: 'e.g 30',
                           ),
                           Reusablefield(
                             label: "Address",
@@ -191,31 +179,4 @@ class _EditProfileState extends State<HospitalEditProfile> {
         .showSuccessMessage();
     Navigator.popUntil(context, ModalRoute.withName('/hospital'));
   }
-
-  //Future buildShowDialog(BuildContext context) {
-  //  return showDialog(
-  //    context: context,
-  //    barrierDismissible: false, // user must tap button!
-  //    builder: (BuildContext context) {
-  //      return AlertDialog(
-  //        title: Text('Success'),
-  //        content: SingleChildScrollView(
-  //          child: ListBody(
-  //            children: <Widget>[
-  //              Text("Details Have been adden successfully!"),
-  //            ],
-  //          ),
-  //        ),
-  //        actions: <Widget>[
-  //          FlatButton(
-  //            child: Text('Alright'),
-  //            onPressed: () {
-  //              Navigator.of(context).pop(); //pop the dialog box
-  //            },
-  //          ),
-  //        ],
-  //      );
-  //    },
-  //  );
-  //}
 }

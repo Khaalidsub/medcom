@@ -31,11 +31,10 @@ class _HospRegistration extends State<HospRegistration> {
                   children: <Widget>[
                     Container(
                       height: 200,
-                      child: Hero(
-                        tag: 'logo',
-                        child: Image.asset(
-                          "assets/images/logo-01.png",
-                        ),
+                      child: Icon(
+                        FontAwesomeIcons.hospital,
+                        size: 150,
+                        color: Colors.blueAccent,
                       ),
                     ),
                     Padding(

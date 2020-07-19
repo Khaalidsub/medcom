@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:health_app/src/models/patient.dart';
-import 'package:health_app/src/models/user.dart';
 import 'package:health_app/src/services/repository.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -11,9 +9,10 @@ class PatientRegisterBloc extends BlocBase {
   static String pass;
   //sink and streams object
   final _email = BehaviorSubject<String>();
+  final _age = BehaviorSubject<String>();
   final _name = BehaviorSubject<String>();
   final _password = BehaviorSubject<String>();
-  final _confirm_password = BehaviorSubject<String>();
+  final _confirmPassword = BehaviorSubject<String>();
   final _bloodType = BehaviorSubject<String>();
   final _gender = BehaviorSubject<String>();
   final _phoneNumber = BehaviorSubject<String>();
@@ -22,8 +21,9 @@ class PatientRegisterBloc extends BlocBase {
   //onChanged Functions
   Function(String) get changeEmail => _email.sink.add;
   Function(String) get changeName => _name.sink.add;
+  Function(String) get changeAge => _age.sink.add;
   Function(String) get changePassword => _password.sink.add;
-  Function(String) get changeConfirmPassword => _confirm_password.sink.add;
+  Function(String) get changeConfirmPassword => _confirmPassword.sink.add;
   Function(String) get changeBloodType => _bloodType.sink.add;
   Function(String) get changeGender => _gender.sink.add;
   Function(String) get changePhoneNumber => _phoneNumber.sink.add;
@@ -31,9 +31,10 @@ class PatientRegisterBloc extends BlocBase {
   //stream functions
   Stream<String> get email => _email.stream.transform(_validateEmail);
   Stream<String> get name => _name.stream;
+  Stream<String> get age => _age.stream;
   Stream<String> get password => _password.stream.transform(_validatePassword);
   Stream<String> get confirmPassword =>
-      _confirm_password.stream.transform(_validatePassword);
+      _confirmPassword.stream.transform(_validatePassword);
   Stream<String> get bloodType => _bloodType.stream;
   Stream<String> get gender => _gender.stream;
   Stream<String> get phoneNumber => _phoneNumber.stream;
@@ -68,8 +69,11 @@ class PatientRegisterBloc extends BlocBase {
   });
 
   bool validateSignUpFields() {
+    print(_age.value);
     if (_email.value != null &&
         _email.value.isNotEmpty &&
+        _age.value != null &&
+        _age.value.isNotEmpty &&
         _password.value != null &&
         _password.value.isNotEmpty &&
         _email.value.contains('@') &&
@@ -88,6 +92,7 @@ class PatientRegisterBloc extends BlocBase {
         bloodType: _bloodType.value,
         email: _email.value,
         password: _password.value,
+        age: int.parse(_age.value),
         phoneNumber: _phoneNumber.value);
 
     return _repository.signUpPatient(patient);
@@ -102,13 +107,17 @@ class PatientRegisterBloc extends BlocBase {
     _name.close();
     await _password.drain();
     _password.close();
-    await _confirm_password.drain();
-    _confirm_password.close();
+    await _confirmPassword.drain();
+    _confirmPassword.close();
     await _phoneNumber.drain();
     _phoneNumber.close();
     await _bloodType.drain();
     _bloodType.close();
     await _gender.drain();
     _gender.close();
+    await _age.drain();
+    _age.close();
+    await _isSignedIn.drain();
+    _isSignedIn.close();
   }
 }

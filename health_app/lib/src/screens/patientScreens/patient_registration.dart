@@ -20,6 +20,12 @@ class _PatientRegState extends State<PatientReg> {
       BlocProvider.getBloc<PatientRegisterBloc>();
 
   @override
+  void dispose() {
+    _patientRegisterBloc.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Material(
       child: Scaffold(
@@ -60,6 +66,15 @@ class _PatientRegState extends State<PatientReg> {
                         icon: Icon(Icons.mail),
                         type: TextInputType.emailAddress,
                         hint: 'e.g willsmith20@gmail.com',
+                      ),
+                      Reusablefield(
+                        stream: _patientRegisterBloc.age,
+                        onChangeFunction: _patientRegisterBloc.changeAge,
+                        label: "Enter Age",
+                        color: Colors.white,
+                        icon: Icon(Icons.date_range),
+                        type: TextInputType.number,
+                        hint: 'e.g 18',
                       ),
                       Reusablefield(
                         stream: _patientRegisterBloc.phoneNumber,

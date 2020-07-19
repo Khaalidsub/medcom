@@ -2,6 +2,7 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/blocs/hospital_blocs/update_appointment_block.dart';
+import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/doctor.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/models/medicine.dart';
@@ -51,6 +52,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
             _hospital = snapshot.data;
             _appointmenteditBloc.hospitalId = _hospital.id;
             _appointmenteditBloc.appointmentId = widget.appointmentId;
+            print(widget.appointmentId);
             return SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -175,8 +177,13 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
               _appointmenteditBloc.showeditStatus(true);
               if (_appointmenteditBloc.validateFields()) {
                 _appointmenteditBloc.showeditStatus(false);
-                await _appointmenteditBloc.editAppointment();
-                return Navigator.pop(context);
+
+                Appointment appointment =
+                    await _appointmenteditBloc.editAppointment();
+                print(appointment.id);
+                if (appointment != null) {
+                  return Navigator.pop(context, appointment);
+                }
               } else {
                 _appointmenteditBloc.showeditStatus(false);
                 ErrorMessage(context: context, input: 'Something is Missing!')

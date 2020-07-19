@@ -24,26 +24,11 @@ class _PatientDetailsState extends State<PatientDetails>
       BlocProvider.getBloc<PatientDetailsBloc>();
   TabController _controller;
 
-  List<Appointment> appointments;
   Patient patient;
   @override
   void initState() {
     super.initState();
     _controller = new TabController(length: 3, vsync: this);
-  }
-
-  void updateAppointment(int index) async {
-    final data = await Navigator.pushNamed(
-      context,
-      '/hospital/update_appointment',
-      arguments: appointments[index].id,
-    );
-    print(data);
-    if (data != null) {
-      setState(() {
-        appointments[index] = data;
-      });
-    }
   }
 
   @override
@@ -75,8 +60,7 @@ class _PatientDetailsState extends State<PatientDetails>
                     margin: EdgeInsets.only(
                         top: 15, bottom: 10), //test later with diff screen size
                     child: CircleAvatar(
-                      backgroundImage:
-                          AssetImage('assets/images/unknownPerson.jpg'),
+                      backgroundImage: NetworkImage(patient.imageUrl),
                       radius: 60,
                     ),
                   ),
@@ -95,6 +79,7 @@ class _PatientDetailsState extends State<PatientDetails>
                   StreamBuilder<Object>(
                     stream: _patientDetailsBloc.appointmentList,
                     builder: (context, snapshot) {
+                      List<Appointment> appointments = snapshot.data;
                       if (snapshot.hasData) {
                         appointments = snapshot.data;
 
@@ -226,10 +211,15 @@ class _PatientDetailsState extends State<PatientDetails>
         children: <Widget>[
           //separate widgets that holds contents respectively for both tabs
           LatestAppointmenContent(
-              appointments: appointments
-                  .where((test) => test.status == "latest")
-                  .toList(),
-              updateAppointment: updateAppointment),
+            appointments:
+                appointments.where((test) => test.status == "latest").toList(),
+            updateAppointment: (String id) => Navigator.pushNamed(
+              context,
+              '/hospital/update_appointment',
+              arguments:
+                  appointments.firstWhere((element) => element.id == id).id,
+            ),
+          ),
 
           AppointmenContent(
             (appointments.where((test) => test.status == "history").toList()),

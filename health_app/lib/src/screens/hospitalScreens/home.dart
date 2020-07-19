@@ -92,35 +92,6 @@ class _HomeState extends State<HospitalHome> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Icon(
-                              FontAwesomeIcons.userMd,
-                              color: Colors.white,
-                              size: 50,
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Appointments',
-                              style: TextStyle(color: Colors.white),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => Navigator.pushNamed(
-                        context, '/hospital/patientList',
-                        arguments: widget.hospitalId),
-                    child: Container(
-                      height: 120,
-                      width: width * 0.29,
-                      child: Card(
-                        color: Color(0xff3D73DD),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(
                               FontAwesomeIcons.pills,
                               color: Colors.white,
                               size: 50,
