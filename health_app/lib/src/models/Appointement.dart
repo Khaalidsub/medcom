@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:health_app/src/models/doctor.dart';
 import 'package:health_app/src/models/medicine.dart';
-import 'package:health_app/src/models/user.dart';
 
-class Appointment extends User {
+class Appointment  {
   String date;
   String day;
   String description;
@@ -27,15 +26,6 @@ class Appointment extends User {
       String documentId,
       this.hospitalId});
 
-//copy constructor
-  Appointment.copy(Appointment from)
-      : this(
-            date: from.date,
-            day: from.day,
-            description: from.description,
-            ownerID: from.ownerID,
-            status: from.status,
-            medicines: from.medicines);
   Appointment.fromFireStore(DocumentSnapshot snap)
       : this(
           doctor: Doctor.fromAppointment(snap),
@@ -82,8 +72,5 @@ class Appointment extends User {
     };
   }
 
-// //usual
-//   get date => this.date;
-//   get description => this.description;
-//   get id => this.ownerId;
+ 
 }

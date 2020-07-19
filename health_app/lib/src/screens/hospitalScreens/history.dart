@@ -208,7 +208,6 @@ class _HospitalHistoryState extends State<HospitalHistory> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data.length != 0) {
-              print(snapshot.data.length);
               return Container(
                 height: 250,
                 child: PageView(

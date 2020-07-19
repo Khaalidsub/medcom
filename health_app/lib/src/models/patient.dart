@@ -1,6 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:health_app/src/models/firestoreConverter.dart';
 import 'package:health_app/src/models/user.dart';
-final randomImage = 'https://firebasestorage.googleapis.com/v0/b/utm-market.appspot.com/o/weirdo.jpg?alt=media&token=45473e1d-68a5-48b4-8262-a357d0c2f92d';
+
+final randomImage =
+    'https://firebasestorage.googleapis.com/v0/b/utm-market.appspot.com/o/weirdo.jpg?alt=media&token=45473e1d-68a5-48b4-8262-a357d0c2f92d';
+
 class Patient extends User {
   String bloodType;
   String familyNumber;
@@ -12,21 +16,6 @@ class Patient extends User {
   List<dynamic> hospitals;
   //apointment List
   List<dynamic> appointments;
-
-  //copy constructor
-  Patient.copy(Patient from)
-      : this(
-            id: from.id,
-            email: from.email,
-            name: from.name,
-            password: from.password,
-            bloodType: from.bloodType,
-            familyNumber: from.familyNumber,
-            phoneNumber: from.phoneNumber,
-            address: from.address,
-            gender: from.gender,
-            age: from.age,
-            appointments: from.appointments);
 
   Patient(
       {String id,
@@ -50,7 +39,10 @@ class Patient extends User {
             password: password);
 
   Patient.fromFirestore(DocumentSnapshot snap)
-      : super(email: snap.data['email'], type: snap.data['type'],imageUrl:snap.data['image']??randomImage) {
+      : super(
+            email: snap.data['email'],
+            type: snap.data['type'],
+            imageUrl: snap.data['image'] ?? randomImage) {
     bloodType = snap.data['bloodType'];
     gender = snap.data['gender'];
     name = snap.data['name'];
@@ -61,6 +53,19 @@ class Patient extends User {
     familyNumber = snap.data['familyPhone'];
     hospitals = snap.data['hospitals'] ?? [];
     id = snap.documentID;
+  }
+
+  String listAllData() {
+    return "Name: ${this.name}\n" +
+        "Age: ${this.age}\n" +
+        "${this.appointments}\n" +
+        "Blooad Type: ${this.bloodType}\n" +
+        "Email: ${this.email}\n" +
+        "Family: ${this.familyNumber}\n" +
+        "Gender: ${this.gender}\n" +
+        "Id: ${this.id}\n" +
+        "Phone: ${this.phoneNumber}\n" +
+        "Adress: ${this.address}\n";
   }
 
   toFirestore() {
@@ -76,21 +81,7 @@ class Patient extends User {
       'appointments': this.appointments,
       'email': super.email,
       'hospitals': this.hospitals,
-      'image':this.imageUrl
+      'image': this.imageUrl
     };
   }
-
-  String listAllData() {
-    return "Name: ${this.name}\n" +
-        "Age: ${this.age}\n" +
-        "${this.appointments}\n" +
-        "Blooad Type: ${this.bloodType}\n" +
-        "Email: ${this.email}\n" +
-        "Family: ${this.familyNumber}\n" +
-        "Gender: ${this.gender}\n" +
-        "Id: ${this.id}\n" +
-        "Phone: ${this.phoneNumber}\n" +
-        "Adress: ${this.address}\n";
-  }
-  
 }

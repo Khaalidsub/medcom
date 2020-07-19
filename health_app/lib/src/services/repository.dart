@@ -49,19 +49,19 @@ class Repository {
 
   Stream<List<Appointment>> getAppointmentsByDay(String id, String date) {
     _appoitmentServiceProvider =
-        AppoitmentServiceProvider(hospId: id, date: date);
+        AppoitmentServiceProvider(userId: id, date: date);
     return _appoitmentServiceProvider.appointmentsByDay;
   }
 
   Stream<List<Appointment>> getAppointmentsByDayForPatient(
       String id, String date) {
     _appoitmentServiceProvider =
-        AppoitmentServiceProvider(patientId: id, date: date);
+        AppoitmentServiceProvider(userId: id, date: date);
     return _appoitmentServiceProvider.appointmentsByDay;
   }
 
   Stream<List<Appointment>> getPatientAppointmentList(String id) {
-    _appoitmentServiceProvider = AppoitmentServiceProvider(patientId: id);
+    _appoitmentServiceProvider = AppoitmentServiceProvider(userId: id);
     return _appoitmentServiceProvider.appointmentList;
   }
 

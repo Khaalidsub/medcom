@@ -6,17 +6,16 @@ class AppoitmentServiceProvider {
       Firestore.instance.collection('Appointments');
   String documentId;
   String doctorId;
-  String patientId;
+  String userId;
   String date;
-  String hospId;
+
   List<dynamic> appointmentIds;
-  AppoitmentServiceProvider(
-      {this.documentId,
-      this.doctorId,
-      this.patientId,
-      this.appointmentIds,
-      this.date,
-      this.hospId});
+  AppoitmentServiceProvider({
+    this.documentId,
+    this.userId,
+    this.appointmentIds,
+    this.date,
+  });
 
   ///get the appoitment
   Stream<Appointment> get appointment {
@@ -28,7 +27,7 @@ class AppoitmentServiceProvider {
 
   Stream<List<Appointment>> get appointmentList {
     return appointmentsCollection
-        .where('ownerID', isEqualTo: patientId)
+        .where('ownerID', isEqualTo: userId)
         .snapshots()
         .map(_appointmentList);
   }
@@ -36,7 +35,7 @@ class AppoitmentServiceProvider {
   Stream<List<Appointment>> get appointmentsByDay {
     return appointmentsCollection
         .where('date', isEqualTo: this.date)
-        .where('hospital', isEqualTo: '${this.hospId}')
+        .where('hospital', isEqualTo: this.userId)
         .snapshots()
         .map(_appointmentList);
   }
@@ -46,10 +45,10 @@ class AppoitmentServiceProvider {
     appointment.status = 'latest';
 
     final appRef = await appointmentsCollection.add(appointment.toFireStore());
-    appointment.id = appRef.documentID;
-    await appointmentsCollection
-        .document(appRef.documentID)
-        .setData(appointment.toFireStore());
+    // appointment.id = appRef.documentID;
+    // await appointmentsCollection
+    //     .document(appRef.documentID)
+    //     .setData(appointment.toFireStore());
     return appRef.documentID;
   }
 
