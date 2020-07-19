@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:health_app/src/models/mockdata.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
-
 import 'package:health_app/src/screens/widgets/chart.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

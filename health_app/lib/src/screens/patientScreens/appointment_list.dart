@@ -60,7 +60,7 @@ class _AppointementListState extends State<AppointementList> {
     return Scaffold(
       appBar: AppNav(
         appBar: AppBar(),
-        name: 'Appointements',
+        name: 'Appointments',
       ),
       body: StreamBuilder<Object>(
           stream: _appointementListBloc.aListStream,

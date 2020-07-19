@@ -35,7 +35,8 @@ class AppoitmentServiceProvider {
   Stream<List<Appointment>> get appointmentsByDay {
     return appointmentsCollection
         .where('date', isEqualTo: this.date)
-        .where('hospital', isEqualTo: this.userId)
+        .where('hospitalId', isEqualTo: userId)
+        .where('status', isEqualTo: 'history')
         .snapshots()
         .map(_appointmentList);
   }
@@ -43,12 +44,7 @@ class AppoitmentServiceProvider {
   ///add appoitment to the firestore
   Future createAppoitment(Appointment appointment) async {
     appointment.status = 'latest';
-
     final appRef = await appointmentsCollection.add(appointment.toFireStore());
-    // appointment.id = appRef.documentID;
-    // await appointmentsCollection
-    //     .document(appRef.documentID)
-    //     .setData(appointment.toFireStore());
     return appRef.documentID;
   }
 

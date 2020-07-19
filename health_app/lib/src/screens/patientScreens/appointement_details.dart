@@ -1,6 +1,7 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_app/src/blocs/patient_blocs/appointment_details_bloc.dart';
 import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
@@ -35,7 +36,7 @@ class _AppointmentDetailsState extends State<AppointmentDetails>
     return Scaffold(
       appBar: AppNav(
         appBar: AppBar(),
-        name: 'Appointments',
+        name: 'Appointment',
       ),
       body: SingleChildScrollView(
         child: StreamBuilder<Object>(
@@ -46,9 +47,17 @@ class _AppointmentDetailsState extends State<AppointmentDetails>
               return Column(
                 children: <Widget>[
                   Container(
+                    height: 180,
+                    child: Icon(
+                      FontAwesomeIcons.meetup,
+                      size: 80,
+                      color: Colors.blueAccent,
+                    ),
+                  ),
+                  Container(
                     margin: EdgeInsets.only(bottom: 15),
                     child: Text(
-                      "Appoimtement",
+                      "Appointment Details",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 3 * height / 100,
@@ -83,7 +92,7 @@ class _AppointmentDetailsState extends State<AppointmentDetails>
   Container buildFetchedAppointment(double height, Appointment appointment) {
     return Container(
       height: height * 0.5,
-      margin: EdgeInsets.only(top: 10),
+      margin: EdgeInsets.only(top: 10, left: 20, right: 20),
       child: Wrap(
         runSpacing: 30,
         children: <Widget>[
@@ -96,11 +105,15 @@ class _AppointmentDetailsState extends State<AppointmentDetails>
             label: 'Day',
           ),
           DisplayUserField(
+            info: appointment.description,
+            label: 'Description',
+          ),
+          DisplayUserField(
             info: appointment.diagnosis,
             label: 'Diagnosis',
           ),
           DisplayUserField(
-            info: appointment.doctor.toString(),
+            info: appointment.doctor.name,
             label: 'Doctor',
           ),
         ],
