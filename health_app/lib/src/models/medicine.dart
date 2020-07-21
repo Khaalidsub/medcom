@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:health_app/src/models/firestoreConverter.dart';
 import 'package:health_app/src/models/user.dart';
 
-class Medicine extends User {
+class Medicine implements FireStoreConverter {
   String name;
   DateTime dateStart;
   DateTime dateEnd;
@@ -39,7 +40,13 @@ class Medicine extends User {
             dateEnd: DateTime.parse(map['dateEnd']),
             daily: map['daily']);
 
-  toFirestore() {
+  @override
+  fromFireStore(DocumentSnapshot snapshot) {
+    return Medicine.fromFirestore(snapshot.data);
+  }
+
+  @override
+  toFireStore() {
     return {
       'name': this.name,
       'dateStart': this.dateStart.toString(),

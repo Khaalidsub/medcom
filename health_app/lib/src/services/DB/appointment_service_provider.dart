@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:health_app/src/models/Appointement.dart';
+import 'package:health_app/src/services/generics_provider.dart';
 
-class AppoitmentServiceProvider {
+class AppoitmentServiceProvider extends GenericsProvider<Appointment> {
   final CollectionReference appointmentsCollection =
       Firestore.instance.collection('Appointments');
   String documentId;
@@ -11,26 +12,14 @@ class AppoitmentServiceProvider {
 
   List<dynamic> appointmentIds;
   AppoitmentServiceProvider({
+    Appointment appointment,
+    String whereId,
     this.documentId,
     this.userId,
     this.appointmentIds,
     this.date,
-  });
-
-  ///get the appoitment
-  Stream<Appointment> get appointment {
-    return appointmentsCollection
-        .document(documentId)
-        .snapshots()
-        .map(_appointmentDataFromSnap);
-  }
-
-  Stream<List<Appointment>> get appointmentList {
-    return appointmentsCollection
-        .where('ownerID', isEqualTo: userId)
-        .snapshots()
-        .map(_appointmentList);
-  }
+  }) : super(appointment, Firestore.instance.collection('Appointments'),
+            id: documentId, whereId: whereId);
 
   Stream<List<Appointment>> get appointmentsByDay {
     return appointmentsCollection
@@ -38,40 +27,17 @@ class AppoitmentServiceProvider {
         .where('hospitalId', isEqualTo: userId)
         .where('status', isEqualTo: 'history')
         .snapshots()
-        .map(_appointmentList);
+        .map(super.list);
   }
 
-  ///add appoitment to the firestore
-  Future createAppoitment(Appointment appointment) async {
-    appointment.status = 'latest';
-    final appRef = await appointmentsCollection.add(appointment.toFireStore());
-    return appRef.documentID;
-  }
+  // Future updateAppointment(Appointment appointment) async {
+  //   try {
+  //     await _appointmentSetData(appointment);
+  //     return appointment;
+  //   } catch (e) {
+  //     print(e.toString());
+  //     return null;
+  //   }
+  // }
 
-  //map it to an appoitment object
-  Appointment _appointmentDataFromSnap(DocumentSnapshot snap) {
-    Appointment appointment = new Appointment.fromFireStore(snap);
-    return appointment;
-  }
-
-  Future updateAppointment(Appointment appointment) async {
-    try {
-      await _appointmentSetData(appointment);
-      return appointment;
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
-  }
-
-  Future _appointmentSetData(Appointment appointment) async {
-    await appointmentsCollection
-        .document(appointment.id)
-        .setData(appointment.toUpdateFirestore());
-  }
-
-  ///map a list of patient
-  List<Appointment> _appointmentList(QuerySnapshot snapshots) {
-    return snapshots.documents.map(_appointmentDataFromSnap).toList();
-  }
 }

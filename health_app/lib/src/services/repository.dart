@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/doctor.dart';
 import 'package:health_app/src/models/hospital.dart';
@@ -9,15 +10,15 @@ import 'package:health_app/src/services/DB/doctor_service_provider.dart';
 import 'package:health_app/src/services/DB/appointment_service_provider.dart';
 import 'package:health_app/src/services/DB/user_service_provider.dart';
 import 'package:health_app/src/services/auth_service_provider.dart';
+import 'package:health_app/src/services/generics_provider.dart';
 import 'package:health_app/src/services/storage_service_provider.dart';
 
 class Repository {
   String documentId;
   AuthServiceProvider _authServiceProvider;
-  UserServiceProvider _userServiceProvider = new UserServiceProvider();
-  DoctorServiceProvider _doctorServiceProvider;
+  UserServiceProvider _userServiceProvider;
   AppoitmentServiceProvider _appoitmentServiceProvider;
-
+  GenericsProvider _provider;
   Repository({this.documentId});
 
   //check user session
@@ -31,25 +32,28 @@ class Repository {
     User userAuth = await userIsLoggedIn
         .first; //we check if there is already a user session
     if (userAuth != null) {
-      _userServiceProvider = new UserServiceProvider(documentId: userAuth.id);
-      return _userServiceProvider.userData.first;
+      _provider = UserServiceProvider(user: User(), documentId: userAuth.id);
+      return _provider.document.first;
     }
     return null;
   }
 
   //method gets the document based on the id given
   Stream<User> get getUserDocument {
-    return _userServiceProvider.getUserWithDocumentId(documentId);
+    _provider =
+        UserServiceProvider(user: new User(), documentId: this.documentId);
+    return _provider.document;
   }
 
   Stream<List<Doctor>> getHospitalDoctorList(String hospitalId) {
-    _doctorServiceProvider = DoctorServiceProvider(hospitalId: hospitalId);
-    return _doctorServiceProvider.doctorList;
+    _provider = DoctorServiceProvider(
+        doctor: Doctor(), documentId: hospitalId, whereId: 'hospitalId');
+    return _provider.documentList('hospitalId', hospitalId);
   }
 
   Stream<List<Appointment>> getAppointmentsByDay(String id, String date) {
-    _appoitmentServiceProvider =
-        AppoitmentServiceProvider(userId: id, date: date);
+    _appoitmentServiceProvider = AppoitmentServiceProvider(
+        appointment: Appointment(), userId: id, date: date);
     return _appoitmentServiceProvider.appointmentsByDay;
   }
 
@@ -61,26 +65,32 @@ class Repository {
   }
 
   Stream<List<Appointment>> getPatientAppointmentList(String id) {
-    _appoitmentServiceProvider = AppoitmentServiceProvider(userId: id);
-    return _appoitmentServiceProvider.appointmentList;
+    _provider = AppoitmentServiceProvider(
+        appointment: Appointment(), documentId: id, whereId: 'ownerID');
+    return _provider.documentList('ownerID', id);
   }
 
   Stream<Appointment> getAppointment(String appointmentId) {
-    _appoitmentServiceProvider =
-        AppoitmentServiceProvider(documentId: appointmentId);
-    return _appoitmentServiceProvider.appointment;
+    _provider = AppoitmentServiceProvider(
+        appointment: Appointment(), documentId: appointmentId);
+
+    return _provider.document;
   }
 
   //getting the patients List of the hospital
   Stream<List<User>> getPatientList(String hospitalId) {
-    return _userServiceProvider.getPatientList(hospitalId);
+    _provider = UserServiceProvider(
+        user: User(), documentId: hospitalId, whereId: 'hospitals');
+    return _provider.documentListArrayContains;
   }
 
   ///edit profile of patient
   Future<Patient> editPatient(Patient patient) async {
+    _provider = GenericsProvider<Patient>(
+        patient, Firestore.instance.collection('User_List'),
+        id: patient.id);
     try {
-      patient = await _userServiceProvider.updatePatientData(patient);
-
+      patient = await _provider.setData();
       return patient;
     } catch (e) {
       print(e.toString());
@@ -93,9 +103,12 @@ class Repository {
   }
 
   Future<Hospital> editHospital(Hospital hospital) async {
-    try {
-      hospital = await _userServiceProvider.updateHospitalData(hospital);
+    _provider = GenericsProvider<Hospital>(
+        hospital, Firestore.instance.collection('User_List'),
+        id: hospital.id);
 
+    try {
+      hospital = await _provider.setData();
       return hospital;
     } catch (e) {
       print(e.toString());
@@ -103,13 +116,13 @@ class Repository {
     }
   }
 
+  //! to be refactored
   ///edit profile of patient
   Future<Appointment> editappointement(Appointment appointment) async {
+    _provider = AppoitmentServiceProvider(
+        appointment: appointment, documentId: appointment.id);
     try {
-      _appoitmentServiceProvider = AppoitmentServiceProvider();
-      appointment =
-          await _appoitmentServiceProvider.updateAppointment(appointment);
-
+      await _provider.setData();
       return appointment;
     } catch (e) {
       print(e.toString());
@@ -119,14 +132,11 @@ class Repository {
 
   ///add a patient to the hospital
   Future addPatient(Hospital hospital, String patientEmail) async {
-    //get the user with the email
+    UserServiceProvider(user: User(), documentId: hospital.id);
     Patient patient = await _userServiceProvider.getUser(patientEmail);
-
-    //check if there is any such patient
     if (patient == null || patient.type != 'patient') {
       return null;
     }
-    //check if user already exists in hospital
     if (hospital.patients.contains(patient.id)) {
       return 'Patient has already been added!';
     }
@@ -136,31 +146,40 @@ class Repository {
 
   ///add a doctor to the hospital
   Future addDoctor(Doctor doctor, Hospital hospital) async {
-    _doctorServiceProvider = new DoctorServiceProvider();
     try {
       //create a new doctor
       doctor.hospitalId = hospital.id;
-      print(doctor.hospitalId);
-      String docId = await _doctorServiceProvider.createDoctor(doctor);
+      _provider = DoctorServiceProvider(doctor: doctor);
+      // print(doctor.hospitalId);
+      // String docId = await _doctorServiceProvider.createDoctor(doctor);
+      final ref = await _provider.addDocument;
+      String docId = ref.documentID;
       //get new doctor with the id;
-
-      await _userServiceProvider.addDoctorToHospital(hospital, docId);
+      hospital.doctors.add(docId);
+      _provider = GenericsProvider<Hospital>(
+          hospital, Firestore.instance.collection('User_List'),
+          id: hospital.id);
+      await _provider.setData();
       return hospital;
     } catch (e) {
+      print(e.toString());
       return null;
     }
   }
 
   // add appoitment
   Future addAppoitment(Appointment appointment, String patientEmail) async {
-    Patient patient = await _userServiceProvider.getUser(patientEmail);
-    try {
-      appointment.ownerID = patient.id;
-      _appoitmentServiceProvider = new AppoitmentServiceProvider();
-      //add appointment to firestore
+    _userServiceProvider = UserServiceProvider(user: User());
 
-      String appointmentId =
-          await _appoitmentServiceProvider.createAppoitment(appointment);
+    try {
+      Patient patient = await _userServiceProvider.getUser(patientEmail);
+      appointment.status = 'latest';
+      appointment.ownerID = patient.id;
+      // _appoitmentServiceProvider = new AppoitmentServiceProvider();
+      _provider = AppoitmentServiceProvider(appointment: appointment);
+      //add appointment to firestore
+      final ref = await _provider.addDocument;
+      String appointmentId = ref.documentID;
       patient.appointments.add(appointmentId);
       //get the document id and store it to patient
       await _userServiceProvider.addAppointmentToUser(patient);
@@ -180,13 +199,17 @@ class Repository {
   //sign up by patient
   Future<Patient> signUpPatient(Patient patient) async {
     _authServiceProvider = new AuthServiceProvider();
+
     try {
       //go to authentication provider and return user for the id
       User result =
           await _authServiceProvider.signUp(patient.email, patient.password);
       patient.id = result.id;
+      _provider = GenericsProvider<Patient>(
+          patient, Firestore.instance.collection('User_List'),
+          id: result.id);
       //create a user data for that specific patient and the document is the id from the authentication
-      patient = await _userServiceProvider.createPatientData(patient);
+      await _provider.setData();
 
       return patient;
     } catch (e) {
@@ -204,8 +227,14 @@ class Repository {
       User result =
           await _authServiceProvider.signUp(hospital.email, hospital.password);
       hospital.id = result.id;
+
+      _provider = GenericsProvider<Hospital>(
+          hospital, Firestore.instance.collection('User_List'),
+          id: result.id);
+
       //create a user data for that specific hospital and the document is the id from the authentication
-      hospital = await _userServiceProvider.createHospitalData(hospital);
+      // hospital = await _userServiceProvider.createHospitalData(hospital);
+      await _provider.setData();
       return hospital;
     } catch (e) {
       print(e.toString());

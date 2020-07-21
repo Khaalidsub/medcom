@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:health_app/src/models/doctor.dart';
+import 'package:health_app/src/models/firestoreConverter.dart';
 import 'package:health_app/src/models/medicine.dart';
 
-class Appointment {
+class Appointment implements FireStoreConverter {
   String date;
   String day;
   String description;
@@ -40,18 +41,21 @@ class Appointment {
           status: snap.data['status'],
         );
   toFireStore() {
-    return {
-      'id': this.id,
-      'date': this.date,
-      'day': this.day,
-      'description': this.description,
-      'diagnosis': null,
-      'doctor': null,
-      'hospitalId': this.hospitalId,
-      'ownerID': this.ownerID,
-      'status': this.status,
-      'medicines': []
-    };
+    if (this.diagnosis == null) {
+      return {
+        'id': this.id,
+        'date': this.date,
+        'day': this.day,
+        'description': this.description,
+        'diagnosis': null,
+        'doctor': null,
+        'hospitalId': this.hospitalId,
+        'ownerID': this.ownerID,
+        'status': this.status,
+        'medicines': []
+      };
+    }
+    return this.toUpdateFirestore();
   }
 
   toUpdateFirestore() {
@@ -62,14 +66,19 @@ class Appointment {
       'hospitalId': this.hospitalId,
       'description': this.description,
       'diagnosis': this.diagnosis,
-      'doctor': this.doctor?.toFirestore() ?? null,
+      'doctor': this.doctor?.toFireStore() ?? null,
       'ownerID': this.ownerID,
       'status': this.status,
       'medicines': [
             // ignore: sdk_version_ui_as_code
-            ...this.medicines?.map(((medicines) => medicines.toFirestore()))
+            ...this.medicines?.map(((medicines) => medicines.toFireStore()))
           ] ??
           []
     };
+  }
+
+  @override
+  fromFireStore(DocumentSnapshot snapshot) {
+    return Appointment.fromFireStore(snapshot);
   }
 }

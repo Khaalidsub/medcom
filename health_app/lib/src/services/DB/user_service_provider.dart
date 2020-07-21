@@ -2,22 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/models/user.dart';
-import 'package:health_app/src/models/Appointement.dart';
+import 'package:health_app/src/services/generics_provider.dart';
 
-class UserServiceProvider {
-  final CollectionReference userCollection =
-      Firestore.instance.collection('User_List');
-
+class UserServiceProvider extends GenericsProvider<User> {
   String documentId;
-  UserServiceProvider({this.documentId});
+  UserServiceProvider({User user, this.documentId, String whereId})
+      : super(user, Firestore.instance.collection('User_List'),
+            id: documentId, whereId: whereId);
 
   //user document  stream
-  Stream<User> get userData {
-    return userCollection
-        .document(documentId)
-        .snapshots()
-        .map(_userDataFromSnap);
-  }
 
   //get patients from hospitals
   // Stream<List<User>> get patientList{
@@ -32,103 +25,38 @@ class UserServiceProvider {
   ///and the other is returning a document snapshot
   Future<User> getUser(String email) async {
     try {
-      List<User> user = await userCollection
+      List<User> users = await super
+          .dataCollection
           .where('email', isEqualTo: email)
           .snapshots()
-          .map(_userListFromSnap)
+          .map(super.list)
           .first;
-
-      return user.first;
+      return users.first;
     } catch (e) {
       print(e.toString());
       return null;
     }
   }
 
-  //gets the user document
-  Stream<User> getUserWithDocumentId(String documentId) {
-    return userCollection
-        .document(documentId)
-        .snapshots()
-        .map(_userDataFromSnap);
-  }
-
+  //gets the user documen
   ///returns a list of users
   ///for one query snap shot,it returns one document snapshot
   ///hence i am re using our _userdata function
-  List<User> _userListFromSnap(QuerySnapshot snap) {
-    return snap.documents.map((snap) => _userDataFromSnap(snap)).toList();
-  }
 
   // user data from snap
-  User _userDataFromSnap(DocumentSnapshot snap) {
-    User user;
-
-    try {
-      if (snap.data['type'] == 'patient') {
-        user = Patient.fromFirestore(snap);
-      } else if (snap.data['type'] == 'hospital') {
-        Hospital hosp = Hospital.fromFirestore(snap);
-        user = hosp;
-      }
-      user.type = snap.data['type'];
-
-      return user;
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
-  }
-
-  Stream<List<User>> getPatientList(ids) {
-    return userCollection
-        .where('hospitals', arrayContains: ids)
-        .snapshots()
-        .map(_userListFromSnap);
-  }
-
-  ///function that stores data i.e Reigstration to the firestore db
-  Future createPatientData(Patient patient) async {
-    await _patientSetData(patient);
-    return patient;
-  }
-
-  Future createHospitalData(Hospital hospital) async {
-    await _hospitalSetData(hospital);
-
-    return hospital;
-  }
-
-  ///edit profile to update user data
-  Future updatePatientData(Patient patient) async {
-    try {
-      await _patientSetData(patient);
-      return patient;
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
-  }
-
-  Future updateHospitalData(Hospital hospital) async {
-    try {
-      await _hospitalSetData(hospital);
-      return hospital;
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
-  }
-
-//we make a funcig
 
   ///add patient to hospital
   Future<User> addUserToHospital(Hospital hospital, Patient patient) async {
     try {
+      super.converter = hospital;
+      super.id = hospital.id;
       hospital.patients.add(patient.id);
-      await _hospitalSetData(hospital);
+      await super.setData();
       patient.hospitals.add(hospital.id);
-      await updatePatientData(patient);
+      super.converter = patient;
+      super.id = patient.id;
+
+      await super.setData();
 
       return hospital;
     } catch (e) {
@@ -138,10 +66,10 @@ class UserServiceProvider {
   }
 
   ///add doctor id to hospital
-  Future addDoctorToHospital(Hospital hospital, String doctorId) async {
+  Future addDoctorToHospital(Hospital hospital) async {
     try {
-      hospital.doctors.add(doctorId);
-      await _hospitalSetData(hospital);
+      // await super.(hospital);
+      await super.setData();
       return hospital;
     } catch (e) {
       return null;
@@ -151,19 +79,12 @@ class UserServiceProvider {
   // add appoitment to patient
   Future<void> addAppointmentToUser(Patient patient) async {
     try {
-      await updatePatientData(patient);
+      super.converter = patient;
+      super.id = patient.id;
+      await super.setData();
     } catch (e) {
       print(e.toString());
       return null;
     }
-  }
-
-  ///call this function whenever you want to change/create user data
-  Future _patientSetData(Patient patient) async {
-    await userCollection.document(patient.id).setData(patient.toFirestore());
-  }
-
-  Future _hospitalSetData(Hospital hospital) async {
-    await userCollection.document(hospital.id).setData(hospital.toFirestore());
   }
 }

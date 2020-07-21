@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-abstract class FireStoreConverter<T> {
+abstract class FireStoreConverter {
   toFireStore();
-  T fromFireStore(DocumentSnapshot snapshot);
+  fromFireStore(DocumentSnapshot snapshot);
   // FireStoreConverter.fromFirebase(DocumentSnapshot snapshot);
 }

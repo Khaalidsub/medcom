@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:health_app/src/models/firestoreConverter.dart';
 import 'package:health_app/src/models/user.dart';
 
 final randomImage =
@@ -68,7 +67,25 @@ class Patient extends User {
         "Adress: ${this.address}\n";
   }
 
-  toFirestore() {
+  @override
+  fromFireStore(DocumentSnapshot snap) {
+    this.email = snap.data['email'];
+    this.type = snap.data['type'];
+    this.imageUrl = snap.data['imageUrl'];
+    this.bloodType = snap.data['bloodType'];
+    this.gender = snap.data['gender'];
+    this.name = snap.data['name'];
+    this.phoneNumber = snap.data['phone'];
+    this.address = snap.data['address'];
+    this.age = snap.data['age'];
+    this.appointments = snap.data['appointments'] ?? [];
+    this.familyNumber = snap.data['familyPhone'];
+    this.hospitals = snap.data['hospitals'] ?? [];
+    this.id = snap.documentID;
+  }
+
+  @override
+  toFireStore() {
     return {
       'type': this.type,
       'bloodType': this.bloodType,
