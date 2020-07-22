@@ -4,7 +4,7 @@ import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
 import 'package:health_app/src/screens/widgets/chart.dart';
-import 'package:health_app/src/screens/widgets/patient_widgets/patient_history_view.dart';
+import 'package:health_app/src/screens/widgets/history_view.dart';
 import 'package:health_app/src/utils/dates.dart';
 
 class HospitalHistory extends StatefulWidget {
@@ -215,7 +215,7 @@ class _HospitalHistoryState extends State<HospitalHistory> {
                 ),
               );
             } else {
-              return Text("There are no appointments for chosen dates.");
+              return Text("There are no appointments for the chosen dates.");
             }
           } else {
             return CircularProgressIndicator();
@@ -226,7 +226,7 @@ class _HospitalHistoryState extends State<HospitalHistory> {
   getList(List appointments) {
     List list = <Widget>[];
     for (var item in appointments) {
-      list.add(PatientHistoryView(item));
+      list.add(AppointmentHistoryView(item));
     }
     return list;
   }

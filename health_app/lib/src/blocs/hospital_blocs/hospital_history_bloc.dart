@@ -32,7 +32,9 @@ class HospitalHistoryBloc extends BlocBase {
     final date =
         "2020-$m-$d"; //If you found the year, please know that i was tired.
 
-    return this.repository.getAppointmentsByDay(this.hospitalId, date);
+    return this
+        .repository
+        .getAppointmentsByDay('hospitalId', this.hospitalId, date);
   }
 
   @override

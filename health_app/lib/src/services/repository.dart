@@ -71,10 +71,11 @@ class Repository<T extends FireStoreConverter> {
     }
   }
 
-  Stream<List<Appointment>> getAppointmentsByDay(String id, String date) {
+  Stream<List<Appointment>> getAppointmentsByDay(
+      String query, String id, String date) {
     _appoitmentServiceProvider = AppoitmentServiceProvider(
         appointment: Appointment(), userId: id, date: date);
-    return _appoitmentServiceProvider.appointmentsByDay;
+    return _appoitmentServiceProvider.appointmentsByDay(query);
   }
 
   Future<String> uploadImage(File image) async {

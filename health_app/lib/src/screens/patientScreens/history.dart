@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/src/screens/widgets/app_nav.dart';
-import 'package:health_app/src/screens/widgets/hospital_widgets/hospital_history_view.dart';
 import 'package:health_app/src/blocs/patient_blocs/patient_history_bloc.dart';
 import 'package:health_app/src/models/Appointement.dart';
 
 import 'package:health_app/src/models/patient.dart';
+import 'package:health_app/src/screens/widgets/history_view.dart';
 import 'package:health_app/src/utils/dates.dart';
 
 class PatientHistory extends StatefulWidget {
@@ -49,65 +49,8 @@ class _PatientHistoryState extends State<PatientHistory> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(top: 20, bottom: 15),
-                child: Text(
-                  'Dates',
-                  style: TextStyle(fontSize: 25),
-                ),
-              ),
-              Container(
-                  height: 120,
-                  width: width * 1,
-                  margin: EdgeInsets.only(bottom: 20),
-                  child: ListView.builder(
-                      itemCount: 6,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          height: 120,
-                          width: width * 1,
-                          margin: EdgeInsets.only(bottom: 20),
-                          child: ListView.builder(
-                            itemCount: days,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                height: 100,
-                                width: 100,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      patientBloc.daySink.add(index + 1);
-                                      for (int i = 0;
-                                          i < _daySelected.length;
-                                          i++) {
-                                        index == i
-                                            ? _daySelected[i] = true
-                                            : _daySelected[i] = false;
-                                      }
-                                    });
-                                  },
-                                  child: Card(
-                                    elevation: 3,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
-                                    color: _daySelected[index]
-                                        ? Colors.lightBlueAccent
-                                        : Color(0xff3D73DD),
-                                    child: Center(
-                                        child: Text(
-                                      '${index + 1}',
-                                      style: TextStyle(color: Colors.white),
-                                    )),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        );
-                      })),
+              buildMonths(width),
+              buildDays(width),
               Container(
                 child: Text(
                   'Statistics',
@@ -195,13 +138,112 @@ class _PatientHistoryState extends State<PatientHistory> {
     );
   }
 
+  Container buildMonths(double width) {
+    return Container(
+      margin: EdgeInsets.only(top: 20, bottom: 5, left: 10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            'Dates',
+            style: TextStyle(fontSize: 25),
+          ),
+          Container(
+            height: 50,
+            width: width * 1,
+            margin: EdgeInsets.only(bottom: 20),
+            child: ListView.builder(
+              itemCount: 12,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Container(
+                  height: 50,
+                  width: 50,
+                  child: GestureDetector(
+                    onTap: () {
+                      for (int i = 0; i < _monthSelected.length; i++) {
+                        index == i
+                            ? _monthSelected[i] = true
+                            : _monthSelected[i] = false;
+                      }
+                      patientBloc.monthSink.add(index + 1);
+                      setState(() {
+                        days = getDays(index + 1);
+                      });
+                      //sink the id
+                    },
+                    child: Card(
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      color: _monthSelected[index]
+                          ? Colors.lightBlueAccent
+                          : Color(0xff3D73DD),
+                      child: Center(
+                          child: Text(
+                        getMonth(index + 1),
+                        style: TextStyle(color: Colors.white),
+                      )),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container buildDays(double width) {
+    return Container(
+      height: 50,
+      width: width * 1,
+      margin: EdgeInsets.only(bottom: 20),
+      child: ListView.builder(
+        itemCount: days,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return Container(
+            height: 50,
+            width: 70,
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  patientBloc.daySink.add(index + 1);
+                  for (int i = 0; i < _daySelected.length; i++) {
+                    index == i
+                        ? _daySelected[i] = true
+                        : _daySelected[i] = false;
+                  }
+                });
+              },
+              child: Card(
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                color: _daySelected[index]
+                    ? Colors.lightBlueAccent
+                    : Color(0xff3D73DD),
+                child: Center(
+                    child: Text(
+                  '${index + 1}',
+                  style: TextStyle(color: Colors.white),
+                )),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   buildPatientHistoryScreen() {
     return StreamBuilder<List<Appointment>>(
         stream: patientBloc.fetchAppointments(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data.length != 0) {
-              print(snapshot.data.length);
               return Container(
                 height: 250,
                 child: PageView(
@@ -220,19 +262,8 @@ class _PatientHistoryState extends State<PatientHistory> {
   getList(List appointments) {
     List list = <Widget>[];
     for (var item in appointments) {
-      list.add(HospitalHistoryView(item));
-      list.add(HospitalHistoryView(item));
+      list.add(AppointmentHistoryView(item));
     }
     return list;
   }
-
-  // or maybe we should write one appointment as not a list, idk, now everything works, but its not updates to display info
-  /*
-  getAppointment(Appointment appointment) {
-    Appointment app = <Widget>[];
-    app.add(HospitalHistoryView(1));
-    return app;
-  }
-  */
-
 }

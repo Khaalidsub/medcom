@@ -21,10 +21,10 @@ class AppoitmentServiceProvider extends Provider<Appointment> {
   }) : super(appointment, Firestore.instance.collection('appointment_list'),
             id: documentId, whereId: whereId);
 
-  Stream<List<Appointment>> get appointmentsByDay {
+  Stream<List<Appointment>> appointmentsByDay(String query) {
     return appointmentsCollection
         .where('date', isEqualTo: this.date)
-        .where('hospitalId', isEqualTo: userId)
+        .where(query, isEqualTo: userId)
         .where('status', isEqualTo: 'history')
         .snapshots()
         .map(super.list);

@@ -1,7 +1,6 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:health_app/src/blocs/welcoming_screen_bloc.dart';
-import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/screens/widgets/progress_bar.dart';
 
 class WelcomingScreen extends StatefulWidget {
@@ -19,8 +18,6 @@ class _WelcomingScreenState extends State<WelcomingScreen> {
     _welcomingScreenBloc.userStream().then((user) {
       if (user != null) {
         if (user.type == 'patient') {
-          Patient patient = user;
-          print('welcomging screen ${patient.bloodType}');
           Navigator.pushNamedAndRemoveUntil(
             context,
             '/patient',
