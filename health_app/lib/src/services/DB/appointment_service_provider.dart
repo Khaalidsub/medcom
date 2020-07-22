@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:health_app/src/models/Appointement.dart';
-import 'package:health_app/src/services/generics_provider.dart';
+import 'package:health_app/src/services/DB/provider.dart';
 
-class AppoitmentServiceProvider extends GenericsProvider<Appointment> {
+class AppoitmentServiceProvider extends Provider<Appointment> {
   final CollectionReference appointmentsCollection =
-      Firestore.instance.collection('Appointments');
+      Firestore.instance.collection('appointment_list');
   String documentId;
   String doctorId;
   String userId;
@@ -18,7 +18,7 @@ class AppoitmentServiceProvider extends GenericsProvider<Appointment> {
     this.userId,
     this.appointmentIds,
     this.date,
-  }) : super(appointment, Firestore.instance.collection('Appointments'),
+  }) : super(appointment, Firestore.instance.collection('appointment_list'),
             id: documentId, whereId: whereId);
 
   Stream<List<Appointment>> get appointmentsByDay {

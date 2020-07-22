@@ -62,10 +62,10 @@ class LoginBloc extends BlocBase {
   //close streams and sinks after login
   @override
   void dispose() async {
-    super.dispose();
     await _email.drain();
     _email.close();
     await _password.drain();
     _password.close();
+    super.dispose();
   }
 }

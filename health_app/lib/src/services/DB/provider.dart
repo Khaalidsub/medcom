@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:health_app/src/models/firestoreConverter.dart';
 
-class GenericsProvider<T extends FireStoreConverter> {
+class Provider<T extends FireStoreConverter> {
   final CollectionReference dataCollection;
   FireStoreConverter converter;
   // ignore: avoid_init_to_null
   String id = null;
   String whereId;
-  GenericsProvider(this.converter, this.dataCollection,
-      {this.id, this.whereId});
+  Provider(this.converter, this.dataCollection, {this.id, this.whereId});
 
   Stream<T> get document {
     return dataCollection.document(id).snapshots().map(_dataFromSnap);

@@ -23,6 +23,7 @@ class Medicine implements FireStoreConverter {
             dateStart: from.dateStart,
             dateEnd: from.dateEnd,
             daily: from.daily);
+
   fromFirestore(DocumentSnapshot snaps) {
     if (snaps.data['medicines'] != null) {
       List<Medicine> medicines = List.from(snaps.data['medicines']).map((map) {
@@ -42,7 +43,7 @@ class Medicine implements FireStoreConverter {
 
   @override
   fromFireStore(DocumentSnapshot snapshot) {
-    return Medicine.fromFirestore(snapshot.data);
+    return Medicine().fromFirestore(snapshot);
   }
 
   @override

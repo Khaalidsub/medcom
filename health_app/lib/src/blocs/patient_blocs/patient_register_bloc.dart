@@ -5,7 +5,7 @@ import 'package:health_app/src/services/repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class PatientRegisterBloc extends BlocBase {
-  Repository _repository = new Repository();
+  Repository _repository = new Repository<Patient>(collection: 'User_List');
   static String pass;
   //sink and streams object
   final _email = BehaviorSubject<String>();
@@ -95,7 +95,8 @@ class PatientRegisterBloc extends BlocBase {
         age: int.parse(_age.value),
         phoneNumber: _phoneNumber.value);
 
-    return _repository.signUpPatient(patient);
+    // return _repository.signUpPatient(patient);
+    return _repository.signUp(patient);
   }
 
   @override

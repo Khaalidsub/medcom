@@ -10,11 +10,12 @@ import 'package:health_app/src/services/repository.dart';
 class AppointementEditeBloc extends StreamUserBloc {
   String hospitalId;
   String appointmentId;
-  Repository _repository = new Repository();
+
   //stream appointment
 
   Stream<List<Doctor>> get streamDoctors =>
-      _repository.getHospitalDoctorList(hospitalId);
+      Repository<Doctor>(collection: 'doctor_list')
+          .getDocumentList(Doctor(), 'hospitalId', hospitalId);
 
   //sink stream
   final _diagnosis = BehaviorSubject<String>();
@@ -52,15 +53,20 @@ class AppointementEditeBloc extends StreamUserBloc {
 
   //edit function
   Future<Appointment> editAppointment() async {
-    Appointment appointment =
-        await _repository.getAppointment(appointmentId).first
-          ..medicines = _medicines.value ?? []
-          ..diagnosis = _diagnosis.value
-          ..doctor = _doctor.value
-          ..hospitalId = this.hospitalId
-          ..status = 'history';
+    Repository _repo = Repository<Appointment>(
+        collection: 'appointment_list', documentId: appointmentId);
+    Appointment appointment = await _repo.getDocument(Appointment()).first;
 
-    return await _repository.editappointement(appointment);
+    appointment.medicines = _medicines.value ?? [];
+    appointment.diagnosis = _diagnosis.value;
+    appointment.doctor = _doctor.value;
+    appointment.hospitalId = this.hospitalId;
+    appointment.status = 'history';
+
+    print('yo on edit ${appointment.doctor}');
+
+    // return await _repo.editappointement(appointment);
+    return await _repo.editDocument(appointment, appointment.id);
   }
 
   @override

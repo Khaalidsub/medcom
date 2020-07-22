@@ -5,13 +5,10 @@ import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/services/repository.dart';
 import 'package:rxdart/rxdart.dart';
 
+class HospitalRegisterBloc extends BlocBase {
+  Repository _repository = new Repository<Hospital>(collection: 'User_List');
 
-
-
- class HospitalRegisterBloc extends BlocBase {
-   Repository _repository = new Repository();
-
-   static String pass;
+  static String pass;
   //sink and streams object
   final _email = BehaviorSubject<String>();
   final _name = BehaviorSubject<String>();
@@ -32,8 +29,7 @@ import 'package:rxdart/rxdart.dart';
   Function(String) get changePhoneNumber => _phoneNumber.sink.add;
   Function(bool) get showProgressBar => _isSignedIn.sink.add;
 
-
- //stream functions
+  //stream functions
   Stream<String> get email => _email.stream.transform(_validateEmail);
   Stream<String> get name => _name.stream;
   Stream<String> get password => _password.stream.transform(_validatePassword);
@@ -96,7 +92,8 @@ import 'package:rxdart/rxdart.dart';
         password: _password.value,
         phoneNumber: _phoneNumber.value);
 
-    return _repository.singUpHospital(hospital);
+    // return _repository.singUpHospital(hospital);
+    return _repository.signUp(hospital);
   }
 
   @override
@@ -117,6 +114,4 @@ import 'package:rxdart/rxdart.dart';
     await _address.drain();
     _address.close();
   }
-
- }
-
+}

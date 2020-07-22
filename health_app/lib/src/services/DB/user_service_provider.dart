@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:health_app/src/models/hospital.dart';
 import 'package:health_app/src/models/patient.dart';
 import 'package:health_app/src/models/user.dart';
-import 'package:health_app/src/services/generics_provider.dart';
+import 'package:health_app/src/services/DB/provider.dart';
 
-class UserServiceProvider extends GenericsProvider<User> {
+class UserServiceProvider extends Provider<User> {
   String documentId;
   UserServiceProvider({User user, this.documentId, String whereId})
       : super(user, Firestore.instance.collection('User_List'),

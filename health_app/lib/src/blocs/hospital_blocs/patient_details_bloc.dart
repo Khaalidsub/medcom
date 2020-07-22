@@ -6,23 +6,17 @@ import 'package:health_app/src/services/repository.dart';
 class PatientDetailsBloc extends BlocBase {
   String id;
   List<dynamic> appointmentIds;
-  Repository _repository = Repository();
+  Repository _repository;
   Stream<User> get patient {
+    _repository = Repository<User>(collection: 'User_List');
     _repository.documentId = id;
-    return _repository.getUserDocument;
+    return _repository.getDocument(User());
   }
 
   Stream<List<Appointment>> get appointmentList {
-    // if (appointmentIds.length != 0) {
-    return _repository.getPatientAppointmentList(id);
-    // }
-    // return null;
-  }
+    _repository =
+        Repository<Appointment>(collection: 'appointment_list', documentId: id);
 
-  @override
-  void dispose() {
-    patient.drain();
-    appointmentList.drain();
-    super.dispose();
+    return _repository.getDocumentList(Appointment(), 'ownerID', id);
   }
 }

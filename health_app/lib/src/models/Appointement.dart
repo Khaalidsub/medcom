@@ -69,7 +69,8 @@ class Appointment implements FireStoreConverter {
       'doctor': this.doctor?.toFireStore() ?? null,
       'ownerID': this.ownerID,
       'status': this.status,
-      'medicines': [
+      'expenses'
+          'medicines': [
             // ignore: sdk_version_ui_as_code
             ...this.medicines?.map(((medicines) => medicines.toFireStore()))
           ] ??

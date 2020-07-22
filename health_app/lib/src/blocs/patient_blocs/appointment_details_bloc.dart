@@ -5,11 +5,14 @@ import 'package:health_app/src/services/repository.dart';
 class AppointmentDetailsBloc extends BlocBase {
   String appointmentId;
 
-  Repository _repository = Repository();
+  Repository _repository =
+      Repository<Appointment>(collection: 'appointment_list');
 
-  Stream<Appointment> get appointmentStream =>
-      _repository.getAppointment(appointmentId);
-  // return null;
+  Stream<Appointment> get appointmentStream {
+    _repository.documentId = appointmentId;
+    return _repository.getDocument(Appointment());
+    // return null;
+  }
 
   @override
   void dispose() async {

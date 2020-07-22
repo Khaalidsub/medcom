@@ -24,13 +24,13 @@ class _WelcomingScreenState extends State<WelcomingScreen> {
           Navigator.pushNamedAndRemoveUntil(
             context,
             '/patient',
-            ModalRoute.withName('/welcoming_screen'),
+            ModalRoute.withName('/'),
           );
         } else if (user.type == 'hospital') {
           Navigator.pushNamedAndRemoveUntil(
             context,
             '/hospital',
-            ModalRoute.withName('/welcoming_screen'),
+            ModalRoute.withName('/'),
           );
         }
       }

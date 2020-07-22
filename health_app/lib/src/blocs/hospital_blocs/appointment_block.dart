@@ -49,15 +49,13 @@ class AppointmentBloc extends StreamUserBloc {
   }
 
   //add appoinmte
- 
-  Future<dynamic> addAppointment(String patientEmail,hospitalId) {
-    
+
+  Future<dynamic> addAppointment(String patientEmail, hospitalId) {
     Appointment appointment = new Appointment(
-      day: _day.value,
-      date: _date.value.toString().substring(0, 10),
-      description: _description.value,
-      hospitalId: hospitalId
-    );
+        day: _day.value,
+        date: _date.value.toString().substring(0, 10),
+        description: _description.value,
+        hospitalId: hospitalId);
     return _repository.addAppoitment(appointment, patientEmail);
   }
 

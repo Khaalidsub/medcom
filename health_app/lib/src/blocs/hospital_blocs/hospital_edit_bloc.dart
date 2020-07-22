@@ -7,7 +7,7 @@ import 'package:health_app/src/services/repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class HospitalEditBloc extends BlocBase {
-  final _repository = Repository();
+  final _repository = Repository<Hospital>(collection: 'User_List');
   Stream<User> get streamUserData => _repository.userData.asStream();
   final _name = BehaviorSubject<String>();
   final _phoneNumber = BehaviorSubject<String>();
@@ -43,9 +43,9 @@ class HospitalEditBloc extends BlocBase {
     hospital.phoneNumber = _phoneNumber.value ?? hospital.phoneNumber;
     hospital.address = _address.value ?? hospital.address;
     hospital.email = _email.value ?? hospital.email;
-
     hospital.imageUrl = image ?? hospital.imageUrl;
-    return await _repository.editHospital(hospital);
+    // return await _repository.editHospital(hospital);
+    return await _repository.editDocument(hospital, hospital.id);
   }
 
   @override
