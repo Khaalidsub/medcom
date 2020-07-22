@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class Charts extends StatefulWidget {
-  int numPatients;
-  int numDoctors;
+  final int numPatients;
+  final int numDoctors;
 //Kindly send appropriate initializers for your screens. Other wise it takes 0 and 0 as patient and doctors
   Charts({this.numPatients = 0, this.numDoctors = 0});
   @override

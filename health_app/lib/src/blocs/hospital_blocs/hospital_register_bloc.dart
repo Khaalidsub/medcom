@@ -13,7 +13,7 @@ class HospitalRegisterBloc extends BlocBase {
   final _email = BehaviorSubject<String>();
   final _name = BehaviorSubject<String>();
   final _password = BehaviorSubject<String>();
-  final _confirm_password = BehaviorSubject<String>();
+  final _confirmPassword = BehaviorSubject<String>();
   final _phoneNumber = BehaviorSubject<String>();
   final _address = BehaviorSubject<String>();
   final _dirName = BehaviorSubject<String>();
@@ -23,7 +23,7 @@ class HospitalRegisterBloc extends BlocBase {
   Function(String) get changeEmail => _email.sink.add;
   Function(String) get changeName => _name.sink.add;
   Function(String) get changePassword => _password.sink.add;
-  Function(String) get changeConfirmPassword => _confirm_password.sink.add;
+  Function(String) get changeConfirmPassword => _confirmPassword.sink.add;
   Function(String) get changeAddress => _address.sink.add;
   Function(String) get changeDirName => _dirName.sink.add;
   Function(String) get changePhoneNumber => _phoneNumber.sink.add;
@@ -34,7 +34,7 @@ class HospitalRegisterBloc extends BlocBase {
   Stream<String> get name => _name.stream;
   Stream<String> get password => _password.stream.transform(_validatePassword);
   Stream<String> get confirmPassword =>
-      _confirm_password.stream.transform(_validatePassword);
+      _confirmPassword.stream.transform(_validatePassword);
   Stream<String> get address => _address.stream;
   Stream<String> get dirName => _dirName.stream;
   Stream<String> get phoneNumber => _phoneNumber.stream;
@@ -59,6 +59,7 @@ class HospitalRegisterBloc extends BlocBase {
       sink.addError('password should be more than 5');
     }
   });
+  // ignore: unused_field
   final _validateConfirmPassword =
       StreamTransformer<String, String>.fromHandlers(
           handleData: (password, sink) {
@@ -105,13 +106,15 @@ class HospitalRegisterBloc extends BlocBase {
     _name.close();
     await _password.drain();
     _password.close();
-    await _confirm_password.drain();
-    _confirm_password.close();
+    await _confirmPassword.drain();
+    _confirmPassword.close();
     await _phoneNumber.drain();
     _phoneNumber.close();
     await _dirName.drain();
     _dirName.close();
     await _address.drain();
     _address.close();
+    await _isSignedIn.drain();
+    _isSignedIn.close();
   }
 }

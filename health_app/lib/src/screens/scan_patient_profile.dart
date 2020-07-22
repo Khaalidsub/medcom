@@ -127,6 +127,7 @@ class _ScanPatientProfileState extends State<ScanPatientProfile> {
                             ],
                           ),
                         ),
+                        // ignore: sdk_version_ui_as_code
                         if (widget.user.type == 'hospital')
                           Container(
                             margin: EdgeInsets.only(bottom: 15, top: 30),

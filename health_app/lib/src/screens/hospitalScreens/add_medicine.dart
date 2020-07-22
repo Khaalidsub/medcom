@@ -132,6 +132,7 @@ class _AddMedicineState extends State<AddMedicine> {
   }
 }
 
+// ignore: must_be_immutable
 class DatePicker extends StatefulWidget {
   final Stream stream;
   final Function change;

@@ -5,6 +5,7 @@ import 'package:health_app/src/services/repository.dart';
 class ScanPatientProfileBloc extends BlocBase {
   String id;
 
+  // ignore: missing_required_param
   Repository _repository = Repository<User>();
   Stream<User> get streamPatient {
     _repository.documentId = id;

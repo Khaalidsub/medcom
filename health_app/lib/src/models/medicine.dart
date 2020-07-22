@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:health_app/src/models/firestoreConverter.dart';
-import 'package:health_app/src/models/user.dart';
 
 class Medicine implements FireStoreConverter {
   String name;

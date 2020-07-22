@@ -5,9 +5,9 @@ import 'package:health_app/src/blocs/patient_blocs/patient_history_bloc.dart';
 import 'package:health_app/src/models/Appointement.dart';
 
 import 'package:health_app/src/models/patient.dart';
+import 'package:health_app/src/utils/dates.dart';
 
 class PatientHistory extends StatefulWidget {
-  
   final Patient patient;
   PatientHistory(this.patient);
   @override
@@ -17,26 +17,21 @@ class PatientHistory extends StatefulWidget {
 class _PatientHistoryState extends State<PatientHistory> {
   final patientBloc = PatientHistoryBloc();
   static int days = 31;
+  List<bool> _monthSelected = List.generate(12, (i) => false);
   List<bool> _daySelected = List.generate(days, (i) => false);
   DateTime _date = DateTime.now();
 
- // String month;
-  void getDays([int month]) {
-    if (month == 2) {
-      days = 28;
-    } else if (month % 2 == 0) {
-      days = 30;
-    } else
-      days = 31;
-  }
+  // String month;
 
   @override
   void initState() {
     super.initState();
-
-    getDays(_date.month);
+    days = getDays(_date.month);
+    patientBloc.monthSink.add(_date.month);
+    patientBloc.daySink.add(_date.day);
+    _monthSelected[_date.month - 1] = true;
+    _daySelected[_date.day - 1] = true;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -70,45 +65,48 @@ class _PatientHistoryState extends State<PatientHistory> {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return Container(
-                height: 120,
-                width: width * 1,
-                margin: EdgeInsets.only(bottom: 20),
-                child: ListView.builder(
-                  itemCount: days,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      height: 100,
-                      width: 100,
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            patientBloc.daySink.add(index + 1);
-                            for (int i = 0; i < _daySelected.length; i++) {
-                              index == i
-                                  ? _daySelected[i] = true
-                                  : _daySelected[i] = false;
-                            }
-                          });
-                        },
-                        child: Card(
-                          elevation: 3,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          color: _daySelected[index]
-                              ? Colors.lightBlueAccent
-                              : Color(0xff3D73DD),
-                          child: Center(
-                              child: Text(
-                            '${index + 1}',
-                            style: TextStyle(color: Colors.white),
-                          )),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              );
+                          height: 120,
+                          width: width * 1,
+                          margin: EdgeInsets.only(bottom: 20),
+                          child: ListView.builder(
+                            itemCount: days,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                height: 100,
+                                width: 100,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      patientBloc.daySink.add(index + 1);
+                                      for (int i = 0;
+                                          i < _daySelected.length;
+                                          i++) {
+                                        index == i
+                                            ? _daySelected[i] = true
+                                            : _daySelected[i] = false;
+                                      }
+                                    });
+                                  },
+                                  child: Card(
+                                    elevation: 3,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    color: _daySelected[index]
+                                        ? Colors.lightBlueAccent
+                                        : Color(0xff3D73DD),
+                                    child: Center(
+                                        child: Text(
+                                      '${index + 1}',
+                                      style: TextStyle(color: Colors.white),
+                                    )),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        );
                       })),
               Container(
                 child: Text(
@@ -196,7 +194,6 @@ class _PatientHistoryState extends State<PatientHistory> {
       ),
     );
   }
-
 
   buildPatientHistoryScreen() {
     return StreamBuilder<List<Appointment>>(

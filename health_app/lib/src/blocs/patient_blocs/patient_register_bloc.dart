@@ -58,6 +58,7 @@ class PatientRegisterBloc extends BlocBase {
       sink.addError('password should be more than 5');
     }
   });
+  // ignore: unused_field
   final _validateConfirmPassword =
       StreamTransformer<String, String>.fromHandlers(
           handleData: (password, sink) {

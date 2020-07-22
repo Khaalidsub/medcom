@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:health_app/src/models/Appointement.dart';
 import 'package:health_app/src/models/doctor.dart';
 import 'package:health_app/src/models/firestoreConverter.dart';
@@ -21,7 +20,7 @@ class Repository<T extends FireStoreConverter> {
   UserServiceProvider _userServiceProvider;
   AppoitmentServiceProvider _appoitmentServiceProvider;
   Provider _provider;
-  Repository({this.documentId, @required this.collection});
+  Repository({this.documentId, this.collection});
 
   //check user session
   Stream<User> get userIsLoggedIn {
