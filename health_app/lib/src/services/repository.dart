@@ -103,8 +103,7 @@ class Repository<T extends FireStoreConverter> {
       //create a new doctor
       doctor.hospitalId = hospital.id;
       _provider = DoctorServiceProvider(doctor: doctor);
-      // print(doctor.hospitalId);
-      // String docId = await _doctorServiceProvider.createDoctor(doctor);
+
       final ref = await _provider.addDocument;
       String docId = ref.documentID;
       //get new doctor with the id;

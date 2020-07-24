@@ -63,8 +63,6 @@ class AppointementEditeBloc extends StreamUserBloc {
     appointment.hospitalId = this.hospitalId;
     appointment.status = 'history';
 
-    print('yo on edit ${appointment.doctor}');
-
     // return await _repo.editappointement(appointment);
     return await _repo.editDocument(appointment, appointment.id);
   }
