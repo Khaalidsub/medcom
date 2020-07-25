@@ -86,7 +86,8 @@ class Repository<T extends FireStoreConverter> {
   Future addPatient(Hospital hospital, String patientEmail) async {
     _userServiceProvider =
         UserServiceProvider(user: User(), documentId: hospital.id);
-    Patient patient = await _userServiceProvider.getUser(patientEmail);
+    Patient patient =
+        await _userServiceProvider.getUser(patientEmail, 'patient');
     if (patient == null || patient.type != 'patient') {
       return null;
     }
@@ -124,7 +125,8 @@ class Repository<T extends FireStoreConverter> {
     _userServiceProvider = UserServiceProvider(user: User());
 
     try {
-      Patient patient = await _userServiceProvider.getUser(patientEmail);
+      Patient patient =
+          await _userServiceProvider.getUser(patientEmail, 'patient');
       appointment.status = 'latest';
       appointment.ownerID = patient.id;
       // _appoitmentServiceProvider = new AppoitmentServiceProvider();

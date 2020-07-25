@@ -23,11 +23,12 @@ class UserServiceProvider extends Provider<User> {
   ///the difference between this method and the normal method
   ///this one is returning a QUERY  snapshot whereby returning a list
   ///and the other is returning a document snapshot
-  Future<User> getUser(String email) async {
+  Future<User> getUser(String email, String type) async {
     try {
       List<User> users = await super
           .dataCollection
           .where('email', isEqualTo: email)
+          .where('type', isEqualTo: type.toLowerCase())
           .snapshots()
           .map(super.list)
           .first;
